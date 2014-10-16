@@ -1,0 +1,13 @@
+@mixin inline-parent( $lineheight: 0 ) {
+    font-family: $grid_inline_control_font;
+    letter-spacing: $grid_inline_control_spacing;
+    line-height: $lineheight;
+    }
+
+@mixin inline-child( $lineheight: $base_line_height, $fontfamily: $font_helvetica ) {
+    display: inline-block;
+    font-family: $fontfamily;
+    letter-spacing: normal;
+    line-height: $lineheight;
+    vertical-align: middle;
+    }

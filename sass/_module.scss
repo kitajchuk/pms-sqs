@@ -1,0 +1,17 @@
+.module {
+    @include transition(transform $base_transition_duration2 ease, opacity $base_transition_duration2 ease);
+
+    &.is-inactive {
+        @include opacity(0);
+        @include transform(translate3d(0, -50px, 0));
+        }
+    &.is-reactive {
+        @include transition(none);
+        @include transform(translate3d(0, 50px, 0));
+        }
+    &.is-active {
+        @include transition(transform $base_transition_duration2 ease, opacity $base_transition_duration2 ease);
+        @include opacity(1);
+        @include transform(translate3d(0, 0, 0));
+        }
+    }

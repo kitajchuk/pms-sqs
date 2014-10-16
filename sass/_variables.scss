@@ -1,0 +1,68 @@
+// Colors
+$color_white: #fff;
+$color_black: #000;
+$color_body: #3f3e40;
+$color_highlight: #ff2d55;
+$color_grey_light: #eee;
+$color_grey_medium: #e4e4e3;
+
+// Base
+$base_font_size: 18px;
+$base_gutter: 10px;
+$base_padding_general: 30px;
+$base_line_height: 1.72222;
+$base_reset_lineheight: 1;
+$base_transition_duration0: 300ms;
+$base_transition_duration1: 400ms;
+$base_transition_duration2: 600ms;
+$base_transition_duration3: 800ms;
+$base_transition_duration4: 1000ms;
+
+// Modules
+$carousel_indicator_size: 10px;
+
+// Fonts
+$font_helvetica: "Helvetica Neue", Helvetica, Sans-serif;
+$font_freight: Times, Serif;
+$font_proxima: "proxima-nova-1", "proxima-nova-2", Sans-serif;
+
+// Layering
+$z_layer_10: 100;
+$z_layer_09: 90;
+$z_layer_08: 80;
+$z_layer_07: 70;
+$z_layer_06: 60;
+$z_layer_05: 50;
+$z_layer_04: 40;
+$z_layer_03: 30;
+$z_layer_02: 20;
+$z_layer_01: 10;
+$z_layer_pseudo: 1;
+$z_layer_hidden: -1;
+$z_layer_forward: 999;
+
+// Breakpoints
+$break_tablet_full: 1200px;
+$break_tablet_medium: 1024px;
+$break_tablet_small: 768px;
+$break_mobile_full: 640px;
+$break_mobile_medium: 480px;
+$break_mobile_small: 320px;
+$break_point_sizes: 2560px 2048px 1920px 1680px 1600px 1440px 1360px 1280px 1024px 800px 640px;
+
+// Ratios
+$ratio_smaller_device: 0.5;
+$ratio_small_device: 0.6;
+$ratio_medium_device: 0.7;
+$ratio_padding: (95px / 1480px);
+$ratios: (tablet-full, $ratio_medium_device) (tablet-medium, $ratio_medium_device) (tablet-small, 0.8) (mobile-full, 0.6) (mobile-medium, 0.6) (mobile-small, 0.5);
+
+// Margins
+$spacing: 5 10 20 30 40 50 60 70 80 90 100 110 120;
+
+// Grid
+$grid_length: 12;
+$grid_columns: 12 11 10 9 8 7 6 5 4 3 2 1;
+$grid_inline_control_font: "Courier New", Monospace;
+$grid_inline_control_spacing: -.65em;
+$grid_max_width: 1480px;

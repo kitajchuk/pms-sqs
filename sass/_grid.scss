@@ -1,0 +1,66 @@
+// grid
+.grid {
+    position: relative;
+    }
+
+
+// col
+.column {
+    float: left;
+    position: relative;
+    width: 100%;
+    }
+
+// col: main
+@each $col in $grid_columns {
+    .column--#{$col}of#{$grid_length} {
+        width: percentage( $col / $grid_length );
+        }
+}
+
+// col: extras
+.column--1of4 { width: 25%; }
+.column--2of4 { width: 50%; }
+.column--3of4 { width: 75%; }
+.column--1of5 { width: 20%; }
+.column--2of5 { width: 40%; }
+.column--3of5 { width: 60%; }
+.column--4of5 { width: 80%; }
+
+// col: push
+@each $col in $grid_columns {
+    .-push--#{$col} {
+        margin-left: percentage( $col / $grid_length );
+        }
+}
+
+// col: pull
+@each $col in $grid_columns {
+    .-pull--#{$col} {
+        margin-left: -( percentage( $col / $grid_length ) );
+        }
+}
+
+// col: prepend
+@each $col in $grid_columns {
+    .-prepend--#{$col} {
+        margin-top: percentage( $col / $grid_length );
+        }
+}
+
+// col: append
+@each $col in $grid_columns {
+    .-append--#{$col} {
+        margin-bottom: percentage( $col / $grid_length );
+        }
+}
+
+/*
+@media only screen and ( max-width: $break_mobile_medium ) {
+    .column,
+    [class*="column--"] {
+        float: none;
+        width: 100% !important;
+        }
+}
+*/

@@ -1,0 +1,162 @@
+// lazy loading states
+.-is-lazy-loading {
+    @include opacity(0);
+    }
+.-is-lazy-transition {
+    @include transition(opacity $base_transition_duration3 ease);
+    }
+.-is-lazy-loaded {
+    @include opacity(1);
+    }
+.-is-lazy-handled {}
+
+
+// stretch
+.-fullscreen {
+    height: 100%;
+    width: 100%;
+    }
+
+
+// positioning
+.-position--absolute {
+    position: absolute;
+    width: 100%;
+    }
+.-position--fixed {
+    position: fixed;
+    }
+.-position--relative {
+    position: relative;
+    }
+
+
+// document clipping
+.-contain {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    }
+
+
+// floating
+.-float--right {
+    float: right;
+    }
+.-float--left {
+    float: left;
+    }
+.-clear:after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    visibility: hidden;
+    }
+
+// vertical alignment
+.-vertical--top {
+    vertical-align: top;
+    }
+.-vertical--middle {
+    vertical-align: middle;
+    }
+.-vertical--bottom {
+    vertical-align: bottom;
+    }
+
+
+// text alignment
+.-text--center {
+    text-align: center;
+    }
+.-text--right {
+    text-align: right;
+    }
+.-text--left {
+    text-align: left;
+    }
+
+
+// background-size
+.-cover {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    @include background-size(cover);
+    }
+.-cover--top {
+    background-position: 50% 0;
+    }
+.-cover--right {
+    background-position: 100% 50%;
+    }
+.-cover--bottom {
+    background-position: 50% 100%;
+    }
+.-cover--left {
+    background-position: 0 50%;
+    }
+
+
+// borders
+.-border {
+    border: 1px solid $color_grey_light;
+    }
+.-border--top {
+    border-top: 1px solid $color_grey_light;
+    }
+.-border--right {
+    border-right: 1px solid $color_grey_light;
+    }
+.-border--bottom {
+    border-bottom: 1px solid $color_grey_light;
+    }
+.-border--left {
+    border-left: 1px solid $color_grey_light;
+    }
+
+.-border-no {
+    border: 0;
+    }
+.-border-no--top {
+    border-top: 0;
+    }
+.-border-no--right {
+    border-right: 0;
+    }
+.-border-no--bottom {
+    border-bottom: 0;
+    }
+.-border-no--left {
+    border-left: 0;
+    }
+
+
+// font-size
+.-font--6 {
+    font-size: 6px;
+    }
+.-font--7 {
+    font-size: 7px;
+    }
+.-font--8 {
+    font-size: 8px;
+    }
+.-font--9 {
+    font-size: 9px;
+    }
+.-font--10 {
+    font-size: 10px;
+    }
+
+
+.-baselined {
+    line-height: $base_reset_lineheight;
+    }
+
+
+.-overtouch {
+    -webkit-overflow-scrolling: touch;
+    -webkit-transform-origin: 50% 50%;
+    -webkit-transform: translate3d(0, 0, 0);
+    }

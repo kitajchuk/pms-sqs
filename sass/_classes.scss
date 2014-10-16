@@ -1,0 +1,20 @@
+.valigner {
+    display: table;
+    height: 100%;
+    width: 100%;
+    }
+.valigner__cell {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+    }
+
+.list {}
+.list--inline {
+    @include inline-parent();
+    }
+.list--inline__item {
+    @include inline-child();
+    }
+
+.meta {}

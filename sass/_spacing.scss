@@ -1,0 +1,43 @@
+@each $space in $spacing {
+    .margin-bottom--#{$space} {
+        margin-bottom: ($space + px);
+        }
+    .margin-top--#{$space} {
+        margin-top: ($space + px);
+        }
+    .margin-left--#{$space} {
+        margin-left: ($space + px);
+        }
+    .margin-right--#{$space} {
+        margin-right: ($space + px);
+        }
+
+    .padding--#{$space} {
+        padding: ($space + px);
+        }
+    .padding-top--#{$space} {
+        padding-top: ($space + px);
+        }
+    .padding-right--#{$space} {
+        padding-right: ($space + px);
+        }
+    .padding-bottom--#{$space} {
+        padding-bottom: ($space + px);
+        }
+    .padding-left--#{$space} {
+        padding-left: ($space + px);
+        }
+
+    .top--#{$space} {
+        top: ($space + px);
+        }
+    .right--#{$space} {
+        right: ($space + px);
+        }
+    .bottom--#{$space} {
+        bottom: ($space + px);
+        }
+    .left--#{$space} {
+        left: ($space + px);
+        }
+}
