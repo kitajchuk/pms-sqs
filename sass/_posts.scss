@@ -1,0 +1,35 @@
+.post__meta {
+    color: $color_highlight;
+    }
+
+
+@media only screen and ( max-width: $break_tablet_full ) {
+    .post_content {
+        padding: 0 70px;
+        }
+
+    .post__col:last-child {
+        width: 50%;
+        }
+}
+
+
+@media only screen and ( max-width: $break_tablet_medium ) {
+    .post__col:last-child {
+        width: 60%;
+        }
+}
+
+
+@media only screen and ( max-width: $break_tablet_small ) {
+    .post__col:last-child {
+        width: 70%;
+        }
+}
+
+
+@media only screen and ( max-width: $break_mobile_full ) {
+    .post__meta {
+        margin-bottom: 14px;;
+        }
+}

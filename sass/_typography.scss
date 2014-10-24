@@ -2,6 +2,8 @@
     color: $color_body;
     font-family: $font_proxima;
     font-size: $base_font_size;
+    font-style: normal;
+    font-weight: 300;
     line-height: $base_line_height;
     }
 
@@ -15,6 +17,8 @@
     color: $color_black;
     font-family: $font_freight;
     font-size: 34px;
+    font-style: normal;
+    font-weight: 300;
     line-height: 1;
     }
 
@@ -32,3 +36,29 @@
 
 .h6 {
     }
+
+
+// 1630
+// 1480
+@media only screen and ( min-width: 1630px ) {
+    .p
+    body {
+        font-size: 100px;
+        }
+
+    .h1 {
+        font-size: 50px;
+        }
+}
+
+
+@media only screen and ( max-width: 1480px ) {
+    .p,
+    body {
+        font-size: $base_font_size;
+        }
+
+    .h1 {
+        font-size: 34px;
+        }
+}

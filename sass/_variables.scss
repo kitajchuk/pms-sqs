@@ -19,12 +19,12 @@ $base_transition_duration3: 800ms;
 $base_transition_duration4: 1000ms;
 
 // Modules
-$carousel_indicator_size: 10px;
+$gallery_indicator_size: 8px;
 
 // Fonts
 $font_helvetica: "Helvetica Neue", Helvetica, Sans-serif;
-$font_freight: Times, Serif;
-$font_proxima: "proxima-nova-1", "proxima-nova-2", Sans-serif;
+$font_freight: "freight-big-pro", Serif;
+$font_proxima: "proxima-nova", Sans-serif;
 
 // Layering
 $z_layer_10: 100;
@@ -42,7 +42,7 @@ $z_layer_hidden: -1;
 $z_layer_forward: 999;
 
 // Breakpoints
-$break_tablet_full: 1200px;
+$break_tablet_full: 1280px;
 $break_tablet_medium: 1024px;
 $break_tablet_small: 768px;
 $break_mobile_full: 640px;
@@ -58,11 +58,11 @@ $ratio_padding: (95px / 1480px);
 $ratios: (tablet-full, $ratio_medium_device) (tablet-medium, $ratio_medium_device) (tablet-small, 0.8) (mobile-full, 0.6) (mobile-medium, 0.6) (mobile-small, 0.5);
 
 // Margins
-$spacing: 5 10 20 30 40 50 60 70 80 90 100 110 120;
+$spacing: 0 5 10 20 25 30 40 50 55 60 70 80 90 100 110 120;
 
 // Grid
 $grid_length: 12;
 $grid_columns: 12 11 10 9 8 7 6 5 4 3 2 1;
 $grid_inline_control_font: "Courier New", Monospace;
 $grid_inline_control_spacing: -.65em;
-$grid_max_width: 1480px;
+$grid_max_width: 1630px;

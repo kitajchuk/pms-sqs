@@ -8,6 +8,16 @@
 
 @media only screen and ( max-width: $grid_max_width ) {
     .page {
+        padding-left: 70px;
+        padding-right: 70px;
         width: 100%;
+        }
+}
+
+
+@media only screen and ( max-width: $break_tablet_full ) {
+    .page {
+        padding-left: 0;
+        padding-right: 0;
         }
 }

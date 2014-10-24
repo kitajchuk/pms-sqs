@@ -39,6 +39,17 @@
     }
 
 
+// animation
+.-activate {
+    @include opacity(0);
+    @include transition(opacity $base_transition_duration2 ease);
+
+    &.is-active {
+        @include opacity(1);
+        }
+    }
+
+
 // floating
 .-float--right {
     float: right;
@@ -148,6 +159,12 @@
 .-font--10 {
     font-size: 10px;
     }
+.-font--11 {
+    font-size: 11px;
+    }
+.-font--12 {
+    font-size: 12px;
+    }
 
 
 .-baselined {
@@ -157,6 +174,4 @@
 
 .-overtouch {
     -webkit-overflow-scrolling: touch;
-    -webkit-transform-origin: 50% 50%;
-    -webkit-transform: translate3d(0, 0, 0);
     }

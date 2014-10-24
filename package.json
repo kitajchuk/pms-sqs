@@ -13,8 +13,7 @@
     },
     "funpack": {
         "js": {
-            "output": "js/lib/funpack.js",
-            "dependencies": "*"
+            "output": "js/lib/funpack.js"
         }
     },
     "scripts": {
