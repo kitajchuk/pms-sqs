@@ -75,6 +75,18 @@
     }
 
 
+@media only screen and ( min-width: 1630px ) {
+    .gallery,
+    .sqs-block.gallery-block.sqs-block-gallery {
+        position: static;
+        }
+    .gallery__indicators {
+        bottom: 100px;
+        text-align: left;
+        }
+}
+
+
 @media only screen and ( max-width: $break_tablet_full ) {
     .gallery__indicators {
         right: 70px;

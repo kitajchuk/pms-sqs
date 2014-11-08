@@ -1,10 +1,38 @@
+.post {
+    position: relative;
+    }
+
 .post__meta {
     color: $color_highlight;
     }
 
 
+@media only screen and ( min-width: 1630px ) {
+    .post__body,
+    .post__image {
+        float: right;
+        margin-bottom: 0;
+        width: 70%;
+        }
+
+    .post__content {
+        float: left;
+        width: 30%;
+
+        .column {
+            float: none;
+            width: 80%;
+            }
+        }
+
+    .post__meta {
+        margin-bottom: 30px;
+        }
+}
+
+
 @media only screen and ( max-width: $break_tablet_full ) {
-    .post_content {
+    .post__content {
         padding: 0 70px;
         }
 
@@ -29,6 +57,15 @@
 
 
 @media only screen and ( max-width: $break_mobile_full ) {
+    .post {
+        border: 0 !important;
+        padding-top: 0 !important;
+        }
+
+    .post__content {
+        padding: 0 50px;
+        }
+
     .post__meta {
         margin-bottom: 14px;;
         }

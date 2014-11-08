@@ -42,8 +42,9 @@ init = function () {
 
 /**
  *
- * Module getNewLoad method, requests next page of collections
- * @method getNewLoad
+ * Module getCollection method, requests next page of collections
+ * @method getCollection
+ * @param {object} $elem The jQuery object
  * @memberof collection
  *
  */
@@ -72,8 +73,8 @@ getCollection = function ( $elem ) {
 
 /**
  *
- * Module onScrollEnd method, debounce scroll end
- * @method onScrollEnd
+ * Module onScroller method, debounce scroll end
+ * @method onScroller
  * @memberof collection
  *
  */

@@ -1,1 +1,17 @@
-.header {}
+.header {
+    padding: 60px 0 0;
+    }
+
+
+@media only screen and ( max-width: $break_tablet_full ) {
+    .header {
+        padding: 60px 70px 0;
+        }
+}
+
+
+@media only screen and ( max-width: $break_mobile_full ) {
+    .header {
+        padding: 50px 50px 50px;
+        }
+}

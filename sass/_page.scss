@@ -2,17 +2,11 @@
     background-color: $color_white;
     margin: 0 auto;
     overflow: hidden;
+    padding-left: 100px;
+    padding-right: 100px;
     position: relative;
-    width: $grid_max_width;
+    width: 100%;
     }
-
-@media only screen and ( max-width: $grid_max_width ) {
-    .page {
-        padding-left: 70px;
-        padding-right: 70px;
-        width: 100%;
-        }
-}
 
 
 @media only screen and ( max-width: $break_tablet_full ) {

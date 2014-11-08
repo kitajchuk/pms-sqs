@@ -12,7 +12,7 @@ import "app/posts";
 import "app/gallery";
 import "app/collection";
 import { duration1, duration3 } from "app/config";
-import { onImageLoadHandler, loadImages, resizeElements, resizer, emitter } from "app/util";
+import { onImageLoadHandler, loadImages, resizeElements, resizer, emitter, scroller } from "app/util";
 
 
 var $_window = $( window ),
@@ -124,8 +124,37 @@ doSquarespaceVideoHack = function () {
             $this.addClass( "is-caption" );
         }
 
+/*
         if ( Modernizr.touch ) {
             video.showVideo();
+        }
+*/
+    });
+},
+
+
+/**
+ *
+ * Apply a classname that set visibility state of elements
+ *
+ */
+doScrollerAction = function () {
+    var scrollPos = scroller.getScrollY(),
+        offsetTop,
+        offsetBot,
+        $this;
+
+    $( ".js-article" ).each(function () {
+        $this = $( this );
+        offsetTop = $this.offset().top;
+        offsetBot = (offsetTop + $this.height());
+
+        // Post is within the viewport
+        if ( (scrollPos + window.innerHeight) > offsetTop && scrollPos < offsetBot ) {
+            $this.addClass( "is-visible" );
+
+        } else {
+            $this.removeClass( "is-visible" );
         }
     });
 };
@@ -150,7 +179,17 @@ $_jsBody.on( "click", "[href=#]", function ( e ) {
  */
 resizer.on( "resize", debounce(function () {
     resizeElements();
+    doScrollerAction();
 }));
+
+
+/**
+ *
+ * Window scroll event handling
+ * @event app-window-scroll
+ *
+ */
+scroller.on( "scroll", doScrollerAction );
 
 
 /**
@@ -162,6 +201,7 @@ resizer.on( "resize", debounce(function () {
  */
 $_window.on( "load", function () {
     resizeElements();
+    doScrollerAction();
     doActivateElemsAction();
     doImageLoadAction(function () {
         doSquarespaceVideoHack();

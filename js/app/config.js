@@ -55,7 +55,7 @@ gridMaxWidth = 1480,
  * @memberof config
  *
  */
-postAspect = (1600 / 700),
+postAspect = (1476 / 827),
 
 
 /**

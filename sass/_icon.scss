@@ -1,0 +1,7 @@
+.icon-colophon {
+    background: url(/assets/images/icon-list.svg) no-repeat 0 50%;
+    @include background-size(25px 17px);
+    cursor: pointer;
+    height: 17px;
+    width: 25px;
+    }
