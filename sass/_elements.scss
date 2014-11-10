@@ -49,3 +49,16 @@ a {
         color: $color_black;
         }
     }
+
+::-moz-selection {
+    background-color: $color_highlight;
+    color: $color_white;
+    }
+::selection {
+    background-color: $color_highlight;
+    color: $color_white;
+    }
+::-webkit-scrollbar {
+    height: 0 !important;
+    width: 0 !important;
+    }

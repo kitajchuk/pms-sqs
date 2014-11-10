@@ -1,0 +1,21 @@
+.overlay {
+    @include transition(opacity $base_transition_duration2 ease, visibility $base_transition_duration2 ease);
+    @include opacity(0);
+    background-color: rgba(24, 23, 23, 0.9);
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    visibility: hidden;
+    width: 100%;
+    z-index: $z_layer_hidden;
+
+    &.is-active {
+        @include opacity(1);
+        visibility: visible;
+        z-index: $z_layer_forward;
+        }
+    &.is-leaving {
+        @include opacity(0);
+        }
+    }

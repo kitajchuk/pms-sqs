@@ -9,10 +9,11 @@ import "node_modules/hammerjs/hammer";
 import "lib/funpack";
 import "app/env";
 import "app/posts";
+import "app/overlay";
 import "app/gallery";
 import "app/collection";
 import { duration1, duration3 } from "app/config";
-import { onImageLoadHandler, loadImages, resizeElements, resizer, emitter, scroller } from "app/util";
+import { onImageLoadHandler, loadImages, resizeElements, resizer, emitter, scroller, hammered } from "app/util";
 
 
 var $_window = $( window ),
@@ -222,6 +223,11 @@ $_window.on( "load", function () {
 
     // Initialize modules
     posts.init();
+    overlay.init();
     gallery.init();
     collection.init();
+
+    hammered.on( "tap", ".js-colophon-icon", function () {
+        overlay.open();
+    });
 });

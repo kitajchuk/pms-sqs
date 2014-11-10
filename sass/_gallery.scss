@@ -14,6 +14,7 @@
     @include translate3d(-100%, -100%, 0);
     @include transition(opacity $base_transition_duration1 ease, visibility $base_transition_duration1 ease);
     background-color: $color_grey_light;
+    cursor: pointer;
     display: none;
     height: 100%;
     left: 0;

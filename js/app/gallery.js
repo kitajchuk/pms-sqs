@@ -37,7 +37,8 @@ init = function () {
 
     _isInit = true;
 
-    hammered.on( "tap", ".js-gallery-indicator-item", onTouchTap );
+    hammered.on( "tap", ".js-gallery-collection-item", onTouchTapCollection );
+    hammered.on( "tap", ".js-gallery-indicator-item", onTouchTapIndicator );
     hammered.on( "release", ".js-gallery-collection-item", onTouchRelease );
     hammered.on( "dragleft", ".js-gallery-collection-item", onTouchSwipe );
     hammered.on( "dragright", ".js-gallery-collection-item", onTouchSwipe );
@@ -107,14 +108,40 @@ handleSwiped = function ( direction, element ) {
 
 /**
  *
+ * Handle the collection tap
+ * @method onTouchTapCollection
+ * @memberof gallery
+ * @private
+ *
+ */
+onTouchTapCollection = function () {
+    var $this = $( this ),
+        $gallery = $this.closest( ".js-gallery" ),
+        $indicators = $gallery.find( ".js-gallery-indicator-item" ),
+        index = $this.index(),
+        length = $indicators.length;
+
+    if ( index === (length - 1) ) {
+        index = 0;
+
+    } else {
+        index = (index + 1);
+    }
+
+    hammered.trigger( "tap", $indicators[ index ] );
+},
+
+
+/**
+ *
  * Handle the indicator tap
- * @method onTouchTap
+ * @method onTouchTapIndicator
  * @param {object} e The event object
  * @memberof gallery
  * @private
  *
  */
-onTouchTap = function ( e ) {
+onTouchTapIndicator = function ( e ) {
     e.preventDefault();
     e.gesture.preventDefault();
 
