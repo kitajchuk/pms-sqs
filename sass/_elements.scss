@@ -32,23 +32,6 @@ body {
         }
     }
 
-p {
-    color: $color_body;
-    font-family: $font_proxima;
-    font-size: $base_font_size;
-    line-height: $base_line_height;
-    }
-
-a {
-    @include transition(color $base_transition_duration1 ease);
-    color: $color_highlight;
-    font-weight: normal;
-    text-decoration: underline;
-
-    &:hover {
-        color: $color_black;
-        }
-    }
 
 ::-moz-selection {
     background-color: $color_highlight;

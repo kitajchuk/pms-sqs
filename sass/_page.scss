@@ -6,6 +6,13 @@
     padding-right: 100px;
     position: relative;
     width: 100%;
+    @include opacity(1);
+    @include transition(opacity $base_transition_duration2 ease, transform $base_transition_duration2 ease);
+
+    &.is-inactive {
+        @include opacity(0.8);
+        @include transform(translate3d(0, 100px, 0));
+        }
     }
 
 

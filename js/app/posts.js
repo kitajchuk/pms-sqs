@@ -18,7 +18,7 @@ var $_jsPosts = $( ".js-posts" ),
     Tween = funpack( "Tween" ),
     Easing = funpack( "Easing" ),
 
-    _pageData = null,
+    _pageData = $_jsPosts.data(),
     _isFinished = false,
     _isLoading = false,
     _tween = null,
@@ -43,13 +43,11 @@ name = "posts",
  *
  */
 init = function () {
-    if ( _isInit ) {
+    if ( _isInit || !_pageData ) {
         return;
     }
 
     _isInit = true;
-
-    _pageData = $_jsPosts.data();
     _isFinished = _pageData.nextPage ? false : true;
 
     if ( _pageData.nextPage ) {

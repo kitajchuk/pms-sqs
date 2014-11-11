@@ -9,9 +9,18 @@
 
 .icon-papermakestack {
     background: url(/assets/images/icon-pms.svg) no-repeat 0 50%;
-    @include background-size(122px 17px);
+    @include background-size(150px 21px);
     cursor: pointer;
     display: inline-block;
-    height: 17px;
-    width: 122px;
+    height: 21px;
+    width: 150px;
     }
+
+
+@media only screen and ( max-width: $break_mobile_full ) {
+    .icon-papermakestack {
+        @include background-size(122px 17px);
+        height: 17px;
+        width: 122px;
+        }
+}

@@ -124,12 +124,6 @@ doSquarespaceVideoHack = function () {
         if ( $this.find( ".video-caption-wrapper" ).length ) {
             $this.addClass( "is-caption" );
         }
-
-/*
-        if ( Modernizr.touch ) {
-            video.showVideo();
-        }
-*/
     });
 },
 
@@ -148,7 +142,7 @@ doScrollerAction = function () {
     $( ".js-article" ).each(function () {
         $this = $( this );
         offsetTop = $this.offset().top;
-        offsetBot = (offsetTop + $this.height());
+        offsetBot = (offsetTop + $this.outerHeight());
 
         // Post is within the viewport
         if ( (scrollPos + window.innerHeight) > offsetTop && scrollPos < offsetBot ) {

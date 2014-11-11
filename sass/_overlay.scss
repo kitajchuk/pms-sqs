@@ -1,10 +1,11 @@
 .overlay {
-    @include transition(opacity $base_transition_duration2 ease, visibility $base_transition_duration2 ease);
+    @include transition(opacity $base_transition_duration2 ease);
     @include opacity(0);
-    background-color: rgba(24, 23, 23, 0.9);
+    background-color: rgba(24, 23, 23, 1);
     height: 100%;
     left: 0;
     position: fixed;
+    text-align: center;
     top: 0;
     visibility: hidden;
     width: 100%;
@@ -17,5 +18,27 @@
         }
     &.is-leaving {
         @include opacity(0);
+        }
+    }
+
+.overlay .h1,
+.overlay h1,
+.overlay .a,
+.overlay a {
+    color: $color_white;
+    }
+
+.overlay__content {
+    @include transition(transform $base_transition_duration2 ease);
+    @include transform(translate3d(0, 100px, 0));
+    display: inline-block;
+    position: relative;
+    width: 50%;
+
+    .overlay.is-active & {
+        @include transform(translate3d(0, 0, 0));
+        }
+    .overlay.is-leaving & {
+        @include transform(translate3d(0, 100px, 0));
         }
     }

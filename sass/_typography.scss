@@ -1,3 +1,4 @@
+p,
 .p {
     color: $color_body;
     font-family: $font_proxima;
@@ -7,12 +8,19 @@
     line-height: $base_line_height;
     }
 
+a,
 .a {
+    @include transition(color $base_transition_duration1 ease);
     color: $color_highlight;
     font-weight: normal;
     text-decoration: underline;
+
+    &:hover {
+        color: $color_black;
+        }
     }
 
+h1,
 .h1 {
     color: $color_black;
     font-family: $font_freight;
@@ -22,25 +30,32 @@
     line-height: 1.2;
     }
 
-.h2 {
-    }
+.h2 {}
 
-.h3 {
-    }
+.h3 {}
 
-.h4 {
-    }
+.h4 {}
 
-.h5 {
-    }
+.h5 {}
 
-.h6 {
-    }
+.h6 {}
 
 
-// 1630
 @media only screen and ( min-width: 1630px ) {
     .h1 {
         font-size: $big_font_size_headline;
+        }
+}
+
+
+@media only screen and ( max-width: $break_mobile_full ) {
+    p,
+    .p {
+        font-size: 16px;
+        }
+
+    h1,
+    .h1 {
+        font-size: 28px;
         }
 }

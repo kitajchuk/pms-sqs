@@ -44,26 +44,38 @@ init = function () {
  *
  * Module getCollection method, requests next page of collections
  * @method getCollection
- * @param {object} $elem The jQuery object
+ * @param {object} element The jQuery object
  * @memberof collection
  *
  */
-getCollection = function ( $elem ) {
+getCollection = function ( element ) {
+    var data = element.data();
+
     $.ajax({
-        url: $elem.data( "collection" ),
+        url: data.collection,
         type: "GET",
-        dataType: "html"
+        dataType: (data.format || "html"),
+        data: (data.format === "json" ? {format: "json"} : null)
 
     })
-    .done(function ( html ) {
-        var $page = $( html ),
-            $collection = $page.find( ".js-collection-list" ),
-            $tiles = $collection.children();
+    .done(function ( response ) {
+        var $content,
+            $collection,
+            $tiles;
 
-        $elem.append( $tiles );
+        if ( data.format === "json" ) {
+            $tiles = $( response.mainContent );
+
+        } else {
+            $content = $( response );
+            $collection = $content.find( ".js-collection-list" );
+            $tiles = $collection.children();
+        }
+
+        element.append( $tiles );
 
         resizeElements();
-        loadImages( $elem.find( ".js-lazy-image" ), onImageLoadHandler );
+        loadImages( element.find( ".js-lazy-image" ), onImageLoadHandler );
     })
     .fail(function (  xhr, status, error  ) {
         console.log( "fail: ", error );

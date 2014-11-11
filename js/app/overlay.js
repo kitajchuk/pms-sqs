@@ -11,6 +11,7 @@ import { hammered, emitter, toggleMouseWheel } from "app/util";
 
 
 var $_jsOverlay = $( ".js-overlay" ),
+    $_jsPage = $( ".js-page" ),
 
     _isInit = false,
 
@@ -59,6 +60,7 @@ onTouchDragOverlay = function ( e ) {
  */
 open = function () {
     $_jsOverlay.addClass( "is-active" );
+    $_jsPage.addClass( "is-inactive" );
 
     toggleMouseWheel( false );
 
@@ -76,6 +78,7 @@ open = function () {
  */
 close = function () {
     $_jsOverlay.addClass( "is-leaving" );
+    $_jsPage.removeClass( "is-inactive" );
 
     toggleMouseWheel( true );
 
