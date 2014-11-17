@@ -7,6 +7,9 @@ p,
     font-weight: 300;
     line-height: $base_line_height;
     }
+.p--meta {
+    font-size: 16px;
+    }
 
 a,
 .a {
@@ -19,6 +22,15 @@ a,
         color: $color_black;
         }
     }
+.a--alt {
+    @include transition(border-bottom-color $base_transition_duration1 ease);
+    border-bottom: 1px solid transparent;
+    text-decoration: none;
+
+    &:hover {
+        border-bottom-color: $color_white;
+        }
+    }
 
 h1,
 .h1 {
@@ -28,6 +40,17 @@ h1,
     font-style: normal;
     font-weight: 300;
     line-height: 1.2;
+    }
+h1 a,
+.h1 a {
+    @include transition(border-bottom-color $base_transition_duration1 ease);
+    border-bottom: 1px solid transparent;
+    color: $color_black;
+    text-decoration: none;
+
+    &:hover {
+        border-bottom-color: $color_black;
+        }
     }
 
 .h2 {}
@@ -42,6 +65,7 @@ h1,
 
 
 @media only screen and ( min-width: 1630px ) {
+    h1,
     .h1 {
         font-size: $big_font_size_headline;
         }

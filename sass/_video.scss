@@ -1,27 +1,14 @@
 .sqs-video-wrapper .sqs-video-overlay .sqs-video-icon {
-    @include border-radius(64px);
     @include opacity(1);
-    border: 3px solid $color_white;
+    @include background-size(78px 78px);
     display: inline-block;
-    height: 64px;
+    height: 78px;
     left: 50%;
-    line-height: 68px;
-    margin-left: -32px;
-    margin-top: -32px;
+    margin-left: -39px;
+    margin-top: -39px;
     position: absolute;
     top: 50%;
-    width: 64px;
-
-    &:before {
-        content: "";
-        display: inline-block;
-        border-bottom: 10px solid transparent;
-        border-left: 12px solid $color_white;
-        border-top: 10px solid transparent;
-        height: 0;
-        margin-left: 25px;
-        width: 0;
-        }
+    width: 78px;
     }
 
 .video-caption-wrapper {

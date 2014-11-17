@@ -14,7 +14,12 @@
     @include inline-parent();
     }
 .list--inline__item {
-    @include inline-child();
+    @include inline-child( $base_line_height, $font_freight );
+    margin: 0 40px;
+    }
+
+.caps {
+    text-transform: capitalize;
     }
 
 .meta {}
@@ -27,6 +32,14 @@
 @media only screen and ( max-width: $break_tablet_full ) {
     .wrapper {
         padding: 60px 70px 0;
+        }
+}
+
+
+@media only screen and ( max-width: $break_tablet_small ) {
+    .list--inline__item {
+        display: block;
+        margin: 0;
         }
 }
 

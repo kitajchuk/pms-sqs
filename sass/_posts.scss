@@ -7,6 +7,16 @@
     font-size: 16px;
     }
 
+.post__content--quote-block h1 a {
+    border-bottom: 1px solid transparent;
+    color: $color_highlight;
+    text-decoration: none;
+
+    &:hover {
+        border-bottom-color: $color_highlight;
+        }
+    }
+
 
 @media only screen and ( min-width: 1630px ) {
     .post__body,
@@ -16,7 +26,7 @@
         width: 70%;
         }
 
-    .post__content {
+    .post__content:not(.post__content--quote-block) {
         float: left;
         width: 30%;
 
@@ -24,6 +34,9 @@
             float: none;
             width: 80%;
             }
+        }
+    .post__content.post__content--quote-block > .post__col:first-child {
+        width: 30%;
         }
 
     .post__meta {
@@ -33,6 +46,10 @@
 
 
 @media only screen and ( max-width: $break_tablet_full ) {
+    .post {
+        border-bottom: none;
+        }
+
     .post__content {
         padding: 0 70px;
         }

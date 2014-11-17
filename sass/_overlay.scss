@@ -42,3 +42,32 @@
         @include transform(translate3d(0, 100px, 0));
         }
     }
+
+
+@media only screen and ( max-width: $break_tablet_full ) {
+    .overlay__content {
+        width: 60%;
+        }
+}
+
+
+@media only screen and ( max-width: $break_tablet_medium ) {
+    .overlay__content {
+        width: 80%;
+        }
+}
+
+
+@media only screen and ( max-width: $break_tablet_small ) {
+    .overlay__content {
+        padding: 0 50px;
+        width: 100%;
+        }
+}
+
+
+@media only screen and ( max-width: $break_mobile_full ) {
+    .overlay__content {
+        text-align: left;
+        }
+}
