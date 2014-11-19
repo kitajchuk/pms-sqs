@@ -1,0 +1,11 @@
+.module {
+    @include transition(opacity $base_transition_duration0 ease);
+
+    &.is-reactive {
+        @include transition(opacity $base_transition_duration2 ease-in);
+        }
+
+    &.is-inactive {
+        @include opacity(0);
+        }
+    }

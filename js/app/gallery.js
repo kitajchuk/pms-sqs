@@ -13,9 +13,7 @@ import { hammered, loadImages } from "app/util";
 import { duration1, duration2 } from "app/config";
 
 
-var $_jsGalleries = $( ".js-gallery" ),
-
-    _isInit = false,
+var _isInit = false,
     _isSwiping = false,
     _swipeOut = null,
 
@@ -43,7 +41,21 @@ init = function () {
     hammered.on( "dragleft", ".js-gallery-collection-item", onTouchSwipe );
     hammered.on( "dragright", ".js-gallery-collection-item", onTouchSwipe );
 
-    $_jsGalleries.each(function () {
+    loadAll();
+
+    console.log( "[gallery module init]" );
+},
+
+
+/**
+ *
+ * Load gallerys
+ * @method loadAll
+ * @memberof gallery
+ *
+ */
+loadAll = function () {
+    $( ".js-gallery" ).each(function () {
         var $this = $( this ),
             $indicators = $this.find( ".js-gallery-indicator-item" );
 
@@ -51,8 +63,6 @@ init = function () {
 
         hammered.trigger( "tap", $indicators[ 0 ] );
     });
-
-    console.log( "[gallery module init]" );
 },
 
 
@@ -214,4 +224,4 @@ onTouchRelease = function ( e ) {
 /******************************************************************************
  * Export
 *******************************************************************************/
-export { name, init };
+export { name, init, loadAll };

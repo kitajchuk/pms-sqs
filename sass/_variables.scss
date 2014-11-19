@@ -46,13 +46,14 @@ $z_layer_hidden: -1;
 $z_layer_forward: 999;
 
 // Breakpoints
+$break_laptop_medium: 1440px;
 $break_tablet_full: 1280px;
 $break_tablet_medium: 1024px;
 $break_tablet_small: 768px;
 $break_mobile_full: 640px;
 $break_mobile_medium: 480px;
 $break_mobile_small: 320px;
-$break_point_sizes: 2560px 2048px 1920px 1680px 1600px 1440px 1360px 1280px 1024px 800px 640px;
+$break_point_sizes: 2560px 2048px 1920px 1680px 1600px $break_laptop_medium 1360px $break_tablet_full $break_tablet_medium 800px $break_mobile_full;
 
 // Ratios
 $ratio_smaller_device: 0.5;

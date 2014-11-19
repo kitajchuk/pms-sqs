@@ -19,9 +19,110 @@ import { onImageLoadHandler, loadImages, resizeElements, resizer, emitter, scrol
 var $_window = $( window ),
     $_jsBody = $( ".js-body" ),
     $_jsHtml = $( ".js-html" ),
+    $_jsPage = $( ".js-page" ),
+    $_jsModule = $( ".js-module" ),
     $_jsScroll = $_jsBody.add( $_jsHtml ),
 
     debounce = funpack( "debounce" ),
+    PageController = funpack( "PageController" ),
+    pageController = new PageController({
+        anchorTop: false,
+        transitionTime: 200
+    }),
+
+
+/**
+ *
+ * Initialize the PageController management
+ *
+ */
+initPageController = function () {
+    pageController.setConfig([
+        "/",
+        "homepage",
+        "feed",
+        "feed/:slug!slug",
+        "about"
+    ]);
+    pageController.initPage();
+
+    // Hook into page controller events
+    pageController.on( "page-controller-router-transition-out", function () {
+        $_jsModule.removeClass( "is-reactive" ).addClass( "is-inactive" );
+    });
+
+    pageController.on( "page-controller-router-transition-in", function ( data ) {
+        var $html = $( data.response ),
+            $title = $html.filter( "title" ),
+            $module = $html.find( ".js-module" ),
+            render = $module.html();
+
+        document.title = $title.text();
+
+        $_jsModule.empty().html( render );
+        $_window.scrollTop( 0 );
+        $_jsModule.addClass( "is-reactive" ).removeClass( "is-inactive" );
+
+        doPageNameAction();
+
+        // Track Squarespace Metrics
+        doPageviewAction( $module[ 0 ].id );
+
+        // Load galleries
+        gallery.loadAll();
+
+        resizeElements();
+        doScrollerAction();
+        doActivateElemsAction();
+        doSquarespaceVideoAction();
+        doSquarespaceVideoHack();
+        doImageLoadAction();
+    });
+
+    // Expose for development
+    app.pageController = pageController;
+},
+
+
+/**
+ *
+ * Fire a pageview
+ *
+ */
+doPageviewAction = function ( id ) {
+    var fullUrl = window.location.pathname,
+        title = document.title.split( "—" )[ 0 ].replace( /^\s+|\s+$/g, "" ),
+        datas = id.split( "-" ),
+        track = {
+            fullUrl: fullUrl,
+            title: title,
+            id: datas[ 1 ]
+        };
+
+    // Track an item
+    if ( window.location.pathname.replace( /^\/|\/$/, "" ).split( "/" ).length > 1 ) {
+        track.commentState = 2;
+        track.publicCommentCount = 0;
+        track.recordType = 1;
+    }
+
+    Y.Squarespace.Analytics.view( datas[ 0 ], track );
+
+    console.log( "Squarespace analytics tracker : pageview", datas[ 0 ], track );
+},
+
+
+/**
+ *
+ * Swap the page className page--{section}
+ *
+ */
+doPageNameAction = function () {
+    var namespace = pageController.getRoute().split( "/" ).shift().toLowerCase(),
+        classname = $_jsPage[ 0 ].className.replace( /\spage--\w+\s/, " page--" + (namespace || "feed") + " " );
+
+    $_jsPage[ 0 ].className = classname;
+},
 
 
 /**
@@ -118,8 +219,7 @@ doSquarespaceVideoHack = function () {
     var $videos = $( ".sqs-block-video" );
 
     $videos.each(function () {
-        var $this = $( this ),
-            video = Y.one( $this.find( ".sqs-video-wrapper" )[ 0 ] ).plug().videoloader;
+        var $this = $( this );
 
         if ( $this.find( ".video-caption-wrapper" ).length ) {
             $this.addClass( "is-caption" );
@@ -195,6 +295,7 @@ scroller.on( "scroll", doScrollerAction );
  *
  */
 $_window.on( "load", function () {
+    initPageController();
     resizeElements();
     doScrollerAction();
     doActivateElemsAction();

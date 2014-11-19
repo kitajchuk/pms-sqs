@@ -17,6 +17,18 @@
         }
     }
 
+.post__content:not(.post__content--quote-block) .post__title h1 a,
+.post__content:not(.post__content--quote-block) .post__title .h1 a {
+    @include transition(border-bottom-color $base_transition_duration1 ease);
+    border-bottom: 1px solid transparent;
+    color: $color_black;
+    text-decoration: none;
+
+    &:hover {
+        border-bottom-color: $color_black;
+        }
+    }
+
 
 @media only screen and ( min-width: 1630px ) {
     .post__body,
