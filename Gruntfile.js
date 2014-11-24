@@ -61,7 +61,6 @@ module.exports = function ( grunt ) {
 
                     // Funpack
                     funpack: true,
-                    paramalama: true,
 
                     // YUI / Squarespace
                     Y: true,

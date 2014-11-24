@@ -7,7 +7,7 @@ $color_grey_light: #eee;
 $color_grey_medium: #e4e4e3;
 
 // Base
-$base_font_size: 18px;
+$base_font_size: 16px;
 $base_font_size_headline: 34px;
 $base_gutter: 10px;
 $base_padding_general: 30px;
@@ -21,6 +21,10 @@ $base_transition_duration4: 1000ms;
 
 // Big
 $big_font_size_headline: 45px;
+$big_font_size: 17px;
+
+// Small
+$small_font_size_headline: 28px;
 
 // Modules
 $gallery_indicator_size: 8px;
@@ -53,7 +57,7 @@ $break_tablet_small: 768px;
 $break_mobile_full: 640px;
 $break_mobile_medium: 480px;
 $break_mobile_small: 320px;
-$break_point_sizes: 2560px 2048px 1920px 1680px 1600px $break_laptop_medium 1360px $break_tablet_full $break_tablet_medium 800px $break_mobile_full;
+$break_point_sizes: 2560px 2048px 1920px 1680px 1600px $break_laptop_medium 1360px $break_tablet_full $break_tablet_medium 800px $break_tablet_small;
 
 // Ratios
 $ratio_smaller_device: 0.5;
@@ -70,4 +74,5 @@ $grid_length: 12;
 $grid_columns: 12 11 10 9 8 7 6 5 4 3 2 1;
 $grid_inline_control_font: "Courier New", Monospace;
 $grid_inline_control_spacing: -.65em;
-$grid_max_width: 1630px;
+$grid_min_width: 1835px;
+$grid_min_width_font_sizing: 1630px;

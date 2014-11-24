@@ -64,7 +64,11 @@
 }
 
 
-@media only screen and ( max-width: $break_mobile_full ) {
+@media only screen and ( max-width: $break_tablet_small ) {
+    .sqs-video-wrapper .sqs-video-overlay .sqs-video-icon {
+        @include background-size(50px 50px);
+        }
+
     .is-caption {
         .video-caption-wrapper {
             margin-top: -45px;

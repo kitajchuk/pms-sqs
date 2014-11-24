@@ -13,7 +13,9 @@ import { hammered, loadImages } from "app/util";
 import { duration1, duration2 } from "app/config";
 
 
-var _isInit = false,
+var location = window.location,
+
+    _isInit = false,
     _isSwiping = false,
     _swipeOut = null,
 
@@ -55,13 +57,25 @@ init = function () {
  *
  */
 loadAll = function () {
-    $( ".js-gallery" ).each(function () {
+    $( ".js-gallery" ).not( "is-visited" ).each(function () {
         var $this = $( this ),
+            $items = $this.find( ".js-gallery-collection-item" ),
+            $collection = $this.find( ".js-gallery-collection" ),
             $indicators = $this.find( ".js-gallery-indicator-item" );
 
-        loadImages( $this.find( ".js-lazy-slide" ) );
+        $this.addClass( "is-visited" );
 
-        hammered.trigger( "tap", $indicators[ 0 ] );
+        if ( location.pathname.replace( /^\/|\/$/g, "" ).split( "/" ).length > 1 ) {
+            $this.addClass( "gallery--static" );
+            $collection.removeClass( "js-resize" );
+            $items.removeClass( "js-lazy-slide" ).addClass( "js-resize js-lazy-image" ).data( "resize", "post" );
+
+        } else {
+            $items.first().addClass( "is-active" );
+            $indicators.first().addClass( "is-active" );
+
+            loadImages( $this.find( ".js-lazy-slide" ) );
+        }
     });
 },
 

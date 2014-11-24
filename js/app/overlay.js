@@ -6,7 +6,7 @@
  *
  *
  */
-import { duration2 } from "app/config";
+import { duration3 } from "app/config";
 import { hammered, emitter, toggleMouseWheel } from "app/util";
 
 
@@ -60,7 +60,7 @@ onTouchDragOverlay = function ( e ) {
  */
 open = function () {
     $_jsOverlay.addClass( "is-active" );
-    $_jsPage.addClass( "is-inactive" );
+    $_jsPage.addClass( "is-overlain" );
 
     toggleMouseWheel( false );
 
@@ -78,14 +78,14 @@ open = function () {
  */
 close = function () {
     $_jsOverlay.addClass( "is-leaving" );
-    $_jsPage.removeClass( "is-inactive" );
+    $_jsPage.removeClass( "is-overlain" );
 
     toggleMouseWheel( true );
 
     setTimeout(function () {
         $_jsOverlay.removeClass( "is-active is-leaving" );
 
-    }, duration2 );
+    }, duration3 );
 
     emitter.fire( "overlay-close" );
 };

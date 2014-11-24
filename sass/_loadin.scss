@@ -1,0 +1,33 @@
+.loadin {
+    @include transition(opacity $base_transition_duration3 ease);
+    @include opacity(0);
+    height: 100%;
+    left: 0;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    visibility: hidden;
+    width: 100%;
+    z-index: $z_layer_hidden;
+
+    &.is-active {
+        @include opacity(1);
+        visibility: visible;
+        z-index: $z_layer_forward;
+        }
+    &.is-leaving {
+        @include opacity(0);
+        }
+    }
+
+.loadin__content {
+    @include transition(transform $base_transition_duration2 ease);
+    @include transform(translate3d(0, 50px, 0));
+
+    .loadin.is-active & {
+        @include transform(translate3d(0, 0, 0));
+        }
+    .loadin.is-leaving & {
+        @include transform(translate3d(0, 50px, 0));
+        }
+    }

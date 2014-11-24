@@ -11,7 +11,6 @@ body {}
     }
 
 body {
-    @include opacity(0);
     background-color: $color_white;
     color: $color_body;
     font-family: $font_proxima;
@@ -22,23 +21,13 @@ body {
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: rgba( 0, 0, 0, 0 );
     -webkit-touch-callout: none;
-
-    &.is-animate {
-        @include transition(opacity $base_transition_duration1 ease);
-        }
-
-    &.is-active {
-        @include opacity(1);
-        }
     }
 
 
 ::-moz-selection {
-    background-color: $color_highlight;
     color: $color_white;
     }
 ::selection {
-    background-color: $color_highlight;
     color: $color_white;
     }
 ::-webkit-scrollbar {

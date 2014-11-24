@@ -12,8 +12,8 @@ import "app/posts";
 import "app/overlay";
 import "app/gallery";
 import "app/collection";
-import { duration1, duration3 } from "app/config";
-import { onImageLoadHandler, loadImages, resizeElements, resizer, emitter, scroller, hammered } from "app/util";
+import { duration2, duration3 } from "app/config";
+import { toggleMouseWheel, onImageLoadHandler, loadImages, resizeElements, emitter, resizer, scroller, hammered } from "app/util";
 
 
 var $_window = $( window ),
@@ -22,12 +22,13 @@ var $_window = $( window ),
     $_jsPage = $( ".js-page" ),
     $_jsModule = $( ".js-module" ),
     $_jsScroll = $_jsBody.add( $_jsHtml ),
+    $_jsLoadin = $( ".js-loadin" ),
 
     debounce = funpack( "debounce" ),
     PageController = funpack( "PageController" ),
     pageController = new PageController({
         anchorTop: false,
-        transitionTime: 200
+        transitionTime: 800
     }),
 
 
@@ -44,11 +45,14 @@ initPageController = function () {
         "feed/:slug!slug",
         "about"
     ]);
+    pageController.setModules([
+        posts
+    ]);
     pageController.initPage();
 
     // Hook into page controller events
     pageController.on( "page-controller-router-transition-out", function () {
-        $_jsModule.removeClass( "is-reactive" ).addClass( "is-inactive" );
+        $_jsPage.removeClass( "is-reactive" ).addClass( "is-inactive" );
     });
 
     pageController.on( "page-controller-router-transition-in", function ( data ) {
@@ -61,7 +65,7 @@ initPageController = function () {
 
         $_jsModule.empty().html( render );
         $_window.scrollTop( 0 );
-        $_jsModule.addClass( "is-reactive" ).removeClass( "is-inactive" );
+        $_jsPage.addClass( "is-reactive" );
 
         doPageNameAction();
 
@@ -73,10 +77,15 @@ initPageController = function () {
 
         resizeElements();
         doScrollerAction();
-        doActivateElemsAction();
         doSquarespaceVideoAction();
+        doSquarespaceAudioAction();
         doSquarespaceVideoHack();
         doImageLoadAction();
+
+        setTimeout(function () {
+            $_jsPage.removeClass( "is-inactive is-reactive" );
+
+        }, duration2 );
     });
 
     // Expose for development
@@ -122,34 +131,6 @@ doPageNameAction = function () {
         classname = $_jsPage[ 0 ].className.replace( /\spage--\w+\s/, " page--" + (namespace || "feed") + " " );
 
     $_jsPage[ 0 ].className = classname;
-},
-
-
-/**
- *
- * Globalized transition elements
- *
- */
-doActivateElemsAction = function () {
-    emitter.stop();
-    emitter.go(function () {
-        var $transitions = $( ".js-activate" ),
-            $inactive = $transitions.not( ".is-active" );
-
-        if ( !$inactive.length ) {
-            emitter.stop();
-            console.log( "all content activated" );
-            return;
-        }
-
-        $inactive.each(function () {
-            var $this = $( this );
-
-            if ( onImageLoadHandler( $this ) ) {
-                $this.addClass( "is-active" );
-            }
-        });
-    });
 },
 
 
@@ -212,6 +193,20 @@ doSquarespaceVideoAction = function () {
 
 /**
  *
+ * Handle loading Squarespace audio on routing
+ *
+ */
+doSquarespaceAudioAction = function () {
+    Y.all( ".sqs-audio-embed" ).each(function ( node ) {
+        var widget = new Y.Squarespace.Widgets.AudioPlayerMinimal( { render: node } );
+
+        widget.render();
+    });
+},
+
+
+/**
+ *
  * Apply a selector that adjusts styling when captions are present
  *
  */
@@ -239,19 +234,37 @@ doScrollerAction = function () {
         offsetBot,
         $this;
 
-    $( ".js-article" ).each(function () {
+    $( ".js-article, .js-activate" ).each(function () {
         $this = $( this );
         offsetTop = $this.offset().top;
         offsetBot = (offsetTop + $this.outerHeight());
 
         // Post is within the viewport
         if ( (scrollPos + window.innerHeight) > offsetTop && scrollPos < offsetBot ) {
-            $this.addClass( "is-visible" );
+            $this.addClass( "is-visible is-active" );
 
         } else {
-            $this.removeClass( "is-visible" );
+            $this.removeClass( "is-visible is-active" );
         }
     });
+},
+
+
+/**
+ *
+ * Handle logo screen load in moment
+ *
+ */
+doLoadinAction = function () {
+    $_jsLoadin.addClass( "is-leaving" );
+    $_jsPage.removeClass( "is-overlain" );
+
+    toggleMouseWheel( true );
+
+    setTimeout(function () {
+        $_jsLoadin.removeClass( "is-active is-leaving" );
+
+    }, duration3 );
 };
 
 
@@ -295,34 +308,40 @@ scroller.on( "scroll", doScrollerAction );
  *
  */
 $_window.on( "load", function () {
+    toggleMouseWheel( false );
+
+    // Initialize modules
+    overlay.init();
+    gallery.init();
+    collection.init();
+
     initPageController();
     resizeElements();
     doScrollerAction();
-    doActivateElemsAction();
     doImageLoadAction(function () {
         doSquarespaceVideoHack();
-        // Animate body into view
-        $_jsBody.addClass( "is-animate is-active" );
-        setTimeout(function () {
-            $_jsBody.removeClass( "is-animate" );
-            $_jsHtml.removeClass( "-contain" );
 
-        }, duration1 );
+        setTimeout(function () {
+            doLoadinAction();
+
+        }, 1000 );
     });
 
     // Force experience to start at top of page
     $_jsScroll.animate( {scrollTop: 0}, "fast" );
 
-    // Restart the transition controller
-    emitter.on( "cycle-transition-content", doActivateElemsAction );
-
-    // Initialize modules
-    posts.init();
-    overlay.init();
-    gallery.init();
-    collection.init();
-
     hammered.on( "tap", ".js-colophon-icon", function () {
         overlay.open();
     });
+
+    hammered.on( "tap", ".js-tag", function () {
+        $( ".js-tag" ).removeClass( "is-active" );
+        $( this ).addClass( "is-active" );
+    });
+
+    hammered.on( "tap", ".js-logo", function () {
+        $( ".js-tag" ).removeClass( "is-active" );
+    });
+
+    emitter.on( "load-audio-content", doSquarespaceAudioAction );
 });

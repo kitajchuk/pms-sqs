@@ -6,23 +6,30 @@
  *
  *
  */
+import "app/gallery";
 import { duration2 } from "app/config";
 import { emitter, scroller, loadImages, onImageLoadHandler, resizeElements } from "app/util";
 
 
 var $_jsPosts = $( ".js-posts" ),
-    $_jsLoader = $( ".js-loader" ).last(),
     $_jsArticles = $( ".js-article" ),
+    $_jsLoader = $( ".js-loader" ),
 
     debounce = funpack( "debounce" ),
     Tween = funpack( "Tween" ),
     Easing = funpack( "Easing" ),
+    scroll2 = funpack( "scroll2" ),
 
     _pageData = $_jsPosts.data(),
     _isFinished = false,
     _isLoading = false,
     _tween = null,
-    _isInit = false,
+
+
+/** BEGIN: CORE MODULE REQUIRED **/
+    _isLoaded = false,
+    _isActive = false,
+
 
 /**
  *
@@ -34,29 +41,103 @@ var $_jsPosts = $( ".js-posts" ),
 name = "posts",
 
 
-
 /**
  *
- * Module init method, called once
- * @method init
+ * Module isActive method
+ * @method isActive
+ * @returns number
  * @memberof posts
  *
  */
-init = function () {
-    if ( _isInit || !_pageData ) {
+isActive = function () {
+    return _isActive;
+},
+
+
+/**
+ *
+ * Module isLoaded method
+ * @method isLoaded
+ * @returns boolean
+ * @memberof posts
+ *
+ */
+isLoaded = function () {
+    return _isLoaded;
+},
+
+
+/**
+ *
+ * Module onload method
+ * @method onload
+ * @memberof posts
+ *
+ */
+onload = function () {
+    _isActive = getSetElements();
+
+    if ( _isLoaded ) {
+        return;
+
+    } else if ( !_isActive ) {
         return;
     }
 
-    _isInit = true;
-    _isFinished = _pageData.nextPage ? false : true;
-
-    if ( _pageData.nextPage ) {
-        scroller.on( "scroll", onScrollStart );
-        scroller.on( "scroll", onScrollEnd );
+    // Post list
+    if ( $_jsPosts.length ) {
+        _isLoaded = true;
+        _pageData = $_jsPosts.data();
+        _isFinished = _pageData.nextPage ? false : true;
+    
+        if ( _pageData.nextPage ) {
+            scroller.on( "scroll", onScrollStart );
+            scroller.on( "scroll", onScrollEnd );
+        }
     }
 
     console.log( "[posts module onload]" );
 },
+
+
+/**
+ *
+ * Module unload method
+ * @method unload
+ * @memberof posts
+ *
+ */
+unload = function () {
+    _isActive = false;
+    _isLoaded = false;
+    _tween = null;
+    _pageData = null;
+    _isFinished = false;
+    _isLoading = false;
+
+    scroller.off( "scroll", onScrollStart );
+    scroller.off( "scroll", onScrollEnd );
+
+    console.log( "[posts module unload]" );
+},
+
+
+/**
+ *
+ * Module getSetElements method, queries DOM
+ * @method getSetElements
+ * @returns number
+ * @memberof posts
+ *
+ */
+getSetElements = function () {
+    $_jsPosts = $( ".js-posts" );
+    $_jsLoader = $( ".js-loader" );
+    $_jsArticles = $( ".js-article" );
+
+    return ( $_jsPosts.length );
+},
+/** END: CORE MODULE REQUIRED **/
 
 
 /**
@@ -98,12 +179,19 @@ getNewLoad = function () {
 
         $_jsArticles = $articles;
 
+        gallery.loadAll();
+        emitter.fire( "load-audio-content" );
+
         resizeElements();
         loadImages( null, onImageLoadHandler );
 
         stopLoading();
 
-        emitter.fire( "cycle-transition-content" );
+        scroll2({
+            y: $articles.offset().top,
+            ease: Easing.easeOutCubic,
+            duration: 1000
+        });
     })
     .fail(function (  xhr, status, error  ) {
         console.log( "fail: ", error );
@@ -119,6 +207,8 @@ getNewLoad = function () {
  *
  */
 showLoading = function () {
+    $_jsLoader.addClass( "is-loading" );
+
     _tween = new Tween({
         to: window.innerWidth,
         from: 0,
@@ -129,7 +219,7 @@ showLoading = function () {
         complete: function ( t ) {
             $_jsLoader.css( "width", t );
         },
-        duration: 20000
+        duration: 40000
     });
 },
 
@@ -152,11 +242,9 @@ stopLoading = function () {
             $_jsLoader.css( "width", t );
         },
         complete: function ( t ) {
-            $_jsLoader.css( "width", t ).addClass( "is-loaded" );
+            $_jsLoader.css( "width", t );
 
             setTimeout(function () {
-                $_jsLoader = $( ".js-loader" ).last();
-
                 resetLoadable();
 
             }, duration2 );
@@ -191,6 +279,11 @@ isLoadable = function () {
  */
 resetLoadable = function () {
     _isLoading = false;
+    $_jsLoader.removeClass( "is-loading" );
+    setTimeout(function () {
+        $_jsLoader.attr( "style", "" );
+
+    }, duration2 );
 },
 
 
@@ -242,4 +335,4 @@ onScrollEnd = debounce(function () {
 /******************************************************************************
  * Export
 *******************************************************************************/
-export { name, init };
+export { name, onload, unload, isActive, isLoaded, getSetElements };

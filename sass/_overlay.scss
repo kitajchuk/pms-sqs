@@ -1,5 +1,5 @@
 .overlay {
-    @include transition(opacity $base_transition_duration2 ease);
+    @include transition(opacity $base_transition_duration3 ease);
     @include opacity(0);
     background-color: rgba(24, 23, 23, 1);
     height: 100%;
@@ -22,6 +22,11 @@
     }
 
 .overlay .h1,
+.overlay h1 {
+    line-height: 1.4;
+    }
+
+.overlay .h1,
 .overlay h1,
 .overlay .a,
 .overlay a {
@@ -30,17 +35,25 @@
 
 .overlay__content {
     @include transition(transform $base_transition_duration2 ease);
-    @include transform(translate3d(0, 100px, 0));
-    display: inline-block;
+    @include transform(translate3d(0, 50px, 0));
+    display: block;
+    padding-left: 100px;
+    padding-top: 130px;
     position: relative;
-    width: 50%;
+    text-align: left;
+    width: 60%;
+        max-width: 1075px;
 
     .overlay.is-active & {
         @include transform(translate3d(0, 0, 0));
         }
     .overlay.is-leaving & {
-        @include transform(translate3d(0, 100px, 0));
+        @include transform(translate3d(0, 50px, 0));
         }
+    }
+
+.overlay__about {
+    margin: 100px 0 100px;
     }
 
 
@@ -60,14 +73,15 @@
 
 @media only screen and ( max-width: $break_tablet_small ) {
     .overlay__content {
-        padding: 0 50px;
+        padding: 60px 50px;
+        text-align: left;
         width: 100%;
         }
 }
 
 
 @media only screen and ( max-width: $break_mobile_full ) {
-    .overlay__content {
-        text-align: left;
+    .overlay__about {
+        margin: 50px 0 50px;
         }
 }

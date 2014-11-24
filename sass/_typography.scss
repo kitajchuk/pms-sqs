@@ -14,7 +14,6 @@ p,
 a,
 .a {
     @include transition(color $base_transition_duration1 ease);
-    color: $color_highlight;
     font-weight: normal;
     text-decoration: underline;
 
@@ -27,7 +26,8 @@ a,
     border-bottom: 1px solid transparent;
     text-decoration: none;
 
-    &:hover {
+    &:hover,
+    &.is-active {
         border-bottom-color: $color_white;
         }
     }
@@ -43,7 +43,15 @@ h1,
     }
 
 
-.h2 {}
+h2,
+.h2 {
+    color: $color_black;
+    font-family: $font_freight;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 1.2;
+    }
 
 .h3 {}
 
@@ -54,22 +62,32 @@ h1,
 .h6 {}
 
 
-@media only screen and ( min-width: 1630px ) {
+@media only screen and ( min-width: $grid_min_width_font_sizing ) {
+    p,
+    .p {
+        font-size: $big_font_size;
+        }
+
     h1,
     .h1 {
         font-size: $big_font_size_headline;
         }
+
+    h2,
+    .h2 {
+        font-size: 30px;
+        }
 }
 
 
-@media only screen and ( max-width: $break_laptop_medium ) {
-    p,
-    .p {
-        font-size: 16px;
-        }
-
+@media only screen and ( max-width: $break_tablet_full ) {
     h1,
     .h1 {
-        font-size: 28px;
+        font-size: $small_font_size_headline;
+        }
+
+    h2,
+    .h2 {
+        font-size: 24px;
         }
 }

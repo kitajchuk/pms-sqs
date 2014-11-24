@@ -3,18 +3,13 @@
     }
 
 .post__meta {
-    color: $color_highlight;
     font-size: 16px;
     }
 
 .post__content--quote-block h1 a {
+    @include transition(border-bottom-color $base_transition_duration1 ease);
     border-bottom: 1px solid transparent;
-    color: $color_highlight;
     text-decoration: none;
-
-    &:hover {
-        border-bottom-color: $color_highlight;
-        }
     }
 
 .post__content:not(.post__content--quote-block) .post__title h1 a,
@@ -30,7 +25,7 @@
     }
 
 
-@media only screen and ( min-width: 1630px ) {
+@media only screen and ( min-width: $grid_min_width ) {
     .post__body,
     .post__image {
         float: right;
@@ -86,7 +81,7 @@
 }
 
 
-@media only screen and ( max-width: $break_mobile_full ) {
+@media only screen and ( max-width: $break_tablet_small ) {
     .post {
         border: 0 !important;
         padding-top: 0 !important;

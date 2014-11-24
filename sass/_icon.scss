@@ -16,11 +16,24 @@
     width: 150px;
     }
 
+.icon-papermakestack--large {
+    background: url(/assets/images/icon-pms--light.svg) no-repeat 0 50%;
+    @include background-size(310px 43px);
+    height: 43px;
+    width: 310px;
+    }
 
-@media only screen and ( max-width: $break_mobile_full ) {
+
+@media only screen and ( max-width: $break_tablet_small ) {
     .icon-papermakestack {
         @include background-size(122px 17px);
         height: 17px;
         width: 122px;
+        }
+
+    .icon-papermakestack--large {
+        @include background-size(200px 28px);
+        height: 28px;
+        width: 200px;
         }
 }

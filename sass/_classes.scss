@@ -14,8 +14,20 @@
     @include inline-parent();
     }
 .list--inline__item {
+    float: left;
+    margin: 0 0 0 30px;
+
+    &:first-child {
+        margin: 0 0 0 0;
+        }
+    }
+.list--inline__item--p {
+    @include inline-child( $base_line_height, $font_proxima );
+    }
+.list--inline__item--h {
     @include inline-child( $base_line_height, $font_freight );
-    margin: 0 40px;
+    line-height: 1.4;
+    margin: 0 0 0 33px;
     }
 
 .caps {
@@ -38,13 +50,14 @@
 
 @media only screen and ( max-width: $break_tablet_small ) {
     .list--inline__item {
-        display: block;
-        margin: 0;
+        //display: block;
+        //float: none;
+        //margin: 0;
         }
 }
 
 
-@media only screen and ( max-width: $break_mobile_full ) {
+@media only screen and ( max-width: $break_tablet_small ) {
     .wrapper {
         padding: 50px 50px 50px;
         }

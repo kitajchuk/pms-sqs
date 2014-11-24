@@ -55,7 +55,7 @@
         }
 }
 
-@media only screen and ( max-width: $break_mobile_full ) {
+@media only screen and ( max-width: $break_tablet_small ) {
     .column:not(.column--mobile-same),
     [class*="column--"]:not(.column--mobile-same) {
         float: none !important;
