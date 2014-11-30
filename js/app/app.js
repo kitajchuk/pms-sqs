@@ -23,12 +23,13 @@ var $_window = $( window ),
     $_jsModule = $( ".js-module" ),
     $_jsScroll = $_jsBody.add( $_jsHtml ),
     $_jsLoadin = $( ".js-loadin" ),
+    $_jsLoadinLogo = $( ".js-loadin-logo" ),
 
     debounce = funpack( "debounce" ),
     PageController = funpack( "PageController" ),
     pageController = new PageController({
         anchorTop: false,
-        transitionTime: 800
+        transitionTime: duration2
     }),
 
 
@@ -67,6 +68,10 @@ initPageController = function () {
         $_window.scrollTop( 0 );
         $_jsPage.addClass( "is-reactive" );
 
+        if ( data.request.query.tag ) {
+            overlay.close();
+        }
+
         doPageNameAction();
 
         // Track Squarespace Metrics
@@ -79,7 +84,6 @@ initPageController = function () {
         doScrollerAction();
         doSquarespaceVideoAction();
         doSquarespaceAudioAction();
-        doSquarespaceVideoHack();
         doImageLoadAction();
 
         setTimeout(function () {
@@ -188,6 +192,8 @@ doSquarespaceVideoAction = function () {
             Squarespace.initializeVideoBlock( b );
         }
     });
+
+    doSquarespaceVideoHack();
 },
 
 
@@ -198,9 +204,11 @@ doSquarespaceVideoAction = function () {
  */
 doSquarespaceAudioAction = function () {
     Y.all( ".sqs-audio-embed" ).each(function ( node ) {
-        var widget = new Y.Squarespace.Widgets.AudioPlayerMinimal( { render: node } );
+        if ( !node.all( ".sqs-widget" ).size() ) {
+            var widget = new Y.Squarespace.Widgets.AudioPlayerMinimal( { render: node } );
 
-        widget.render();
+            widget.render();
+        }
     });
 },
 
@@ -321,10 +329,14 @@ $_window.on( "load", function () {
     doImageLoadAction(function () {
         doSquarespaceVideoHack();
 
-        setTimeout(function () {
-            doLoadinAction();
+        $_jsLoadinLogo.addClass( "is-active" );
 
-        }, 1000 );
+        setTimeout(function () {
+            $_jsLoadinLogo.removeClass( "is-active" );
+
+            setTimeout( doLoadinAction, duration2 );
+
+        }, 1500 );
     });
 
     // Force experience to start at top of page
@@ -344,4 +356,5 @@ $_window.on( "load", function () {
     });
 
     emitter.on( "load-audio-content", doSquarespaceAudioAction );
+    emitter.on( "load-video-content", doSquarespaceVideoAction );
 });

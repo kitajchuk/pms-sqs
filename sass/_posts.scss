@@ -25,6 +25,13 @@
     }
 
 
+@media only screen and ( min-width: $grid_min_width_font_sizing ) {
+    .post__content.post__content--quote-block > .post__col:last-child {
+        width: 60%;
+        }
+}
+
+
 @media only screen and ( min-width: $grid_min_width ) {
     .post__body,
     .post__image {
@@ -49,6 +56,10 @@
     .post__meta {
         margin-bottom: 30px;
         }
+
+    .post__content.post__content--quote-block > .post__col:last-child {
+        width: 40%;
+        }
 }
 
 
@@ -58,7 +69,7 @@
         }
 
     .post__content {
-        padding: 0 70px;
+        padding: 0 $grid_tablet_spacing;
         }
 
     .post__col:last-child {
@@ -88,7 +99,7 @@
         }
 
     .post__content {
-        padding: 0 50px;
+        padding: 0 $grid_mobile_spacing;
         }
 
     .post__meta {

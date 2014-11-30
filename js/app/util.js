@@ -8,7 +8,7 @@
  *
  */
 import "lib/funpack";
-import { cssTransform, gridMaxWidth, postAspect, featureAspect } from "app/config";
+import { cssTransform, gridMaxWidth, postAspect } from "app/config";
 
 
 var Hammered = funpack( "Hammered" ),
@@ -254,23 +254,9 @@ resizeElements = function ( elems ) {
             data = $this.data(),
             css = {};
 
-        if ( data.resize === "feature" ) {
+        if ( data.resize === "post" ) {
             if ( window.innerWidth <= 640 ) {
-                css.height = window.innerWidth / (6 / 4);
-
-            } else {
-                css.height = $this.width() / featureAspect;
-            }
-
-        } else if ( data.resize === "viewport" ) {
-            css.height = window.innerHeight;
-
-        }  else if ( data.resize === "square" ) {
-            css.height = $this.width();
-
-        } else if ( data.resize === "post" ) {
-            if ( window.innerWidth <= 640 ) {
-                css.height = window.innerWidth / (6 / 4);
+                css.height = window.innerWidth / postAspect;
 
             } else {
                 css.height = $this.width() / postAspect;

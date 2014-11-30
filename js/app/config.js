@@ -55,17 +55,7 @@ gridMaxWidth = 1480,
  * @memberof config
  *
  */
-postAspect = (1476 / 827),
-
-
-/**
- *
- * Feature image display aspect ratio
- * @member featureAspect
- * @memberof config
- *
- */
-featureAspect = (1500 / 900),
+postAspect = (1600 / 900),
 
 
 /**
@@ -93,4 +83,4 @@ cssTransform = (function ( vendors ) {
 /******************************************************************************
  * Export
 *******************************************************************************/
-export { duration1, duration2, duration3, gridMaxWidth, postAspect, featureAspect, cssTransform };
+export { duration1, duration2, duration3, gridMaxWidth, postAspect, cssTransform };

@@ -2,11 +2,11 @@
     background-color: $color_white;
     margin: 0 auto;
     overflow: hidden;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: $grid_desktop_spacing;
+    padding-right: $grid_desktop_spacing;
     position: relative;
     width: 100%;
-    @include transition(opacity $base_transition_duration3 ease, transform $base_transition_duration2 ease);
+    @include transition(opacity $base_transition_duration2 ease, transform $base_transition_duration2 ease);
 
     &.is-overlain {
         @include opacity(0.8);

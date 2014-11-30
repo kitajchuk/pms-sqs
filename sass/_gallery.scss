@@ -80,7 +80,7 @@
         @include opacity(1);
         display: block;
         height: auto;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
         position: relative;
         }
 }
@@ -101,6 +101,19 @@
 
 @media only screen and ( max-width: $break_tablet_full ) {
     .gallery__indicators {
-        right: 70px;
+        right: $grid_tablet_spacing;
         }
+}
+
+
+@media only screen and ( max-width: $break_mobile_full ) {
+    .gallery__indicators {
+        right: $grid_mobile_spacing;
+        }
+
+    .gallery--static {
+        .gallery__collection__item {
+            margin-bottom: 10px;
+            }
+    }
 }

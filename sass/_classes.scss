@@ -33,32 +33,3 @@
 .caps {
     text-transform: capitalize;
     }
-
-.meta {}
-
-.wrapper {
-    padding: 100px 0;
-    }
-
-
-@media only screen and ( max-width: $break_tablet_full ) {
-    .wrapper {
-        padding: 60px 70px 0;
-        }
-}
-
-
-@media only screen and ( max-width: $break_tablet_small ) {
-    .list--inline__item {
-        //display: block;
-        //float: none;
-        //margin: 0;
-        }
-}
-
-
-@media only screen and ( max-width: $break_tablet_small ) {
-    .wrapper {
-        padding: 50px 50px 50px;
-        }
-}

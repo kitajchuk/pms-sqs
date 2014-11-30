@@ -67,7 +67,7 @@ $ratio_padding: (95px / 1480px);
 $ratios: (tablet-full, $ratio_medium_device) (tablet-medium, $ratio_medium_device) (tablet-small, 0.8) (mobile-full, 0.6) (mobile-medium, 0.6) (mobile-small, 0.5);
 
 // Margins
-$spacing: 0 5 10 20 25 30 40 50 55 60 70 80 90 100 110 120 200;
+$spacing: 0 5 10 20 25 30 40 50 55 60 70 80 90 100 110 120 150 200;
 
 // Grid
 $grid_length: 12;
@@ -76,3 +76,6 @@ $grid_inline_control_font: "Courier New", Monospace;
 $grid_inline_control_spacing: -.65em;
 $grid_min_width: 1835px;
 $grid_min_width_font_sizing: 1630px;
+$grid_mobile_spacing: 40px;
+$grid_tablet_spacing: 70px;
+$grid_desktop_spacing: 100px;

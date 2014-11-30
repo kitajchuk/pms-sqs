@@ -181,17 +181,21 @@ getNewLoad = function () {
 
         gallery.loadAll();
         emitter.fire( "load-audio-content" );
+        emitter.fire( "load-video-content" );
 
         resizeElements();
         loadImages( null, onImageLoadHandler );
 
         stopLoading();
 
-        scroll2({
-            y: $articles.offset().top,
-            ease: Easing.easeOutCubic,
-            duration: 1000
-        });
+        setTimeout(function () {
+            scroll2({
+                y: $articles.offset().top,
+                ease: Easing.easeOutCubic,
+                duration: 1000
+            });
+
+        }, duration2 );
     })
     .fail(function (  xhr, status, error  ) {
         console.log( "fail: ", error );
@@ -244,10 +248,7 @@ stopLoading = function () {
         complete: function ( t ) {
             $_jsLoader.css( "width", t );
 
-            setTimeout(function () {
-                resetLoadable();
-
-            }, duration2 );
+            resetLoadable();
         },
         duration: duration2
     });
@@ -279,7 +280,9 @@ isLoadable = function () {
  */
 resetLoadable = function () {
     _isLoading = false;
+
     $_jsLoader.removeClass( "is-loading" );
+
     setTimeout(function () {
         $_jsLoader.attr( "style", "" );
 

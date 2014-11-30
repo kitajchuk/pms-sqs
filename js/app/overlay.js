@@ -6,12 +6,13 @@
  *
  *
  */
-import { duration3 } from "app/config";
+import { duration2 } from "app/config";
 import { hammered, emitter, toggleMouseWheel } from "app/util";
 
 
 var $_jsOverlay = $( ".js-overlay" ),
     $_jsPage = $( ".js-page" ),
+    $_jsOverlayContent = $( ".js-overlay-content" ),
 
     _isInit = false,
 
@@ -30,8 +31,26 @@ init = function () {
 
     _isInit = true;
 
-    hammered.on( "tap", ".js-overlay", close );
+    hammered.on( "tap", ".js-overlay", onTouchTapOverlay );
     hammered.on( "drag", ".js-overlay", onTouchDragOverlay );
+},
+
+
+/**
+ *
+ * Handle closing the overlay on taps
+ * @method onTouchTapOverlay
+ * @param {object} e The event object
+ * @memberof overlay
+ * @private
+ *
+ */
+onTouchTapOverlay = function ( e ) {
+    var $target = $( e.target );
+
+    if ( $target.is( ".js-overlay, .js-overlay-content, .js-list" ) ) {
+        close();
+    }
 },
 
 
@@ -64,6 +83,11 @@ open = function () {
 
     toggleMouseWheel( false );
 
+    setTimeout(function () {
+        $_jsOverlayContent.addClass( "is-active" );
+
+    }, duration2 );
+
     emitter.fire( "overlay-open" );
 },
 
@@ -77,15 +101,20 @@ open = function () {
  *
  */
 close = function () {
-    $_jsOverlay.addClass( "is-leaving" );
-    $_jsPage.removeClass( "is-overlain" );
+    $_jsOverlayContent.removeClass( "is-active" );
 
     toggleMouseWheel( true );
 
     setTimeout(function () {
-        $_jsOverlay.removeClass( "is-active is-leaving" );
+        $_jsOverlay.addClass( "is-leaving" );
+        $_jsPage.removeClass( "is-overlain" );
 
-    }, duration3 );
+        setTimeout(function () {
+            $_jsOverlay.removeClass( "is-active is-leaving" );
+
+        }, duration2 );
+
+    }, duration2 );
 
     emitter.fire( "overlay-close" );
 };

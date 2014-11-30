@@ -123,14 +123,14 @@
         padding-left: 0 !important;
         }
     .sqs-block.audio-block.sqs-block-audio:first-child {
-        margin-top: 70px;
+        margin-top: $grid_tablet_spacing;
         }
 }
 
 
 @media only screen and ( max-width: $break_tablet_full ) {
     .sqs-block.audio-block.sqs-block-audio {
-        padding: 0 70px !important;
+        padding: 0 $grid_tablet_spacing !important;
 
         .sqs-block-content {
             padding-left: 20% !important;
@@ -151,7 +151,7 @@
         }
 
     .sqs-block.audio-block.sqs-block-audio {
-        padding: 0 50px !important;
+        padding: 0 $grid_mobile_spacing !important;
 
         .sqs-block-content {
             padding-left: 0 !important;
