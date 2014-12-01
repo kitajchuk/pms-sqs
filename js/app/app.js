@@ -203,13 +203,18 @@ doSquarespaceVideoAction = function () {
  *
  */
 doSquarespaceAudioAction = function () {
-    Y.all( ".sqs-audio-embed" ).each(function ( node ) {
-        if ( !node.all( ".sqs-widget" ).size() ) {
-            var widget = new Y.Squarespace.Widgets.AudioPlayerMinimal( { render: node } );
+    if ( !Y.Squarespace.Widgets.AudioPlayer ) {
+        Squarespace.addLoadTrigger( ".sqs-audio-embed", ["squarespace-audio-player"] );
 
-            widget.render();
-        }
-    });
+    } else {
+        Y.all( ".sqs-audio-embed" ).each(function ( node ) {
+            if ( !node.all( ".sqs-widget" ).size() ) {
+                var widget = new Y.Squarespace.Widgets.AudioPlayerMinimal( { render: node } );
+
+                widget.render();
+            }
+        });
+    }
 },
 
 
