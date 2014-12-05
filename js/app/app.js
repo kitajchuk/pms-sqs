@@ -1,9 +1,3 @@
-/*!
- *
- * App Generic
- *
- *
- */
 import "node_modules/jquery/dist/jquery";
 import "node_modules/hammerjs/hammer";
 import "lib/funpack";
