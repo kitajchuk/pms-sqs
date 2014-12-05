@@ -32,6 +32,9 @@ var $_window = $( window ),
         transitionTime: duration2
     }),
 
+    _lastData = null,
+    _location = window.location.pathname,
+
 
 /**
  *
@@ -66,7 +69,20 @@ initPageController = function () {
 
         $_jsModule.empty().html( render );
         $_window.scrollTop( 0 );
-        $_jsPage.addClass( "is-reactive" );
+
+        // Transitions between feed/slug pages
+        // 0.1 => New data has no slug, so homepage
+        // 0.2.1 => Last data does not exist
+        // 0.2.2 => Load location was homepage
+        // 0.3.1 => Last data exists
+        // 0.3.2 => Last data had no slug, so homepage
+        // 0.3.3 => New data has slug, so not homepage
+        if ( !data.request.params.slug || (!_lastData && _location === "/") || (_lastData && !_lastData.request.params.slug && data.request.params.slug) ) {
+            $_jsPage.addClass( "is-reactive" );
+        }
+
+        // Update the last location pathname
+        _lastData = data;
 
         if ( data.request.query.tag ) {
             overlay.close();

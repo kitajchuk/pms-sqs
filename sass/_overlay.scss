@@ -27,9 +27,15 @@
 
 .overlay .h1,
 .overlay h1,
-.overlay .a,
+.overlay.a,
 .overlay a {
     color: $color_white;
+    }
+.overlay h1 a,
+.overlay .h1 a,
+.overlay h1 .a,
+.overlay .h1 .a {
+    border-bottom: 1px solid $color_white;
     }
 
 .overlay__content {
@@ -56,9 +62,9 @@
     }
 
 
-@media only screen and ( max-width: $break_tablet_full ) {
+@media only screen and ( max-width: $break_laptop_medium ) {
     .overlay__content {
-        width: 60%;
+        width: 50%;
         }
 }
 

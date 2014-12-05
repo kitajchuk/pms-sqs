@@ -106,8 +106,9 @@
 }
 
 
-@media only screen and ( max-width: $break_mobile_full ) {
+@media only screen and ( max-width: $break_tablet_small ) {
     .gallery__indicators {
+        bottom: -55px;
         right: $grid_mobile_spacing;
         }
 
