@@ -1,5 +1,5 @@
 .loader {
-    @include opacity(0);
+    opacity: 0;
     @include transform(translate3d(0, 10px, 0));
     @include transition(opacity $base_transition_duration2 ease, transform $base_transition_duration2 ease);
     bottom: 0;
@@ -10,7 +10,7 @@
     z-index: $z_layer_forward;
 
     &.is-loading {
-        @include opacity(1);
+        opacity: 1;
         @include transform(translate3d(0, 0, 0));
         }
     }

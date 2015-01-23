@@ -9,7 +9,7 @@
     @include transition(opacity $base_transition_duration2 ease, transform $base_transition_duration2 ease);
 
     &.is-overlain {
-        @include opacity(0.8);
+        opacity: 0.8;
         @include transform(translate3d(0, 50px, 0));
         }
 
@@ -18,7 +18,7 @@
         }
 
     &.is-inactive {
-        @include opacity(0);
+        opacity: 0;
         }
     }
 

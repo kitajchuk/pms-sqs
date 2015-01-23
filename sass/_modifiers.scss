@@ -1,12 +1,12 @@
 // lazy loading states
 .-is-lazy-loading {
-    @include opacity(0);
+    opacity: 0 !important;
     }
 .-is-lazy-transition {
-    @include transition(opacity $base_transition_duration3 ease);
+    @include transition(opacity $base_transition_duration3 ease !important);
     }
 .-is-lazy-loaded {
-    @include opacity(1);
+    opacity: 1 !important;
     }
 .-is-lazy-handled {}
 
@@ -41,11 +41,11 @@
 
 // animation
 .-activate {
-    @include opacity(0);
+    opacity: 0;
     @include transition(opacity $base_transition_duration2 ease);
 
     &.is-active {
-        @include opacity(1);
+        opacity: 1;
         }
     }
 

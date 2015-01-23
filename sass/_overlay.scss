@@ -1,6 +1,6 @@
 .overlay {
     @include transition(opacity $base_transition_duration2 ease);
-    @include opacity(0);
+    opacity: 0;
     height: 100%;
     left: 0;
     position: fixed;
@@ -11,12 +11,12 @@
     z-index: $z_layer_hidden;
 
     &.is-active {
-        @include opacity(1);
+        opacity: 1;
         visibility: visible;
         z-index: $z_layer_forward;
         }
     &.is-leaving {
-        @include opacity(0);
+        opacity: 0;
         }
     }
 
@@ -41,7 +41,7 @@
 .overlay__content {
     @include transition(opacity $base_transition_duration2 ease, transform $base_transition_duration2 ease);
     @include transform(translate3d(0, 50px, 0));
-    @include opacity(0);
+    opacity: 0;
     display: block;
     height: 100%;
     max-width: 1075px;
@@ -52,7 +52,7 @@
     width: 60%;
 
     &.is-active {
-        @include opacity(1);
+        opacity: 1;
         @include transform(translate3d(0, 0, 0));
         }
     }

@@ -21,6 +21,9 @@ a,
         color: $color_black;
         }
     }
+.a--clean {
+    text-decoration: none;
+    }
 .a--alt {
     @include transition(border-bottom-color $base_transition_duration1 ease);
     border-bottom: 1px solid transparent;

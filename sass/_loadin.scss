@@ -1,6 +1,6 @@
 .loadin {
     @include transition(opacity $base_transition_duration2 ease);
-    @include opacity(0);
+    opacity: 0;
     height: 100%;
     left: 0;
     position: fixed;
@@ -11,21 +11,21 @@
     z-index: $z_layer_hidden;
 
     &.is-active {
-        @include opacity(1);
+        opacity: 1;
         visibility: visible;
         z-index: $z_layer_forward;
         }
     &.is-leaving {
-        @include opacity(0);
+        opacity: 0;
         }
     }
 
 .loadin__logo {
     @include transition(opacity $base_transition_duration2 ease);
-    @include opacity(0);
+    opacity: 0;
 
     &.is-active {
-        @include opacity(1);
+        opacity: 1;
         }
     }
 
