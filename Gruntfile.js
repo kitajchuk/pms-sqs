@@ -59,8 +59,9 @@ module.exports = function ( grunt ) {
                     jQuery: true,
                     Hammer: true,
 
-                    // Funpack
-                    funpack: true,
+                    // ProperJS
+                    require: true,
+                    provide: true,
 
                     // YUI / Squarespace
                     Y: true,

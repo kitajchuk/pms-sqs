@@ -7,15 +7,15 @@
  *
  *
  */
-import "lib/funpack";
+import "lib/proper";
 import { cssTransform, gridMaxWidth, postAspect } from "app/config";
 
 
-var Hammered = funpack( "Hammered" ),
-    Controller = funpack( "Controller" ),
-    ScrollController = funpack( "ScrollController" ),
-    ResizeController = funpack( "ResizeController" ),
-    ImageLoader = funpack( "ImageLoader" ),
+var Hammered = require( "Hammered" ),
+    Controller = require( "Controller" ),
+    ScrollController = require( "ScrollController" ),
+    ResizeController = require( "ResizeController" ),
+    ImageLoader = require( "ImageLoader" ),
 
     $_jsHtml = $( ".js-html" ),
 
@@ -194,7 +194,7 @@ loadImages = function ( images, handler ) {
         property: "data-img-src"
 
     // Default handle method. Can be overriden.
-    }).on( "handle", handler );
+    }).on( "data", handler );
 },
 
 
@@ -209,7 +209,7 @@ loadImages = function ( images, handler ) {
  */
 onImageLoadHandler = function ( el ) {
     var ret = false,
-        y = el.offset().top;
+        y = $( el ).offset().top;
 
     if ( y < (scroller.getScrollY() + window.innerHeight) ) {
         ret = true;

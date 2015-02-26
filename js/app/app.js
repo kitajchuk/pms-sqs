@@ -1,6 +1,5 @@
 import "node_modules/jquery/dist/jquery";
 import "node_modules/hammerjs/hammer";
-import "lib/funpack";
 import "app/env";
 import "app/posts";
 import "app/overlay";
@@ -19,8 +18,8 @@ var $_window = $( window ),
     $_jsLoadin = $( ".js-loadin" ),
     $_jsLoadinLogo = $( ".js-loadin-logo" ),
 
-    debounce = funpack( "debounce" ),
-    PageController = funpack( "PageController" ),
+    debounce = require( "debounce" ),
+    PageController = require( "PageController" ),
     pageController = new PageController({
         anchorTop: false,
         transitionTime: duration2
