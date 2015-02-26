@@ -118,3 +118,10 @@
             }
     }
 }
+
+
+@media only screen and ( max-width: $break_mobile_medium ) {
+    .gallery__indicators {
+        display: none;
+        }
+}
