@@ -15,6 +15,7 @@ var $_jsOverlay = $( ".js-overlay" ),
     $_jsOverlayContent = $( ".js-overlay-content" ),
 
     _isInit = false,
+    _isOpen = false,
 
 
 /**
@@ -33,6 +34,19 @@ init = function () {
 
     hammered.on( "tap", ".js-overlay", onTouchTapOverlay );
     hammered.on( "drag", ".js-overlay", onTouchDragOverlay );
+},
+
+
+/**
+ *
+ * Module isOpen method, called once
+ * @method isOpen
+ * @memberof overlay
+ * @returns boolean
+ *
+ */
+isOpen = function () {
+    return _isOpen;
 },
 
 
@@ -78,6 +92,8 @@ onTouchDragOverlay = function ( e ) {
  *
  */
 open = function () {
+    _isOpen = true;
+
     $_jsOverlay.addClass( "is-active" );
     $_jsPage.addClass( "is-overlain" );
 
@@ -101,6 +117,8 @@ open = function () {
  *
  */
 close = function () {
+    _isOpen = false;
+
     $_jsOverlayContent.removeClass( "is-active" );
 
     toggleMouseWheel( true );
@@ -123,4 +141,4 @@ close = function () {
 /******************************************************************************
  * Export
 *******************************************************************************/
-export { init, open, close };
+export { init, open, close, isOpen };

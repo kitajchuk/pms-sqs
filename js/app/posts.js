@@ -6,24 +6,22 @@
  *
  *
  */
+import "app/loader";
 import "app/gallery";
 import { duration2 } from "app/config";
-import { emitter, scroller, loadImages, onImageLoadHandler, resizeElements } from "app/util";
+import { emitter, scroller, loadImages, onImageLoadHandler, resizeElements, toggleMouseWheel } from "app/util";
 
 
 var $_jsPosts = $( ".js-posts" ),
     $_jsArticles = $( ".js-article" ),
-    $_jsLoader = $( ".js-loader" ),
 
     debounce = require( "debounce" ),
-    Tween = require( "Tween" ),
     Easing = require( "Easing" ),
     scroll2 = require( "scroll2" ),
 
     _pageData = $_jsPosts.data(),
     _isFinished = false,
     _isLoading = false,
-    _tween = null,
 
 
 /** BEGIN: CORE MODULE REQUIRED **/
@@ -110,7 +108,6 @@ onload = function () {
 unload = function () {
     _isActive = false;
     _isLoaded = false;
-    _tween = null;
     _pageData = null;
     _isFinished = false;
     _isLoading = false;
@@ -132,7 +129,6 @@ unload = function () {
  */
 getSetElements = function () {
     $_jsPosts = $( ".js-posts" );
-    $_jsLoader = $( ".js-loader" );
     $_jsArticles = $( ".js-article" );
 
     return ( $_jsPosts.length );
@@ -186,13 +182,18 @@ getNewLoad = function () {
         resizeElements();
         loadImages( null, onImageLoadHandler );
 
-        stopLoading();
+        loader.stopLoading();
 
         setTimeout(function () {
+            resetLoadable();
+
             scroll2({
                 y: $articles.offset().top,
                 ease: Easing.easeOutCubic,
-                duration: 1000
+                duration: 1000,
+                complete: function () {
+                    toggleMouseWheel( true );
+                }
             });
 
         }, duration2 );
@@ -203,56 +204,7 @@ getNewLoad = function () {
 },
 
 
-/**
- *
- * Module showLoading method, animate loading bar
- * @method showLoading
- * @memberof posts
- *
- */
-showLoading = function () {
-    $_jsLoader.addClass( "is-loading" );
 
-    _tween = new Tween({
-        to: window.innerWidth,
-        from: 0,
-        ease: Easing.easeOutCubic,
-        update: function ( t ) {
-            $_jsLoader.css( "width", t );
-        },
-        complete: function ( t ) {
-            $_jsLoader.css( "width", t );
-        },
-        duration: 40000
-    });
-},
-
-
-/**
- *
- * Module stopLoading method, stop load animation
- * @method stopLoading
- * @memberof posts
- *
- */
-stopLoading = function () {
-    _tween.stop();
-
-    _tween = new Tween({
-        to: window.innerWidth,
-        from: $_jsLoader.width(),
-        ease: Easing.easeOutCubic,
-        update: function ( t ) {
-            $_jsLoader.css( "width", t );
-        },
-        complete: function ( t ) {
-            $_jsLoader.css( "width", t );
-
-            resetLoadable();
-        },
-        duration: duration2
-    });
-},
 
 
 /**
@@ -281,12 +233,7 @@ isLoadable = function () {
 resetLoadable = function () {
     _isLoading = false;
 
-    $_jsLoader.removeClass( "is-loading" );
-
-    setTimeout(function () {
-        $_jsLoader.attr( "style", "" );
-
-    }, duration2 );
+    loader.resetLoadable();
 },
 
 
@@ -303,8 +250,9 @@ onScrollStart = debounce(function () {
     }
 
     if ( isLoadable() ) {
+        toggleMouseWheel( false );
         getNewLoad();
-        showLoading();
+        loader.showLoading();
 
     } else {
         resetLoadable();
@@ -326,8 +274,9 @@ onScrollEnd = debounce(function () {
     }
 
     if ( isLoadable() ) {
+        toggleMouseWheel( false );
         getNewLoad();
-        showLoading();
+        loader.showLoading();
 
     } else {
         resetLoadable();

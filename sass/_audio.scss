@@ -16,7 +16,7 @@
     position: absolute !important;
     text-align: center !important;
     top: 0 !important;
-    width: 100px !important;
+    width: $grid_desktop_spacing !important;
     z-index: 200;
     }
 .sqs-widgets-audio-player .labels {
@@ -37,7 +37,7 @@
 .sqs-widgets-audio-player .track {
     left: 0 !important;
     margin-left: 0 !important;
-    padding-left: 100px !important;
+    padding-left: $grid_desktop_spacing !important;
     width: 100% !important;
     }
 .sqs-widgets-audio-player .player {
@@ -51,12 +51,12 @@
 
     .play-button {
         display: inline-block !important;
-        border-bottom: 10px solid transparent !important;
+        border-bottom: $base_gutter solid transparent !important;
         border-left: 12px solid $color_white !important;
         border-left-color: $color_white !important;
-        border-top: 10px solid transparent !important;
+        border-top: $base_gutter solid transparent !important;
         height: 0 !important;
-        margin-top: -10px;
+        margin-top: -$base_gutter;
         margin-left: -6px;
         position: absolute;
         top: 50%;
@@ -94,7 +94,7 @@
     }
 .sqs-widgets-audio-player .played {
     background: #e7e7e7 !important;
-    left: 100px !important;
+    left: $grid_desktop_spacing !important;
     }
 .sqs-widgets-audio-player.playing .action .play {
     display: none !important;
@@ -147,7 +147,7 @@
         padding-left: 75px !important;
         }
     .sqs-widgets-audio-player .labels {
-        padding-left: 100px !important;
+        padding-left: $grid_desktop_spacing !important;
         }
 
     .sqs-block.audio-block.sqs-block-audio {
@@ -160,7 +160,7 @@
 
     .sqs-widgets-audio-player .action .play .play-button {
         border-bottom-width: 8px !important;
-        border-left-width: 10px !important;
+        border-left-width: $base_gutter !important;
         border-top-width: 8px !important;
         margin-top: -8px !important;
         margin-left: -4px !important;

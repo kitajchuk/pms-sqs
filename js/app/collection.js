@@ -94,7 +94,7 @@ onScroller = function () {
     $_jsCollections.not( ".is-collected" ).each(function () {
         var $this = $( this );
 
-        if ( ($this.offset().top < (scroller.getScrollY() + (window.innerHeight * 2))) ) {
+        if ( ($this.offset().top < (scroller.getScrollY() + window.innerHeight)) ) {
             $this.addClass( "is-collected" );
 
             getCollection( $this );

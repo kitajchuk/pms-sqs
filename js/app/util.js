@@ -185,6 +185,12 @@ loadImages = function ( images, handler ) {
                 variant = nextSize;
             }
 
+            // Test and bump again, mobile size needs a boost
+            // since our primary focus deals in the retina arena.
+            if ( window.innerWidth <= 480 ) {
+                variant = closestValueUp( variant, variants );
+            }
+
             $img.attr( "data-img-src", data.imgSrc + "?format=" + variant + "w" );
         }
     });
@@ -233,6 +239,27 @@ toggleMouseWheel = function ( enable ) {
 
     } else {
         $_jsHtml.on( "DOMMouseScroll mousewheel", function ( e ) {
+            e.preventDefault();
+            return false;
+        });
+    }
+},
+
+
+/**
+ *
+ * Toggle on/off touch movement
+ * @method toggleTouchMove
+ * @param {boolean} enable Flag to enable/disable
+ * @memberof util
+ *
+ */
+toggleTouchMove = function ( enable ) {
+    if ( enable ) {
+        $_jsHtml.off( "touchmove" );
+
+    } else {
+        $_jsHtml.on( "touchmove", function ( e ) {
             e.preventDefault();
             return false;
         });
@@ -295,4 +322,4 @@ calculateAspectRatioFit = function( srcWidth, srcHeight, maxWidth, maxHeight ) {
 /******************************************************************************
  * Export
 *******************************************************************************/
-export { hammered, emitter, scroller, resizer, translate3d, loadImages, onImageLoadHandler, toggleMouseWheel, resizeElements, calculateAspectRatioFit };
+export { hammered, emitter, scroller, resizer, translate3d, loadImages, onImageLoadHandler, toggleMouseWheel, toggleTouchMove, resizeElements, calculateAspectRatioFit };

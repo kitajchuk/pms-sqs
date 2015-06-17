@@ -1,12 +1,15 @@
 import "node_modules/jquery/dist/jquery";
 import "node_modules/hammerjs/hammer";
+
+import { duration2, duration3 } from "app/config";
+import { toggleMouseWheel, toggleTouchMove, onImageLoadHandler, loadImages, resizeElements, emitter, resizer, scroller, hammered } from "app/util";
+
 import "app/env";
 import "app/posts";
+import "app/index";
 import "app/overlay";
 import "app/gallery";
 import "app/collection";
-import { duration2, duration3 } from "app/config";
-import { toggleMouseWheel, onImageLoadHandler, loadImages, resizeElements, emitter, resizer, scroller, hammered } from "app/util";
 
 
 var $_window = $( window ),
@@ -17,6 +20,8 @@ var $_window = $( window ),
     $_jsScroll = $_jsBody.add( $_jsHtml ),
     $_jsLoadin = $( ".js-loadin" ),
     $_jsLoadinLogo = $( ".js-loadin-logo" ),
+    $_jsScreen = $( ".js-screen" ),
+    $_jsIndexTag = $( ".js-tag--index" ),
 
     debounce = require( "debounce" ),
     PageController = require( "PageController" ),
@@ -27,6 +32,8 @@ var $_window = $( window ),
 
     _lastData = null,
     _location = window.location.pathname,
+    _isAppLoaded = false,
+    _videoWrappers = Y.all( ".sqs-video-wrapper" ),
 
 
 /**
@@ -40,14 +47,25 @@ initPageController = function () {
         "homepage",
         "feed",
         "feed/:slug!slug",
-        "about"
+        "about",
+        "index"
     ]);
     pageController.setModules([
-        posts
+        posts,
+        index
     ]);
     pageController.initPage();
 
     // Hook into page controller events
+    pageController.on( "page-controller-before-router", function () {
+        if ( _isAppLoaded && !overlay.isOpen() ) {
+            $_jsScreen.addClass( "is-active" );
+
+        } else {
+            _isAppLoaded = true;
+        }
+    });
+
     pageController.on( "page-controller-router-transition-out", function () {
         $_jsPage.removeClass( "is-reactive" ).addClass( "is-inactive" );
     });
@@ -74,11 +92,15 @@ initPageController = function () {
             $_jsPage.addClass( "is-reactive" );
         }
 
-        // Update the last location pathname
+        // Update the last location data
         _lastData = data;
 
-        if ( data.request.query.tag ) {
+        if ( overlay.isOpen() ) {
             overlay.close();
+        }
+
+        if ( data.request.route !== "index" ) {
+            $_jsIndexTag.removeClass( "is-active" );
         }
 
         doPageNameAction();
@@ -95,7 +117,10 @@ initPageController = function () {
         doSquarespaceAudioAction();
         doImageLoadAction();
 
+        $_jsScreen.addClass( "is-leaving" );
+
         setTimeout(function () {
+            $_jsScreen.removeClass( "is-active is-leaving" );
             $_jsPage.removeClass( "is-inactive is-reactive" );
 
         }, duration2 );
@@ -282,11 +307,54 @@ doLoadinAction = function () {
     $_jsPage.removeClass( "is-overlain" );
 
     toggleMouseWheel( true );
+    toggleTouchMove( true );
 
     setTimeout(function () {
         $_jsLoadin.removeClass( "is-active is-leaving" );
 
     }, duration3 );
+},
+
+
+doVideoPrepAction = function () {
+    _videoWrappers.each(function ( b ) {
+        b.on( "click", function () {
+            if ( this.plug().videoloader._providerName === "YouTube" ) {
+                this.plug().videoloader.on( "loaded", function () {
+                    console.log( "YouTube video loaded", arguments );
+                });
+            }
+        });
+    });
+
+    window.addEventListener( "message", onPostMessage, false );
+},
+
+
+/**
+ *
+ * Handle video wipes
+ *
+ */
+onPostMessage = function ( e ) {
+    // Start with Vimeo
+    var data = JSON.parse( e.data );
+
+    if ( data.event === "ready" ) {
+        e.source.postMessage( JSON.stringify( {method: "addEventListener", value: "finish"} ), "*" );
+        e.source.postMessage( JSON.stringify( {method: "addEventListener", value: "play"} ), "*" );
+        e.source.postMessage( JSON.stringify( {method: "addEventListener", value: "pause"} ), "*" );
+
+    } else if ( data.event === "finish" || data.event === "pause" ) {
+        $_jsPage.removeClass( "page--dark" );
+        toggleMouseWheel( true );
+        toggleTouchMove( true );
+
+    } else if ( data.event === "play" ) {
+        $_jsPage.addClass( "page--dark" );
+        toggleMouseWheel( false );
+        toggleTouchMove( false );
+    }
 };
 
 
@@ -331,6 +399,7 @@ scroller.on( "scroll", doScrollerAction );
  */
 $_window.on( "load", function () {
     toggleMouseWheel( false );
+    toggleTouchMove( false );
 
     // Initialize modules
     overlay.init();
@@ -340,6 +409,7 @@ $_window.on( "load", function () {
     initPageController();
     resizeElements();
     doScrollerAction();
+    doVideoPrepAction();
     doImageLoadAction(function () {
         doSquarespaceVideoHack();
 

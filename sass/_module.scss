@@ -3,7 +3,7 @@
     @include transition(opacity $base_transition_duration3 ease, transform $base_transition_duration2 ease);
 
     &.is-reactive {
-        @include transform(translate3d(0, 100px, 0));
+        @include transform(translate3d(0, $grid_desktop_spacing, 0));
         }
 
     &.is-inactive {

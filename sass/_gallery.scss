@@ -1,4 +1,5 @@
 .gallery {
+    background-color: $color_grey_loadin;
     overflow: visible;
     position: relative;
     }
@@ -68,6 +69,8 @@
 
 // Static galleries
 .gallery--static {
+    background-color: transparent;
+
     .gallery__indicators {
         display: none;
         }
@@ -80,7 +83,7 @@
         opacity: 1;
         display: block;
         height: auto;
-        margin-bottom: 20px;
+        margin-bottom: $base_gutter;
         position: relative;
         }
 }
@@ -93,7 +96,7 @@
         position: static;
         }
     .gallery__indicators {
-        bottom: 100px;
+        bottom: $grid_desktop_spacing;
         text-align: left;
         }
 }
@@ -111,12 +114,6 @@
         bottom: -55px;
         right: $grid_mobile_spacing;
         }
-
-    .gallery--static {
-        .gallery__collection__item {
-            margin-bottom: 10px;
-            }
-    }
 }
 
 
