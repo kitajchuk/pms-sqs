@@ -17,76 +17,57 @@ var $_jsLoader = $( ".js-loader" ),
     _tween = null,
 
 
-name = "loader",
+loader = {
+    showLoading: function () {
+        $_jsLoader.addClass( "is-loading" );
+
+        _tween = new Tween({
+            to: window.innerWidth,
+            from: 0,
+            ease: Easing.easeOutCubic,
+            update: function ( t ) {
+                $_jsLoader.css( "width", t );
+            },
+            complete: function ( t ) {
+                $_jsLoader.css( "width", t );
+            },
+            duration: 40000
+        });
+    },
 
 
-/**
- *
- * Module showLoading method, animate loading bar
- * @method showLoading
- * @memberof loader
- *
- */
-showLoading = function () {
-    $_jsLoader.addClass( "is-loading" );
+    stopLoading: function () {
+        _tween.stop();
 
-    _tween = new Tween({
-        to: window.innerWidth,
-        from: 0,
-        ease: Easing.easeOutCubic,
-        update: function ( t ) {
-            $_jsLoader.css( "width", t );
-        },
-        complete: function ( t ) {
-            $_jsLoader.css( "width", t );
-        },
-        duration: 40000
-    });
-},
+        _tween = new Tween({
+            to: window.innerWidth,
+            from: $_jsLoader.width(),
+            ease: Easing.easeOutCubic,
+            update: function ( t ) {
+                $_jsLoader.css( "width", t );
+            },
+            complete: function ( t ) {
+                $_jsLoader.css( "width", t );
+
+                loader.resetLoadable();
+            },
+            duration: duration2
+        });
+    },
 
 
-/**
- *
- * Module stopLoading method, stop load animation
- * @method stopLoading
- * @memberof loader
- *
- */
-stopLoading = function () {
-    _tween.stop();
+    resetLoadable: function () {
+        $_jsLoader.removeClass( "is-loading" );
 
-    _tween = new Tween({
-        to: window.innerWidth,
-        from: $_jsLoader.width(),
-        ease: Easing.easeOutCubic,
-        update: function ( t ) {
-            $_jsLoader.css( "width", t );
-        },
-        complete: function ( t ) {
-            $_jsLoader.css( "width", t );
+        setTimeout(function () {
+            $_jsLoader.attr( "style", "" );
 
-            resetLoadable();
-        },
-        duration: duration2
-    });
-},
-
-
-/**
- *
- * Module resetLoadable method, clear the loader styles
- * @method resetLoadable
- * @memberof loader
- *
- */
-resetLoadable = function () {
-    $_jsLoader.removeClass( "is-loading" );
-
-    setTimeout(function () {
-        $_jsLoader.attr( "style", "" );
-
-    }, duration2 );
+        }, duration2 );
+    }
 };
 
 
-export { name, showLoading, stopLoading, resetLoadable }
+/******************************************************************************
+ * Export
+*******************************************************************************/
+export default loader;

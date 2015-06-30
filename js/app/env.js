@@ -1,3 +1,16 @@
+/*!
+ *
+ * App Module: /env
+ *
+ * @namespace env
+ * @memberof app
+ *
+ *
+ */
 var env = (/squarespace|localhost/.test( document.domain ) ? "development" : "production");
 
-export { env };
+
+/******************************************************************************
+ * Export
+*******************************************************************************/
+export default env;

@@ -6,143 +6,95 @@
  *
  *
  */
+import "app/dom";
 import "app/loader";
 import "app/gallery";
 import { duration2 } from "app/config";
-import { emitter, scroller, loadImages, onImageLoadHandler, resizeElements, toggleMouseWheel } from "app/util";
+import { scroller, emitter, loadImages, isImageLoadable, resizeElems, toggleMouseWheel } from "app/util";
 
 
-var $_jsPosts = $( ".js-posts" ),
-    $_jsArticles = $( ".js-article" ),
+var $_jsPosts = dom.page.find( ".js-posts" ),
+    $_jsArticles = dom.page.find( ".js-article" ),
 
     debounce = require( "debounce" ),
     Easing = require( "Easing" ),
     scroll2 = require( "scroll2" ),
 
-    _pageData = $_jsPosts.data(),
+    _pageData = null,
     _isFinished = false,
     _isLoading = false,
-
-
-/** BEGIN: CORE MODULE REQUIRED **/
     _isLoaded = false,
     _isActive = false,
 
 
-/**
- *
- * Module defined name
- * @member name
- * @memberof posts
- *
- */
-name = "posts",
+posts = {
+    init: function () {
+        console.log( "posts initialized" );
+    },
 
 
-/**
- *
- * Module isActive method
- * @method isActive
- * @returns number
- * @memberof posts
- *
- */
-isActive = function () {
-    return _isActive;
-},
+    isActive: function () {
+        return _isActive;
+    },
 
 
-/**
- *
- * Module isLoaded method
- * @method isLoaded
- * @returns boolean
- * @memberof posts
- *
- */
-isLoaded = function () {
-    return _isLoaded;
-},
+    isLoaded: function () {
+        return _isLoaded;
+    },
 
 
-/**
- *
- * Module onload method
- * @method onload
- * @memberof posts
- *
- */
-onload = function () {
-    _isActive = getSetElements();
+    onload: function () {
+        _isActive = this.getElements();
 
-    if ( _isLoaded ) {
-        return;
+        if ( _isLoaded ) {
+            return;
 
-    } else if ( !_isActive ) {
-        return;
-    }
+        } else if ( !_isActive ) {
+            return;
+        }
 
-    // Post list
-    if ( $_jsPosts.length ) {
         _isLoaded = true;
         _pageData = $_jsPosts.data();
         _isFinished = _pageData.nextPage ? false : true;
-    
+
         if ( _pageData.nextPage ) {
-            scroller.on( "scroll", onScrollStart );
-            scroller.on( "scroll", onScrollEnd );
+            emitter.on( "app--scroll", onScrollStart );
+            emitter.on( "app--scroll", onScrollEnd );
         }
+    },
+
+
+    unload: function () {
+        if ( _isLoaded ) {
+            this.teardown();
+        }
+    },
+
+
+    getElements: function () {
+        $_jsPosts = dom.page.find( ".js-posts" );
+        $_jsArticles = dom.page.find( ".js-article" );
+
+        return ( $_jsPosts.length );
+    },
+
+
+    teardown: function () {
+        _isActive = false;
+        _isLoaded = false;
+        _pageData = null;
+        _isFinished = false;
+        _isLoading = false;
+
+        $_jsPosts = null;
+        $_jsArticles = null;
+
+        emitter.off( "app--scroll", onScrollStart );
+        emitter.off( "app--scroll", onScrollEnd );
     }
-
-    console.log( "[posts module onload]" );
 },
 
 
-/**
- *
- * Module unload method
- * @method unload
- * @memberof posts
- *
- */
-unload = function () {
-    _isActive = false;
-    _isLoaded = false;
-    _pageData = null;
-    _isFinished = false;
-    _isLoading = false;
-
-    scroller.off( "scroll", onScrollStart );
-    scroller.off( "scroll", onScrollEnd );
-
-    console.log( "[posts module unload]" );
-},
-
-
-/**
- *
- * Module getSetElements method, queries DOM
- * @method getSetElements
- * @returns number
- * @memberof posts
- *
- */
-getSetElements = function () {
-    $_jsPosts = $( ".js-posts" );
-    $_jsArticles = $( ".js-article" );
-
-    return ( $_jsPosts.length );
-},
-/** END: CORE MODULE REQUIRED **/
-
-
-/**
- *
- * Module getNewLoad method, requests next page of posts
- * @method getNewLoad
- * @memberof posts
- *
- */
 getNewLoad = function () {
     if ( _isLoading ) {
         return;
@@ -175,12 +127,13 @@ getNewLoad = function () {
 
         $_jsArticles = $articles;
 
+        gallery.getElements();
         gallery.loadAll();
-        emitter.fire( "load-audio-content" );
-        emitter.fire( "load-video-content" );
+        emitter.fire( "app--load-audio" );
+        emitter.fire( "app--load-video" );
 
-        resizeElements();
-        loadImages( null, onImageLoadHandler );
+        resizeElems();
+        loadImages( null, isImageLoadable );
 
         loader.stopLoading();
 
@@ -204,17 +157,6 @@ getNewLoad = function () {
 },
 
 
-
-
-
-/**
- *
- * Module isLoadable method, can we load more or not
- * @method isLoadable
- * @returns boolean
- * @memberof posts
- *
- */
 isLoadable = function () {
     // 0.0 Scroll has reached document end
     // 0.1 We have not incremented to all loaded count
@@ -223,13 +165,6 @@ isLoadable = function () {
 },
 
 
-/**
- *
- * Module resetLoadable method, reset flags for more loading
- * @method resetLoadable
- * @memberof posts
- *
- */
 resetLoadable = function () {
     _isLoading = false;
 
@@ -237,13 +172,6 @@ resetLoadable = function () {
 },
 
 
-/**
- *
- * Module onScrollStart method, debounce scroll start
- * @method onScrollStart
- * @memberof posts
- *
- */
 onScrollStart = debounce(function () {
     if ( _isLoading ) {
         return;
@@ -261,13 +189,6 @@ onScrollStart = debounce(function () {
 }, 100, true ),
 
 
-/**
- *
- * Module onScrollEnd method, debounce scroll end
- * @method onScrollEnd
- * @memberof posts
- *
- */
 onScrollEnd = debounce(function () {
     if ( _isLoading ) {
         return;
@@ -287,4 +208,4 @@ onScrollEnd = debounce(function () {
 /******************************************************************************
  * Export
 *******************************************************************************/
-export { name, onload, unload, isActive, isLoaded, getSetElements };
+export default posts;

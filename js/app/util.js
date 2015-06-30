@@ -7,8 +7,9 @@
  *
  *
  */
+import "app/dom";
 import "lib/proper";
-import { cssTransform, gridMaxWidth, postAspect } from "app/config";
+import { gridMaxWidth, postAspect } from "app/config";
 
 
 var Hammered = require( "Hammered" ),
@@ -16,14 +17,6 @@ var Hammered = require( "Hammered" ),
     ScrollController = require( "ScrollController" ),
     ResizeController = require( "ResizeController" ),
     ImageLoader = require( "ImageLoader" ),
-
-    $_jsHtml = $( ".js-html" ),
-
-    // Default DOM handling selectors
-    selectors = {
-        resize: ".js-resize",
-        lazyImg: ".js-lazy-image"
-    },
 
     mathMin = Math.min,
     mathAbs = Math.abs,
@@ -36,9 +29,15 @@ var Hammered = require( "Hammered" ),
  * @memberof util
  *
  */
-hammered = new Hammered( document.body, {
-    swipe_velocity: 0,
-    stop_browser_behavior: false
+hammered = new Hammered( dom.body[ 0 ], {
+    cssProps: {
+        contentZoomingString: false,
+        tapHighlightColorString: false,
+        touchCalloutString: false,
+        touchSelectString: false,
+        userDragString: false,
+        userSelectString: false
+    }
 }),
 
 
@@ -84,7 +83,7 @@ resizer = new ResizeController(),
  *
  */
 translate3d = function ( el, x, y, z ) {
-    el.css( cssTransform, "translate3d(" + x + "," + y + "," + z + ")" );
+    el.style[ Hammer.prefixed( el.style, "transform" ) ] = "translate3d(" + x + "," + y + "," + z + ")";
 },
 
 
@@ -154,10 +153,10 @@ closestValueUp = function ( num, arr ) {
  */
 loadImages = function ( images, handler ) {
     // Normalize the handler
-    handler = (handler || onImageLoadHandler);
+    handler = (handler || isImageLoadable);
 
     // Normalize the images
-    images = (images || $( selectors.lazyImg ));
+    images = (images || $( ".js-lazy-image" ));
 
     // Get the right size image for the job
     images.each(function () {
@@ -197,7 +196,8 @@ loadImages = function ( images, handler ) {
 
     return new ImageLoader({
         elements: images,
-        property: "data-img-src"
+        property: "data-img-src",
+        transitionDelay: 0
 
     // Default handle method. Can be overriden.
     }).on( "data", handler );
@@ -207,21 +207,32 @@ loadImages = function ( images, handler ) {
 /**
  *
  * Module onImageLoadHander method, handles event
- * @method onImageLoadHandler
+ * @method isImageLoadable
  * @param {object} el The DOMElement to check the offset of
  * @returns boolean
  * @memberof util
  *
  */
-onImageLoadHandler = function ( el ) {
-    var ret = false,
-        y = $( el ).offset().top;
+isImageLoadable = function ( el ) {
+    var bounds = el.getBoundingClientRect();
 
-    if ( y < (scroller.getScrollY() + window.innerHeight) ) {
-        ret = true;
-    }
+    return ( bounds.top < (window.innerHeight * 2) );
+},
 
-    return ret;
+
+/**
+ *
+ * Module isElementInViewport method, handles element boundaries
+ * @method isElementInViewport
+ * @param {object} el The DOMElement to check the offsets of
+ * @returns boolean
+ * @memberof util
+ *
+ */
+isElementInViewport = function ( el ) {
+    var bounds = el.getBoundingClientRect();
+
+    return ( bounds.top < window.innerHeight && bounds.bottom > 0 );
 },
 
 
@@ -235,10 +246,10 @@ onImageLoadHandler = function ( el ) {
  */
 toggleMouseWheel = function ( enable ) {
     if ( enable ) {
-        $_jsHtml.off( "DOMMouseScroll mousewheel" );
+        dom.doc.off( "DOMMouseScroll mousewheel" );
 
     } else {
-        $_jsHtml.on( "DOMMouseScroll mousewheel", function ( e ) {
+        dom.doc.on( "DOMMouseScroll mousewheel", function ( e ) {
             e.preventDefault();
             return false;
         });
@@ -256,10 +267,10 @@ toggleMouseWheel = function ( enable ) {
  */
 toggleTouchMove = function ( enable ) {
     if ( enable ) {
-        $_jsHtml.off( "touchmove" );
+        dom.doc.off( "touchmove" );
 
     } else {
-        $_jsHtml.on( "touchmove", function ( e ) {
+        dom.doc.on( "touchmove", function ( e ) {
             e.preventDefault();
             return false;
         });
@@ -270,13 +281,13 @@ toggleTouchMove = function ( enable ) {
 /**
  *
  * Resize elements based on keyword
- * @method resizeElements
+ * @method resizeElems
  * @param {object} elems Optional collection to resize
  * @memberof util
  *
  */
-resizeElements = function ( elems ) {
-    (elems || $( selectors.resize )).each(function () {
+resizeElems = function ( elems ) {
+    (elems || $( ".js-resize" )).each(function () {
         var $this = $( this ),
             data = $this.data(),
             css = {};
@@ -296,30 +307,55 @@ resizeElements = function ( elems ) {
 
 
 /**
- * Resize arbitary width x height region to fit inside another region.
- * Conserve aspect ratio of the orignal region. Useful when shrinking/enlarging
- * images to fit into a certain area.
- * @url: http://opensourcehacker.com/2011/12/01/calculate-aspect-ratio-conserving-resize-for-images-in-javascript/
- * @method calculateAspectRatioFit
+ *
+ * Get the applied transition duration from CSS
+ * @method getTransitionDuration
+ * @param {object} el The DOMElement
  * @memberof util
- * @param {Number} srcWidth Source area width
- * @param {Number} srcHeight Source area height
- * @param {Number} maxWidth Fittable area maximum available width
- * @param {Number} srcWidth Fittable area maximum available height
- * @return {Object} { width, heigth }
+ * @returns number
  *
  */
-calculateAspectRatioFit = function( srcWidth, srcHeight, maxWidth, maxHeight ) {
-    var ratio = mathMin( (maxWidth / srcWidth), (maxHeight / srcHeight) );
+getTransitionDuration = function ( el ) {
+    if ( !el ) {
+        return 0;
+    }
 
-    return {
-        width: srcWidth * ratio,
-        height: srcHeight * ratio
-    };
+    var duration = getComputedStyle( el )[ Hammer.prefixed( el.style, "transition-duration" ) ],
+        isSeconds = duration.indexOf( "ms" ) === -1,
+        multiplyBy = isSeconds ? 1000 : 1;
+
+    return parseFloat( duration ) * multiplyBy;
+},
+
+
+/**
+ *
+ * All true all the time
+ * @method noop
+ * @memberof util
+ * @returns boolean
+ *
+ */
+noop = function () {
+    return true;
 };
 
 
 /******************************************************************************
  * Export
 *******************************************************************************/
-export { hammered, emitter, scroller, resizer, translate3d, loadImages, onImageLoadHandler, toggleMouseWheel, toggleTouchMove, resizeElements, calculateAspectRatioFit };
+export {
+    noop,
+    hammered,
+    emitter,
+    scroller,
+    resizer,
+    translate3d,
+    loadImages,
+    isImageLoadable,
+    isElementInViewport,
+    toggleMouseWheel,
+    toggleTouchMove,
+    resizeElems,
+    getTransitionDuration
+};
