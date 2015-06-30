@@ -1970,7 +1970,7 @@ MatchRoute.prototype = {
             
             // If the actual url doesn't match the route in segment length,
             // it cannot possibly be considered for matching so just skip it
-            if ( ruris.length !== uris.length ) {
+            if ( ruris.length !== uris.length && routes[ i ] !== "*" ) {
                 continue;
             }
             
@@ -2023,7 +2023,8 @@ MatchRoute.prototype = {
                 }
             }
             
-            if ( segMatches === uris.length ) {
+            // Handle a uri segment match OR "*" wildcard everything
+            if ( segMatches === uris.length || routes[ i ] === "*" ) {
                 ret.matched = true;
                 ret.route = routes[ i ];
                 ret.uri = ret.uri.join( "/" );
@@ -2280,31 +2281,26 @@ Router.prototype = {
         this._pusher.on( "popstate", function ( url, data, status ) {
             // Hook around browsers firing popstate on pageload
             if ( isReady ) {
-                self._fire( "beforeget" );
-                self._fire( "get", url, data, status );
-                self._fire( "afterget" );
+                for ( var i = self._callbacks.get.length; i--; ) {
+                    var dat = self._matcher.parse( url, self._callbacks.get[ i ]._routerRoutes );
+                    
+                    if ( dat.matched ) {
+                        break;
+                    }
+                }
+                
+                data = {
+                    route: self._matcher._cleanRoute( url ),
+                    response: data,
+                    request: dat,
+                    status: status || data.status
+                };
+                
+                self._fire( "popget", url, data, status );
                 
             } else {
                 isReady = true;
             }
-        });
-        
-        /**
-         *
-         * @event beforestate
-         *
-         */
-        this._pusher.on( "beforestate", function () {
-            self._fire( "beforeget" );
-        });
-        
-        /**
-         *
-         * @event afterstate
-         *
-         */
-        this._pusher.on( "afterstate", function () {
-            self._fire( "afterget" );
         });
         
         // Manually fire first GET
@@ -2477,6 +2473,15 @@ Router.prototype = {
             if ( _rSameDomain.test( elem.href ) && elem.href.indexOf( "#" ) === -1 && this._matcher.test( elem.href ) ) {
                 this._preventDefault( e );
                 
+                for ( var i = this._callbacks.get.length; i--; ) {
+                    var data = this._matcher.parse( elem.href, this._callbacks.get[ i ]._routerRoutes );
+                    
+                    if ( data.matched ) {
+                        this._fire( "preget", elem.href, data );
+                        break;
+                    }
+                }
+                
                 this._pusher.push( elem.href, function ( response, status ) {
                     self._fire( "get", elem.href, response, status );
                 });
@@ -2574,7 +2579,7 @@ Router.prototype = {
         // Fires basic timing events "beforeget" / "afterget"    
         } else if ( this._callbacks[ event ] ) {
             for ( i = this._callbacks[ event ].length; i--; ) {
-                this._callbacks[ event ][ i ].call( this );
+                this._callbacks[ event ][ i ].call( this, response );
             }
         }
     }
@@ -2615,12 +2620,14 @@ var _router = null,
     _initialized = false,
     _timeBefore = null,
     _timeDelay = 600,
-    _timeToIdle = 1000,
+    _timeToIdle = 30000,
     _timeStamp = null,
     _eventPrefix = "page-controller-",
     _currentRoute = null,
     _isFirstRoute = true,
     _currentQuery = null,
+    _currentToString = null,
+    _isSamePage = false,
 
     // Singleton
     _instance = null,
@@ -2643,32 +2650,6 @@ exec = function ( method ) {
             _modules[ i ][ method ].call( _modules[ i ] );
         }
     }
-},
-
-
-/**
- * @fires page-controller-before-router
- */
-onBeforeRouter = function () {
-    if ( _instance._anchorTop ) {
-        window.scrollTo( 0, 0 );
-    }
-
-    _timeBefore = Date.now();
-
-    _instance.fire( (_eventPrefix + "before-router") );
-
-    //console.log( "[PageController : before-router]" );
-},
-
-
-/**
- * @fires page-controller-after-router
- */
-onAfterRouter = function () {
-    _instance.fire( (_eventPrefix + "after-router") );
-
-    //console.log( "[PageController : after-router]" );
 },
 
 
@@ -2727,31 +2708,81 @@ syncModules = function ( callback ) {
 },
 
 
-/**
- * @fires page-controller-router-teardown
- * @fires page-controller-router-transition-out
- * @fires page-controller-router-transition-in
- * @fires page-controller-router-transition-cleanup
- * @fires page-controller-router-idle
- */
-handleRouterResponse = function ( res ) {
-    var data = {
-            response: res.response.responseText,
-            request: res.request,
-            status: res.status
-        },
-        isSameRoute = (_currentRoute === data.request.uri),
-        isQueried = (!isSameObject( data.request.query, {} )),
-        isQuerySame = (isSameObject( data.request.query, _currentQuery ));
+getRouteDataToString = function ( data ) {
+    var ret = data.uri,
+        i;
 
-    if ( isQueried && (isSameRoute && isQuerySame) || !isQueried && isSameRoute ) {
+    for ( i in data.query ) {
+        ret += "-" + i + "-" + data.query[ i ];
+    }
+
+    for ( i in data.params ) {
+        ret += "-" + i + "-" + data.params[ i ];
+    }
+
+    return ret;
+},
+
+
+onPopGetRouter = function ( data ) {
+    onPreGetRouter( data.request );
+
+    setTimeout( function () {
+        handleRouterResponse( data );
+
+    }, _instance._transitionTime );
+},
+
+
+/**
+ * @fires page-controller-transition-out
+ */
+onPreGetRouter = function ( data ) {
+    var isSameRequest = (_currentToString === getRouteDataToString( data ) && data.route !== "*");
+
+    if ( isSameRequest ) {
         //console.log( "PageController : same page" );
         _instance.fire( (_eventPrefix + "router-samepage"), data );
+        _isSamePage = true;
         return;
     }
 
+    if ( _instance._anchorTop ) {
+        window.scrollTo( 0, 0 );
+    }
+
+    _timeBefore = Date.now();
+
+    //console.log( "[PageController : before-router]" );
+
+    if ( !_isFirstRoute ) {
+        // @update: Fire transition out before request cycle begins with Router
+        _instance.fire( (_eventPrefix + "router-transition-out"), data );
+
+        //console.log( "[PageController : router-transition-out]" );
+    }
+},
+
+
+/**
+ * @fires page-controller-router-transition-in
+ * @fires page-controller-router-idle
+ */
+handleRouterResponse = function ( res ) {
+    if ( _isSamePage ) {
+        _isSamePage = false;
+        return;
+    }
+
+    var data = {
+        response: res.response.responseText,
+        request: res.request,
+        status: res.status
+    };
+
     _currentRoute = data.request.uri;
     _currentQuery = data.request.query;
+    _currentToString = getRouteDataToString( data.request );
 
     if ( _isFirstRoute ) {
         _isFirstRoute = false;
@@ -2760,17 +2791,8 @@ handleRouterResponse = function ( res ) {
         return;
     }
 
-    // Allow extra module teardown
-    _instance.fire( (_eventPrefix + "router-teardown"), data );
-
-    //console.log( "[PageController : router-teardown]" );
-
     // Sync all modules - they must all respond to proceed
     syncModules(function () {
-        _instance.fire( (_eventPrefix + "router-transition-out"), data );
-
-        //console.log( "[PageController : router-transition-out]" );
-
         // Stage time before transition back in
         setTimeout(function () {
             if ( _instance._anchorTop ) {
@@ -2786,8 +2808,6 @@ handleRouterResponse = function ( res ) {
             exec( "onload" );
 
             setTimeout(function () {
-                 _instance.fire( (_eventPrefix + "router-transition-cleanup"), data );
-
                  //console.log( "[PageController : router-transition-cleanup]" );
 
                 // Idle state
@@ -2901,8 +2921,8 @@ PageController.prototype.initPage = function () {
             _router.get( _config[ i ], onRouterResponse );
         }
     
-        _router.on( "beforeget", onBeforeRouter );
-        _router.on( "afterget", onAfterRouter );
+        _router.on( "preget", onPreGetRouter );
+        _router.on( "popget", onPopGetRouter );
     
         exec( "init" );
     }
@@ -2929,6 +2949,10 @@ PageController.prototype.setConfig = function ( config ) {
  *
  */
 PageController.prototype.setModules = function ( modules ) {
+    if ( !modules ) {
+        return;
+    }
+
     for ( var i = modules.length; i--; ) {
         this.addModule( modules[ i ] );
     }

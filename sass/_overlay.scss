@@ -58,7 +58,7 @@
     }
 
 .overlay__about {
-    margin: 100px 0 100px;
+    margin: $grid_desktop_spacing 0 $grid_desktop_spacing;
     }
 
 
@@ -100,7 +100,7 @@
 
 @media only screen and ( max-width: $break_mobile_medium ) {
     .overlay__content {
-        padding: 40px;
+        padding: $grid_mobile_spacing;
         }
     .overlay .h1,
     .overlay h1,

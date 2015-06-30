@@ -3,6 +3,20 @@
     position: relative;
     }
 
+// flex grid
+.grid--flex {
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    align-content: stretch;
+    justify-content: space-between;
+    -webkit-flex-wrap: wrap;
+    -webkit-align-items: stretch;
+    -webkit-align-content: stretch;
+    -webkit-justify-content: space-between;
+    }
+
 
 // col
 .column {
@@ -13,8 +27,17 @@
 
 // col: main
 @each $col in $grid_columns {
+    $divided: $col / $grid_length;
+    $percent: percentage( $divided );
+    $num_gutters: ($grid_length / $col) - 1;
+    $the_space: $num_gutters * ($base_gutter);
+
     .column--#{$col}of#{$grid_length} {
         width: percentage( $col / $grid_length );
+        }
+
+    .flex--#{$col}of#{$grid_length} {
+        width: calc( (100% - #{$the_space}) * #{$divided} );
         }
 }
 

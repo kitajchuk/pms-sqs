@@ -1,5 +1,6 @@
 .DS_Store
 sqs_template
 node_modules
+jquery
 .sass-cache
 .notes

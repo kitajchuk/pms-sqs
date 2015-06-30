@@ -5,8 +5,7 @@
     "version": "0.1.0",
     "dependencies": {
         "grunt-nautilus": "~0.7",
-        "hammerjs": "~1.0",
-        "jquery": "~2.1",
+        "hammerjs": "~2.0",
         "properjs": "~0.1"
     },
     "properjs": {
