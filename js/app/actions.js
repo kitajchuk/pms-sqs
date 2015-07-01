@@ -13,16 +13,12 @@ import { toggleMouseWheel, toggleTouchMove, isImageLoadable, loadImages, scrolle
 
 var $_jsLoadin = $( ".js-loadin" ),
     $_jsLoadinLogo = $( ".js-loadin-logo" ),
-    $_jsScroll = dom.body.add( dom.html ),
 
 
 actions = {
     init: function () {
         toggleMouseWheel( false );
         toggleTouchMove( false );
-
-        // Force experience to start at top of page
-        $_jsScroll.animate( {scrollTop: 0}, "fast" );
 
         this.doScrollerAction( 0 );
         this.doImageLoadAction(function () {

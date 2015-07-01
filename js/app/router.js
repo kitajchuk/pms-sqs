@@ -6,7 +6,7 @@
  *
  *
  */
-import { resizeElems, getTransitionDuration } from "app/util";
+import { hammered, resizeElems, getTransitionDuration } from "app/util";
 import "app/dom";
 import "app/posts";
 import "app/overlay";
@@ -59,6 +59,16 @@ captureLinks = function () {
     dom.body.on( "click", "[href='#']", function ( e ) {
         e.preventDefault();
         return false;
+    });
+
+
+    hammered.on( "tap", ".js-colophon-icon", function () {
+        overlay.open();
+    });
+
+
+    hammered.on( "tap", ".js-logo", function () {
+        dom.tags.removeClass( "is-active" );
     });
 },
 

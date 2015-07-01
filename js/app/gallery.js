@@ -14,7 +14,7 @@ import { hammered, loadImages, resizeElems } from "app/util";
 import { duration1, duration2 } from "app/config";
 
 
-var $_jsGallery = dom.page.find( ".js-gallery" ),
+var $_jsGallery = null,
 
     _location = window.location,
     _isSwiping = false,

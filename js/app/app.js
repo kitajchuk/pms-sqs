@@ -1,6 +1,6 @@
 import "jquery/dist/jquery";
 import "node_modules/hammerjs/hammer";
-import { emitter, hammered } from "app/util";
+import { emitter } from "app/util";
 import "app/env";
 import "app/dom";
 import "app/router";
@@ -11,20 +11,27 @@ import "app/collection";
 
 
 window.onload = function () {
+    // Global router initializer
     router.init();
+
+
+    // Global overlay initializer
     overlay.init();
+
+
+    // Global actions initializer
     actions.init();
+
+
+    // Global resizing initializer
     resizes.init();
+
+
+    // Global collection initializer
     collection.init();
 
-    hammered.on( "tap", ".js-colophon-icon", function () {
-        overlay.open();
-    });
 
-    hammered.on( "tap", ".js-logo", function () {
-        $( ".js-tag" ).removeClass( "is-active" );
-    });
-
+    // Global event dispatching
     emitter.on( "app--scroll", actions.doScrollerAction );
     emitter.on( "app--resize", actions.doScrollerAction );
     emitter.on( "app--load-audio", actions.doSquarespaceAudioAction );

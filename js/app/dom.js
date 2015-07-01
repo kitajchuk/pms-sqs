@@ -13,7 +13,8 @@ var dom = {
     html: $( document.documentElement ),
     body: $( document.body ),
     page: $( ".js-page" ),
-    module: $( ".js-module" )
+    module: $( ".js-module" ),
+    tags: $( ".js-tag" )
 };
 
 

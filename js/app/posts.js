@@ -13,8 +13,8 @@ import { duration2 } from "app/config";
 import { scroller, emitter, loadImages, isImageLoadable, resizeElems, toggleMouseWheel } from "app/util";
 
 
-var $_jsPosts = dom.page.find( ".js-posts" ),
-    $_jsArticles = dom.page.find( ".js-article" ),
+var $_jsPosts = null,
+    $_jsArticles = null,
 
     debounce = require( "debounce" ),
     Easing = require( "Easing" ),
