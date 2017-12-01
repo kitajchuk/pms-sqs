@@ -1,42 +1,65 @@
 {
-    "title": "Paper Make Stack",
-    "name": "paper-make-stack",
-    "description": "",
-    "version": "0.1.0",
-    "dependencies": {
-        "grunt-nautilus": "~0.7",
-        "hammerjs": "~2.0",
-        "properjs": "~0.1"
-    },
-    "properjs": {
-        "output": "js/lib/proper.js",
-        "dependencies": [
-            "properjs-tween",
-            "properjs-easing",
-            "properjs-scroll2",
-            "properjs-debounce",
-            "properjs-hammered",
-            "properjs-imageloader",
-            "properjs-pagecontroller",
-            "properjs-scrollcontroller",
-            "properjs-resizecontroller"
-        ]
-    },
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:kitajchuk/papermakestack.git"
-    },
-    "keywords": [],
-    "license": "MIT",
-    "contributors": [
-        {
-          "name": "Brandon Kitajchuk",
-          "email": "kitajchuk@gmail.com",
-          "url": "http://blkpdx.com"
-        }
-    ],
-    "readmeFilename": "README.md"
+  "name": "boxen",
+  "version": "0.1.0",
+  "description": "A Squarespace template scaffold.",
+  "author": "Brandon Lee Kitajchuk",
+  "license": "Apache-2.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "cd ./node_modules/properjs-hobo && npm install && npm run build -- 'is eq not attr index filter detach remove append closest toggleClass next prev'",
+    "build": "./node_modules/.bin/squarespace assemble && ./node_modules/.bin/webpack --env.production --progress --profile --display-modules --colors -p",
+    "watch": "./node_modules/.bin/squarespace assemble --watch --trigger-reload & ./node_modules/.bin/webpack --env.sandbox --hide-modules --colors --watch",
+    "server": "./node_modules/.bin/squarespace runserver --trigger-reload --verbose --faster-less",
+    "authserver": "./node_modules/.bin/squarespace runserver --auth --trigger-reload --verbose --faster-less",
+    "start": "./node_modules/.bin/squarespace setup && (npm run watch & npm run authserver)",
+    "deploy": "npm run build && ./node_modules/.bin/squarespace setup && ./node_modules/.bin/squarespace deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:kitajchuk/boxen.git"
+  },
+  "dependencies": {
+    "@squarespace/core": "^1.1.0"
+  },
+  "devDependencies": {
+    "@squarespace/toolbelt": "^0.8.4",
+    "autoprefixer": "^6.7.6",
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-preset-es2015": "^6.22.0",
+    "css-loader": "^0.26.2",
+    "dotenv": "^2.0.0",
+    "eslint": "^3.17.0",
+    "eslint-loader": "^1.6.3",
+    "expose-loader": "^0.7.3",
+    "fg-loadjs": "^1.0.0",
+    "file-loader": "^0.10.1",
+    "hammerjs": "^2.0.8",
+    "node-sass": "^4.5.0",
+    "on-build-webpack": "^0.1.0",
+    "open": "0.0.5",
+    "paramalama": "~0.2",
+    "postcss": "^5.2.15",
+    "postcss-cssnext": "^2.9.0",
+    "postcss-import": "^9.1.0",
+    "postcss-loader": "^1.3.3",
+    "properjs-controller": "~0.2",
+    "properjs-debounce": "^0.2.0",
+    "properjs-easing": "~0.2",
+    "properjs-hobo": "^0.3.18",
+    "properjs-imageloader": ">=0.3.1",
+    "properjs-lager": "^0.1.2",
+    "properjs-mediabox": "~0.3",
+    "properjs-pagecontroller": "~0.4",
+    "properjs-resizecontroller": "~0.2",
+    "properjs-scroll2": "~0.2",
+    "properjs-scrollcontroller": "~0.2",
+    "properjs-template": "~0.2",
+    "properjs-throttle": "^0.3.0",
+    "properjs-tween": "~0.2",
+    "request": "^2.83.0",
+    "sass-loader": "^6.0.2",
+    "svg-inline-loader": "^0.8.0",
+    "webpack": "^2.2.1"
+  }
 }

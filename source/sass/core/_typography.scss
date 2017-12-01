@@ -1,0 +1,52 @@
+/******************************************************************************
+ * Paragraphs
+*******************************************************************************/
+.p,
+.cms p {
+    @include p();
+
+    @include respond-min( $break-tablet-small + 1px ) {
+        font-size: $p-size-2;
+    }
+
+    @include respond-min( $break-desktop-full ) {
+        font-size: $p-size-3;
+    }
+}
+
+
+/******************************************************************************
+ * Links
+*******************************************************************************/
+.a,
+.cms a {
+    @include a();
+    border-bottom: 1px solid transparent;
+    transition: color $fast-duration $ease,
+                border-bottom-color $fast-duration $ease;
+    }
+
+
+/******************************************************************************
+ * Headlines
+*******************************************************************************/
+.h1,
+h1 {
+    @include h1();
+
+    @include respond-min( $break-tablet-small + 1px ) {
+        font-size: $h1-size-2;
+    }
+
+    @include respond-min( $break-desktop-full ) {
+        font-size: $h1-size-3;
+    }
+
+    @include respond( 640px ) {
+        font-size: 20px;
+    }
+
+    @include respond( 480px ) {
+        font-size: 18px;
+    }
+}

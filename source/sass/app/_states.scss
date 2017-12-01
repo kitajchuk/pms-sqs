@@ -1,0 +1,16 @@
+/******************************************************************************
+ * Document States
+*******************************************************************************/
+.is-hoverable {
+    .a,
+    .cms a {
+        &:hover {
+            color: $white;
+            border-bottom-color: $white;
+            }
+    }
+}
+
+.is-touchable {
+    // Touch specific here?
+}

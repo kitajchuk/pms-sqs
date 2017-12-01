@@ -1,0 +1,24 @@
+<div class="page" data-uid="{collection.urlId}">
+    {# Splash page #}
+    {.equal? collection.id "5a21b3cb08522905d704fbc2"}
+        <div class="hero splash js-splash ghost -text--center">
+            <div class="splash__header ghost__child">
+                {.if collection.mainContent}
+                    {collection.mainContent}
+                {.or}
+                    {squarespace.main-content}
+                {.end}
+            </div>
+            <div class="splash__footer">
+                <div class="splash__col -column -column--2of4 -text--left">
+                    <a href="mailto:{websiteSettings.contactEmail}" class="p a" target="_blank">{websiteSettings.contactEmail}</a>
+                </div>
+                <div class="splash__col -column -column--2of4 -text--right">
+                    {.repeated section website.socialAccounts}
+                        <a href="{profileUrl}" class="splash__social p a -column" target="_blank">{serviceName}</a>
+                    {.end}
+                </div>
+            </div>
+        </div>
+    {.end}
+</div>
