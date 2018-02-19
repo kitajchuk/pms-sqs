@@ -1,11 +1,8 @@
-<nav class="navi js-navi screen screen--dark -exp-2 -wrap -fzero" data-content-field="navigation-navi">
-    <ul class="navi__ul screen__wrap">
-        {.repeated section items}
-            {.section collection}
-                <li class="navi__li navi__li--{title|slugify}">
-                    <a class="navi__a navi__a--{title|slugify} js-navi-a js-navi--{title|slugify} h3 a" href="{fullUrl}">{title}</a>
-                </li>
-            {.end}
+<nav class="navi navi--main js-navi -column" data-content-field="navigation-navi">
+    {.repeated section items}
+        {.section collection}
+            <a class="navi__a navi__a--{title|slugify} js-navi-a js-navi--{title|slugify} p a" href="#{fullUrl}">{title}</a>
         {.end}
-    </ul>
+    {.end}
+    <a class="navi__a navi__a--close js-navi-a js-navi--close p a" href="">Close</a>
 </nav>

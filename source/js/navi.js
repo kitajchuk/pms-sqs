@@ -5,62 +5,45 @@ import * as core from "./core";
  *
  * @public
  * @namespace navi
- * @description Performs the branded load-in screen sequence.
- * @memberof menus
+ * @description Performs the nav stuff.
  *
  */
 const navi = {
-    /**
-     *
-     * @public
-     * @method init
-     * @memberof menus.navi
-     * @description Method initializes navi node in DOM.
-     *
-     */
     init () {
-        this.isOpen = false;
-        this.element = core.dom.navi;
-        this.items = this.element.find( ".js-navi-a" );
-        this.trigger = core.dom.body.find( ".js-controller--navi" );
-        this.bind();
-    },
+        this.element = core.dom.body.find( ".js-header" );
 
-
-    bind () {
-        this.trigger.on( "click", () => {
-            this.toggle();
-        });
-    },
-
-
-    open () {
-        this.isOpen = true;
-        this.element.addClass( "is-active" );
-        core.dom.html.addClass( "is-navi-open" );
-    },
-
-
-    close () {
-        this.isOpen = false;
-        this.element.removeClass( "is-active" );
-        core.dom.html.removeClass( "is-navi-open" );
-    },
-
-
-    active ( view ) {
-        this.items.removeClass( "is-active" );
-        this.items.filter( `.js-navi--${view}` ).addClass( "is-active" );
-    },
-
-
-    toggle () {
-        if ( this.isOpen ) {
-            this.close();
-
-        } else {
-            this.open();
+        if ( this.element.length ) {
+            this.data = this.element.data();
+            this.categories = this.element.find( ".js-menu-a" );
+            this.close = this.element.find( ".js-navi--close" );
+            this.close[ 0 ].href = this.data.root;
+            this.title = this.element.find( ".js-menu--title" );
         }
+    },
+
+
+    update ( view, params ) {
+        if ( this.element.length ) {
+            const elem = params.category ? this.categories.filter( `.js-menu--${params.category.toLowerCase()}` ) : this.categories.filter( ".js-menu--everything" );
+            const article = core.dom.body.find( ".js-article" );
+
+            this.categories.removeClass( "is-active" );
+            elem.addClass( "is-active" );
+
+            if ( article.length ) {
+                this.setTitle( article );
+            }
+        }
+    },
+
+
+    setTitle ( article ) {
+        const data = article.data();
+
+        this.title[ 0 ].innerHTML = `
+            <div class="menu__title p">${data.title}</div>
+            <div class="menu__meta p -grey">${data.category}</div>
+        `;
     }
 };
 

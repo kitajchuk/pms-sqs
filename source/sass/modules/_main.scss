@@ -1,9 +1,39 @@
 .main {
-    // padding-top: $header-height;
+    padding-top: $header-height;
     transition: opacity $fast-duration $ease;
 
     &.is-inactive {
         opacity: 0;
         pointer-events: none;
+        }
+}
+
+
+
+.feed {}
+.feed__item {
+    &:first-child {
+        padding-top: 0;
+        }
+}
+.feed__title {
+    margin-top: 20px;
+    }
+.feed__media {
+    .media {
+        padding-bottom: 100%;
+        }
+    .media__node {
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translateX( -50% ) translateY( -50% );
+        }
+    .image--wide {
+        width: 100%;
+        }
+    .image--tall {
+        height: 100%;
+        width: auto;
         }
 }

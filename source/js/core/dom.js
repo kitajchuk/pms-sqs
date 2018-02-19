@@ -63,18 +63,7 @@ const dom = {
      * @description The cached main node.
      *
      */
-    main: $( config.mainSelector ),
-
-
-    /**
-     *
-     * @public
-     * @member navi
-     * @memberof core.dom
-     * @description The cached <nav> nodes.
-     *
-     */
-    navi: $( config.naviSelector )
+    main: $( config.mainSelector )
 };
 
 

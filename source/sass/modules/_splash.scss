@@ -1,6 +1,10 @@
 .splash {
+    background-color: $black;
     color: $white;
+    height: 100vh;
+    overflow: hidden;
     position: relative;
+    width: 100vw;
     }
 .splash__header {
 
@@ -11,7 +15,11 @@
     position: absolute;
     padding: 5vw 6vw;
     width: 100%;
+
+    .a {
+        color: $white;
     }
+}
 .splash__social {
     text-transform: capitalize;
     }

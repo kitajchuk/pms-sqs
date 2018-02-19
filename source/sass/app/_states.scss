@@ -2,15 +2,34 @@
  * Document States
 *******************************************************************************/
 .is-hoverable {
-    .a,
-    .cms a {
-        &:hover {
+    .a:hover {
+        color: $black;
+        border-bottom-color: transparent;
+        }
+
+    .splash {
+        .a:hover {
             color: $white;
             border-bottom-color: $white;
-            }
+        }
     }
 }
 
 .is-touchable {
     // Touch specific here?
+}
+
+.is-uid-page {
+    .navi__a--info {
+        display: none;
+        }
+    .navi__a--close {
+        display: inline-block;
+        }
+    .menu--title {
+        display: inline-block;
+        }
+    .menu--categories {
+        display: none;
+        }
 }

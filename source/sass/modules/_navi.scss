@@ -1,12 +1,14 @@
-.navi {
-    &.is-active {
-        pointer-events: none;
-
-        .navi__ul {
-            pointer-events: auto;
-            }
+.menu {}
+.menu--title {
+    display: none;
     }
-}
-.navi__a {
-    color: $white;
+.menu__meta {
+    margin-top: 10px;
+    }
+.menu__a + .menu__a {
+    margin-left: 20px;
+    }
+.navi {}
+.navi__a--close {
+    display: none;
     }

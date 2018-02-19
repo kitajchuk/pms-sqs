@@ -22,16 +22,24 @@
 .cms a {
     @include a();
     border-bottom: 1px solid transparent;
+    color: $black;
     transition: color $fast-duration $ease,
                 border-bottom-color $fast-duration $ease;
+
+    &.is-active {
+        color: $black;
+        border-bottom-color: transparent;
     }
+}
+.a--grey {
+    color: $grey;
+}
 
 
 /******************************************************************************
  * Headlines
 *******************************************************************************/
-.h1,
-h1 {
+.h1, h1 {
     @include h1();
 
     @include respond-min( $break-tablet-small + 1px ) {

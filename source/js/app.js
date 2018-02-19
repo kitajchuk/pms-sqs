@@ -5,9 +5,10 @@ require( "../sass/screen.scss" );
 // Load the JS
 import router from "./router";
 import * as core from "./core";
+import Analytics from "./class/Analytics";
 import navi from "./navi";
 import intro from "./intro";
-import Analytics from "./class/Analytics";
+import splash from "./splash";
 
 
 /**
@@ -23,32 +24,10 @@ class App {
         this.navi = navi;
         this.intro = intro;
         this.router = router;
+        this.splash = splash;
 
         this.bind();
         this.init();
-        this.fourTwenty();
-    }
-
-
-    fourTwenty () {
-        let timeout = null;
-        const fourTwenty = this.core.dom.main.find( ".js-splash em" );
-        const tickFourTwenty = () => {
-            clearTimeout( timeout );
-
-            const theDate = new Date();
-            const theMinutes = theDate.getMinutes();
-            const theHours = theDate.getHours();
-            const theSplit = theHours >= 12 ? "PM" : "AM";
-            const fixHours = theHours > 12 ? theHours - 12 : theHours;
-            const fixMinutes = theMinutes < 10 ? `0${theMinutes}` : theMinutes;
-
-            fourTwenty[ 0 ].innerHTML = `${fixHours}:${fixMinutes}${theSplit}`;
-
-            timeout = setTimeout( tickFourTwenty, 10000 );
-        };
-
-        tickFourTwenty();
     }
 
 
@@ -81,6 +60,7 @@ class App {
         // Views
         this.navi.init();
         this.intro.init();
+        this.splash.init();
 
         // Controller
         this.router.init();

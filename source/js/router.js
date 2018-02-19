@@ -3,6 +3,7 @@ import PageController from "properjs-pagecontroller";
 import Controllers from "./class/Controllers";
 import * as core from "./core";
 import navi from "./navi";
+import paramalama from "paramalama";
 
 
 /**
@@ -153,7 +154,7 @@ const router = {
             core.dom.html.addClass( "is-uid-page" );
         }
 
-        navi.active( this.view );
+        navi.update( this.view, paramalama( window.location.search ) );
     },
 
 
@@ -168,7 +169,6 @@ const router = {
      */
     changePageOut ( /* data */ ) {
         this.controllers.destroy();
-        navi.close();
     },
 
 

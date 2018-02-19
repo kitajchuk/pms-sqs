@@ -1,11 +1,7 @@
 import * as core from "../core";
 import ImageController from "./ImageController";
 // import AnimateController from "./AnimateController";
-// import CarouselController from "./CarouselController";
-// import VideoController from "./VideoController";
 // import AspectController from "./AspectController";
-// import ShopController from "./ShopController";
-// import CoverController from "./CoverController";
 
 
 /**
@@ -59,11 +55,7 @@ class Controllers {
     exec () {
         this.controllers = [];
 
-        // this.push( "video", this.element.find( core.config.videoSelector ), VideoController, true );
-        // this.push( "carousel", this.element.find( core.config.carouselSelector ), CarouselController, true );
         // this.push( "animate", core.dom.body.find( core.config.animSelector ), AnimateController, true );
-        // this.push( "shop", core.dom.body.find( core.config.shopSelector ), ShopController, true );
-        // this.push( "cover", core.dom.body.find( core.config.coverSelector ), CoverController, true );
 
         // this.aspect = this.element.find( core.config.aspectSelector );
         // this.aspectController = new AspectController( this.aspect );
