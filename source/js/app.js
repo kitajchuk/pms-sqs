@@ -40,10 +40,10 @@ class App {
             const theMinutes = theDate.getMinutes();
             const theHours = theDate.getHours();
             const theSplit = theHours >= 12 ? "PM" : "AM";
-            const fixHours = theHours - 12;
-            const padHours = fixHours < 10 ? `0${fixHours}` : fixHours;
+            const fixHours = theHours > 12 ? theHours - 12 : theHours;
+            const fixMinutes = theMinutes < 10 ? `0${theMinutes}` : theMinutes;
 
-            fourTwenty[ 0 ].innerHTML = `${padHours}:${theMinutes}${theSplit}`;
+            fourTwenty[ 0 ].innerHTML = `${fixHours}:${fixMinutes}${theSplit}`;
 
             timeout = setTimeout( tickFourTwenty, 10000 );
         };

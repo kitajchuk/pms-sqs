@@ -20,7 +20,7 @@
 }
 .splash__col {
     @include respond( 640px ) {
-        text-align: left !important;
+        text-align: center !important;
         width: 100%;
     }
 }
