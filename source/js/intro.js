@@ -28,15 +28,17 @@ const intro = {
     teardown () {
         core.emitter.off( "app--page-teardown", intro.teardown );
 
-        intro.logo.on( "animationend", () => {
+        this.timeout = setTimeout(() => {
             intro.element.removeClass( "is-active" );
-        });
 
-        intro.element.on( "transitionend", () => {
-            intro.element.remove();
+            this.timeout = setTimeout(() => {
+                intro.element.remove();
 
-            core.emitter.fire( "app--intro-teardown" );
-        });
+                core.emitter.fire( "app--intro-teardown" );
+
+            }, core.util.getElementDuration( intro.element[ 0 ] ) );
+
+        }, 2000 );
     }
 };
 

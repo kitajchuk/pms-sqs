@@ -37,6 +37,9 @@
             <main class="main js-main -fzero" data-content-field="main-content" data-website-id="{website.id}" {.section collection}data-collection-id="{collection.id}" data-collection-title="{.if collection.homepage}{website.siteTitle}{.or}{collection.title} – {website.siteTitle}{.end}"{.end} {.section item}data-item-id="{item.id}" data-item-title="{item.title} – {collection.title} – {website.siteTitle}"{.end}>
                 {squarespace.main-content}
             </main>
+            <div class="screen screen--dark intro js-intro is-active">
+                <div class="h1 -light">{website.siteTitle}</div>
+            </div>
         {.end}
         <script type="text/javascript" src="/scripts/app.js?v={squarespace.template-revision}"></script>
         {squarespace-footers}

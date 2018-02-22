@@ -112,45 +112,12 @@ const config = {
     /**
      *
      * @public
-     * @member animSelector
+     * @member lazyAnimSelector
      * @memberof core.config
-     * @description The string selector used for animatables.
+     * @description The string selector used for animatable things.
      *
      */
-    animSelector: ".js-animate",
-
-
-    /**
-     *
-     * @public
-     * @member coverSelector
-     * @memberof core.config
-     * @description The string selector used for covers.
-     *
-     */
-    coverSelector: ".js-cover",
-
-
-    /**
-     *
-     * @public
-     * @member carouselSelector
-     * @memberof core.config
-     * @description The string selector used for carousels.
-     *
-     */
-    carouselSelector: ".js-carousel",
-
-
-    /**
-     *
-     * @public
-     * @member formSelector
-     * @memberof core.config
-     * @description The string selector used for <forms>.
-     *
-     */
-    formSelector: ".js-form",
+    lazyAnimSelector: ".js-lazy-anim",
 
 
     /**

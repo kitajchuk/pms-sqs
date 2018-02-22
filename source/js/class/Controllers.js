@@ -1,6 +1,6 @@
 import * as core from "../core";
 import ImageController from "./ImageController";
-// import AnimateController from "./AnimateController";
+import AnimateController from "./AnimateController";
 // import AspectController from "./AspectController";
 
 
@@ -55,7 +55,7 @@ class Controllers {
     exec () {
         this.controllers = [];
 
-        // this.push( "animate", core.dom.body.find( core.config.animSelector ), AnimateController, true );
+        this.push( "animate", core.dom.body.find( core.config.lazyAnimSelector ), AnimateController, true );
 
         // this.aspect = this.element.find( core.config.aspectSelector );
         // this.aspectController = new AspectController( this.aspect );

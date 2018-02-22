@@ -1,5 +1,7 @@
-import Controller from "properjs-controller";
+// import Stagger from "properjs-stagger";
+import ScrollController from "properjs-scrollcontroller";
 import * as core from "../core";
+import Controller from "properjs-controller";
 
 
 /**
@@ -11,12 +13,9 @@ import * as core from "../core";
  * @classdesc Handle scroll events for a DOMElement.
  *
  */
-class AnimateController extends Controller {
+class AnimateController {
     constructor ( elements ) {
-        super();
-
         this.elements = elements;
-
         this.start();
     }
 
@@ -30,16 +29,54 @@ class AnimateController extends Controller {
      *
      */
     start () {
-        // Call on parent cycle
-        this.go(() => {
-            this.elements.forEach(( element, i ) => {
-                if ( core.util.isElementVisible( element ) ) {
-                    this.elements.eq( i ).addClass( "is-animate" );
+        this.scroller = new ScrollController();
+        this.scroller.on( "scroll", () => {
+            this.handle();
+        });
 
-                } else {
-                    this.elements.eq( i ).removeClass( "is-animate" );
-                }
-            });
+        this.handle();
+    }
+
+
+    handle () {
+        this.elements = core.dom.page.find( core.config.lazyAnimSelector ).not( "[data-animate='true']" );
+
+        if ( !this.elements.length ) {
+            this.scroller.stop();
+            this.scroller = null;
+
+            core.log( "[AnimateController] Done!" );
+
+        } else {
+            const visible = core.util.getElementsInView( this.elements );
+
+            if ( visible.length ) {
+                this.animate( visible );
+            }
+        }
+    }
+
+
+    animate ( elems ) {
+        elems.attr( "data-animate", "true" );
+
+        // Sequence the animation of the elements
+        const animator = new Controller();
+        let lastTime = Date.now();
+        let currElem = 0;
+
+        animator.go(() => {
+            const currTime = Date.now();
+
+            if ( currElem === elems.length ) {
+                animator.stop();
+                core.log( "[AnimateController] Animation Complete!" );
+
+            } else if ( (currTime - lastTime) >= 100 ) {
+                lastTime = currTime;
+                elems[ currElem ].className += " is-animated";
+                currElem++;
+            }
         });
     }
 
@@ -53,7 +90,10 @@ class AnimateController extends Controller {
      *
      */
     destroy () {
-        this.stop();
+        if ( this.scroller ) {
+            this.scroller.destroy();
+            this.scroller = null;
+        }
     }
 }
 
