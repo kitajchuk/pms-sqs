@@ -1,7 +1,7 @@
-<nav class="navi navi--main js-navi -column" data-content-field="navigation-navi">
+<nav class="navi navi--main js-navi -column anim anim--tr" data-content-field="navigation-navi">
     {.repeated section items}
         {.section collection}
-            <a class="navi__a navi__a--{title|slugify} js-navi-a js-navi--{title|slugify} p a" href="#{fullUrl}">{title}</a>
+            <a class="navi__a navi__a--{title|slugify} js-navi-a js-navi--{title|slugify} p a" href="{fullUrl}">{title}</a>
         {.end}
     {.end}
     <a class="navi__a navi__a--close js-navi-a js-navi--close p a" href="">Close</a>

@@ -8,4 +8,18 @@
     top: 0;
     width: 100%;
     z-index: $z_layer_header;
+
+    &.is-animated {
+        .anim {
+            opacity: 1;
+            transform: translateY( 0 );
+            }
+        .menu--title,
+        .menu--categories {
+            transition-delay: 300ms;
+            }
+        .navi {
+            transition-delay: 400ms;
+            }
+        }
     }

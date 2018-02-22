@@ -25,13 +25,13 @@
             {@|apply splash.block}
         {.or}
             <header class="header js-header -wrap -fzero" data-root="{collection.fullUrl}">
-                <menu class="menu menu--categories js-menu -column">
+                <menu class="menu menu--categories js-menu -column anim anim--tr">
                     <a class="menu__a menu__a--everything js-menu-a js-menu--everything p a a--grey {.if categoryFilter}{.or}is-active{.end}" href="{collection.fullUrl}">Everything</a>
                     {.repeated section collection.categories}
                         <a class="menu__a menu__a--{@|slugify} js-menu-a js-menu--{@|slugify} p a a--grey {.equal? @ categoryFilter}is-active{.end}" href="{collection.fullUrl}?category={@}">{@}</a>
                     {.end}
                 </menu>
-                <menu class="menu menu--title js-menu--title -column"></menu>
+                <menu class="menu menu--title js-menu--title -column anim anim--tr"></menu>
                 <squarespace:navigation navigationId="navi" template="navi" />
             </header>
             <main class="main js-main -fzero" data-content-field="main-content" data-website-id="{website.id}" {.section collection}data-collection-id="{collection.id}" data-collection-title="{.if collection.homepage}{website.siteTitle}{.or}{collection.title} – {website.siteTitle}{.end}"{.end} {.section item}data-item-id="{item.id}" data-item-title="{item.title} – {collection.title} – {website.siteTitle}"{.end}>

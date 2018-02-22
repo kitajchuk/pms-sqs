@@ -24,17 +24,18 @@ const router = {
      */
     init () {
         this.pageClass = "";
-        this.pageDuration = core.util.getElementDuration( core.dom.html[ 0 ] );
+        this.pageDuration = core.util.getElementDuration( core.dom.main[ 0 ] );
         this.controllers = new Controllers({
-            el: core.dom.main,
-            cb: () => {
-                core.emitter.fire( "app--page-teardown" );
-            }
+            el: core.dom.main
         });
         this.bindEmpty();
         this.initPages();
 
         core.emitter.on( "app--page-teardown", () => this.topper() );
+        core.emitter.on( "app--intro-teardown", () => {
+            navi.intro();
+            this.controllers.exec();
+        });
 
         core.log( "[Router initialized]", this );
     },
@@ -74,7 +75,7 @@ const router = {
 
         // this.controller.setModules( [] );
 
-        this.controller.on( "page-controller-initialized-page", this.initPage.bind( this ) );
+        // this.controller.on( "page-controller-initialized-page", this.initPage.bind( this ) );
         //this.controller.on( "page-controller-router-samepage", () => {} );
         this.controller.on( "page-controller-router-transition-out", this.changePageOut.bind( this ) );
         this.controller.on( "page-controller-router-refresh-document", this.changeContent.bind( this ) );
@@ -95,7 +96,6 @@ const router = {
      */
     initPage ( data ) {
         this.changeClass( data );
-        this.controllers.exec();
     },
 
 

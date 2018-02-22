@@ -20,8 +20,8 @@ const intro = {
      */
     init () {
         this.element = core.dom.intro;
-        this.logo = this.element.find( ".js-intro-logo" );
-        core.emitter.on( "app--page-teardown", this.teardown );
+        this.teardown();
+        // core.emitter.on( "app--page-teardown", this.teardown );
     },
 
 

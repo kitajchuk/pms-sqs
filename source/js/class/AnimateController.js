@@ -15,6 +15,8 @@ import Controller from "properjs-controller";
  */
 class AnimateController {
     constructor ( elements ) {
+        this.className = "is-animated";
+        this.classNameOut = "is-animated-out";
         this.elements = elements;
         this.start();
     }
@@ -39,7 +41,7 @@ class AnimateController {
 
 
     handle () {
-        this.elements = core.dom.page.find( core.config.lazyAnimSelector ).not( "[data-animate='true']" );
+        this.elements = core.dom.main.find( core.config.lazyAnimSelector ).not( "[data-animate='true']" );
 
         if ( !this.elements.length ) {
             this.scroller.stop();
@@ -74,7 +76,7 @@ class AnimateController {
 
             } else if ( (currTime - lastTime) >= 100 ) {
                 lastTime = currTime;
-                elems[ currElem ].className += " is-animated";
+                elems[ currElem ].className += ` ${this.className}`;
                 currElem++;
             }
         });
@@ -90,6 +92,12 @@ class AnimateController {
      *
      */
     destroy () {
+        const visible = core.util.getElementsInView( this.elements );
+
+        if ( visible.length ) {
+            visible.addClass( this.classNameOut );
+        }
+
         if ( this.scroller ) {
             this.scroller.destroy();
             this.scroller = null;

@@ -1,4 +1,5 @@
 import * as core from "./core";
+import $ from "properjs-hobo";
 
 
 /**
@@ -18,7 +19,24 @@ const navi = {
             this.close = this.element.find( ".js-navi--close" );
             this.close[ 0 ].href = this.data.root;
             this.title = this.element.find( ".js-menu--title" );
+
+            this.bind();
         }
+    },
+
+
+    bind () {
+        this.element.on( "click", ".js-menu-a, .js-navi-a", ( e ) => {
+            const elem = $( e.target );
+
+            this.categories.removeClass( "is-active" );
+            elem.addClass( "is-active" );
+        });
+    },
+
+
+    intro () {
+        this.element.addClass( "is-animated" );
     },
 
 
