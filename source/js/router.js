@@ -2,7 +2,7 @@ import $ from "properjs-hobo";
 import PageController from "properjs-pagecontroller";
 import Controllers from "./class/Controllers";
 import * as core from "./core";
-import navi from "./navi";
+import header from "./header";
 import paramalama from "paramalama";
 
 
@@ -33,7 +33,7 @@ const router = {
 
         core.emitter.on( "app--page-teardown", () => this.topper() );
         core.emitter.on( "app--intro-teardown", () => {
-            navi.intro();
+            header.intro();
             this.controllers.exec();
         });
 
@@ -75,7 +75,7 @@ const router = {
 
         // this.controller.setModules( [] );
 
-        // this.controller.on( "page-controller-initialized-page", this.initPage.bind( this ) );
+        this.controller.on( "page-controller-initialized-page", this.initPage.bind( this ) );
         //this.controller.on( "page-controller-router-samepage", () => {} );
         this.controller.on( "page-controller-router-transition-out", this.changePageOut.bind( this ) );
         this.controller.on( "page-controller-router-refresh-document", this.changeContent.bind( this ) );
@@ -154,7 +154,7 @@ const router = {
             core.dom.html.addClass( "is-uid-page" );
         }
 
-        navi.update( this.view, paramalama( window.location.search ) );
+        header.update( this.view, paramalama( window.location.search ) );
     },
 
 

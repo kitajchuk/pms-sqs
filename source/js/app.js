@@ -6,7 +6,7 @@ require( "../sass/screen.scss" );
 import router from "./router";
 import * as core from "./core";
 import Analytics from "./class/Analytics";
-import navi from "./navi";
+import header from "./header";
 import intro from "./intro";
 import splash from "./splash";
 
@@ -21,7 +21,7 @@ import splash from "./splash";
 class App {
     constructor () {
         this.core = core;
-        this.navi = navi;
+        this.header = header;
         this.intro = intro;
         this.router = router;
         this.splash = splash;
@@ -58,7 +58,7 @@ class App {
         // Utility ?
 
         // Views
-        this.navi.init();
+        this.header.init();
         this.intro.init();
         this.splash.init();
 

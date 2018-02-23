@@ -1,1 +1,12 @@
+{.if collection.mainContent}
+    {.var @content collection.mainContent}
 
+{.or}
+    {.var @content squarespace.main-content}
+{.end}
+
+<div class="page js-page" data-uid="{collection.urlId}">
+    <div class="page__content anim anim--tr">
+        {@content}
+    </div>
+</div>

@@ -1,7 +1,7 @@
 import * as core from "../core";
 import ImageController from "./ImageController";
 import AnimateController from "./AnimateController";
-// import AspectController from "./AspectController";
+import PageController from "./PageController";
 
 
 /**
@@ -56,9 +56,8 @@ class Controllers {
         this.controllers = [];
 
         this.push( "animate", core.dom.body.find( core.config.lazyAnimSelector ), AnimateController, true );
+        this.push( "page", core.dom.body.find( ".js-page" ), PageController, true );
 
-        // this.aspect = this.element.find( core.config.aspectSelector );
-        // this.aspectController = new AspectController( this.aspect );
         this.images = this.element.find( core.config.lazyImageSelector );
         this.imageController = new ImageController( this.images );
         this.imageController.on( "preloaded", () => {
@@ -72,10 +71,6 @@ class Controllers {
 
 
     destroy () {
-        // if ( this.aspectController ) {
-        //     this.aspectController.destroy();
-        // }
-
         if ( this.imageController ) {
             this.imageController.destroy();
         }

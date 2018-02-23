@@ -4,5 +4,5 @@
             <a class="navi__a navi__a--{title|slugify} js-navi-a js-navi--{title|slugify} p a" href="{fullUrl}">{title}</a>
         {.end}
     {.end}
-    <a class="navi__a navi__a--close js-navi-a js-navi--close p a" href="">Close</a>
+    <a class="navi__a navi__a--close js-navi-close p a" href="">Close</a>
 </nav>
