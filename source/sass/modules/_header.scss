@@ -8,9 +8,13 @@
     top: 0;
     width: 100%;
     z-index: $z_layer_header;
-
     transition: opacity $base-duration $ease,
                 transform $base-duration $ease;
+
+    @include respond( $break-mobile-full ) {
+        height: $header-height-mobile;
+        position: relative;
+    }
 
     &.is-animated {
         .anim {
