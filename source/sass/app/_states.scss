@@ -5,9 +5,14 @@
     .a:hover {
         color: $black;
         border-bottom-color: transparent;
-        }
-
+    }
     .splash {
+        .a:hover {
+            color: $white;
+            border-bottom-color: $white;
+        }
+    }
+    .footer {
         .a:hover {
             color: $white;
             border-bottom-color: $white;
@@ -35,5 +40,10 @@
 }
 
 .is-info-page {
-    
+    color: $white;
+    transition-delay: 400ms;
+}
+.is-info-page,
+.is-page-black {
+    background-color: $black;
 }

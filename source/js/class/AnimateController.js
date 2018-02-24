@@ -92,7 +92,7 @@ class AnimateController {
      *
      */
     destroy () {
-        const visible = core.util.getElementsInView( this.elements );
+        const visible = core.util.getElementsInView( core.dom.main.find( core.config.lazyAnimSelector ) );
 
         if ( visible.length ) {
             visible.addClass( this.classNameOut );

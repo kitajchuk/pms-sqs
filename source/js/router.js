@@ -167,7 +167,8 @@ const router = {
      * @description Trigger transition-out animation.
      *
      */
-    changePageOut ( /* data */ ) {
+    changePageOut ( data ) {
+        this.changeClass( data );
         this.controllers.destroy();
     },
 
@@ -190,8 +191,6 @@ const router = {
 
         // Ensure topout prior to preload being done...
         this.topper();
-
-        this.changeClass( data );
     },
 
 

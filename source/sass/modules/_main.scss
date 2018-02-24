@@ -1,7 +1,27 @@
 .main {
+    // overflow: hidden;
     padding-top: $header-height;
     transition-duration: $base-duration;
     }
+
+
+
+.page {
+    &.is-animated {
+        .anim--tr {
+            opacity: 1;
+            transform: translateY( 0 );
+            transition-delay: 300ms;
+            }
+    }
+    &.is-animated-out {
+        .anim--tr {
+            opacity: 0;
+            transform: translateY( -$anim-1 );
+            transition-delay: 0ms;
+            }
+    }
+}
 
 
 
@@ -16,9 +36,20 @@
     position: fixed;
     width: 100%;
 
-    .a {
-        color: $white;
-        }
+    &.is-animated {
+        pointer-events: auto;
+
+        .anim--tr {
+            opacity: 1;
+            transform: translateY( 0 );
+            }
+        .footer__col:first-child {
+            transition-delay: 300ms;
+            }
+        .footer__col:last-child {
+            transition-delay: 400ms;
+            }
+    }
 }
 .footer__social {
     text-transform: capitalize;

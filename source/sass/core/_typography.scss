@@ -22,7 +22,6 @@
 .cms a {
     @include a();
     border-bottom: 1px solid transparent;
-    color: $black;
     transition: color $fast-duration $ease,
                 border-bottom-color $fast-duration $ease;
 

@@ -66,18 +66,35 @@ const header = {
         });
 
         this.element.on( "click", ".js-navi-a", () => {
-            this.outro();
+            this.animOut();
         });
     },
 
 
     intro () {
+        if ( this.data.init === "true" ) {
+            this.animIn();
+        }
+    },
+
+
+    animIn () {
         this.element.removeClass( "is-animated-out" ).addClass( "is-animated" );
     },
 
 
-    outro () {
+    animOut () {
         this.element.addClass( "is-animated-out" );
+    },
+
+
+    footerIn () {
+        this.footer.addClass( "is-animated" );
+    },
+
+
+    footerOut () {
+        this.footer.removeClass( "is-animated" );
     },
 
 

@@ -1,4 +1,6 @@
-// import * as core from "../core";
+import * as core from "../core";
+import header from "../header";
+// import router from "../router";
 
 
 /**
@@ -13,10 +15,17 @@ class PageController {
     constructor ( element ) {
         this.element = element;
 
-        console.log( "PageController" );
+        core.dom.html.addClass( "is-page-black" );
+        this.element.addClass( "is-animated" );
+        header.footerIn();
     }
 
-    destroy () {}
+    destroy () {
+        core.dom.html.removeClass( "is-page-black" );
+        this.element.addClass( "is-animated-out" );
+        header.animIn();
+        header.footerOut();
+    }
 }
 
 

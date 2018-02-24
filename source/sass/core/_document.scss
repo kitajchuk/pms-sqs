@@ -3,10 +3,11 @@
 *******************************************************************************/
 html {
     background-color: $white;
+    color: $black;
+    transition: background-color $base-duration $ease;
     }
 body {
     background-color: transparent;
-    color: $black;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: rgba( 0, 0, 0, 0 );

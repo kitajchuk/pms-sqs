@@ -24,7 +24,7 @@
         {.equal? collection.id "5a21b3cb08522905d704fbc2"}
             {@|apply splash.block}
         {.or}
-            <header class="header js-header -wrap -fzero" data-root="/feed/">
+            <header class="header js-header -wrap -fzero" data-root="/feed/" data-init='{.equal? collection.id "5a8b1f569140b7effc3429c7"}true{.or}false{.end}'>
                 <menu class="menu menu--categories js-menu-categories -column anim anim--tr"></menu>
                 <menu class="menu menu--title js-menu-title -column anim anim--tr"></menu>
                 <squarespace:navigation navigationId="navi" template="navi" />
