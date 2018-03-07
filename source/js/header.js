@@ -72,7 +72,7 @@ const header = {
 
 
     intro () {
-        if ( this.data.init === "true" ) {
+        if ( this.element.length && this.data.init === "true" ) {
             this.animIn();
         }
     },

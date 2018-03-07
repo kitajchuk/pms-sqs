@@ -26,16 +26,16 @@ const router = {
         this.pageClass = "";
         this.pageDuration = core.util.getElementDuration( core.dom.main[ 0 ] );
         this.controllers = new Controllers({
-            el: core.dom.main
+            el: core.dom.main,
+            cb: () => {
+                core.emitter.fire( "app--page-teardown" );
+            }
         });
         this.bindEmpty();
         this.initPages();
+        this.prepPages();
 
         core.emitter.on( "app--page-teardown", () => this.topper() );
-        core.emitter.on( "app--intro-teardown", () => {
-            header.intro();
-            this.controllers.exec();
-        });
 
         core.log( "[Router initialized]", this );
     },
@@ -54,6 +54,12 @@ const router = {
     },
 
 
+    prepPages () {
+        this.controllers.exec();
+        header.intro();
+    },
+
+
     /**
      *
      * @public
@@ -64,7 +70,10 @@ const router = {
      */
     initPages () {
         this.controller = new PageController({
-            transitionTime: this.pageDuration
+            transitionTime: this.pageDuration,
+            routerOptions: {
+                async: !core.env.isConfig()
+            }
         });
 
         this.controller.setConfig([
@@ -153,8 +162,6 @@ const router = {
         if ( this.uid ) {
             core.dom.html.addClass( "is-uid-page" );
         }
-
-        header.update( this.view, paramalama( window.location.search ) );
     },
 
 
@@ -191,6 +198,13 @@ const router = {
 
         // Ensure topout prior to preload being done...
         this.topper();
+
+        // Execute `pre` controller actions
+        this.controllers.exec();
+
+        this.changeClass( data );
+
+        header.update( this.view, paramalama( window.location.search ) );
     },
 
 
@@ -204,7 +218,6 @@ const router = {
      *
      */
     changePageIn ( /* data */ ) {
-        this.controllers.exec();
         this.execSquarespace();
 
     },

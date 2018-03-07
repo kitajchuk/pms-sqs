@@ -64,6 +64,19 @@ const env = {
      */
     isProd () {
         return (this.ENV === PROD);
+    },
+
+
+    /**
+     *
+     * @method isConfig
+     * @memberof core.env
+     * @description Determine whether we are in Squarespace /config land or not.
+     * @returns {boolean}
+     *
+     */
+    isConfig () {
+        return (window.parent.location.pathname.indexOf( "/config" ) !== -1);
     }
 };
 

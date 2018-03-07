@@ -26,20 +26,20 @@ class App {
         this.router = router;
         this.splash = splash;
 
-        // this.bind();
+        this.bind();
         this.init();
     }
 
 
-    // bind () {
-    //     this.core.emitter.on( "app--intro-teardown", () => {
-    //         this.core.log( "App Intro Teardown" );
-    //     });
-    //
-    //     this.core.emitter.on( "app--page-teardown", () => {
-    //         this.core.log( "App Page Teardown" );
-    //     });
-    // }
+    bind () {
+        this.core.emitter.on( "app--intro-teardown", () => {
+            this.core.log( "App Intro Teardown" );
+        });
+
+        this.core.emitter.on( "app--page-teardown", () => {
+            this.core.log( "App Page Teardown" );
+        });
+    }
 
 
     /**
@@ -59,11 +59,11 @@ class App {
 
         // Views
         this.header.init();
-        this.intro.init();
         this.splash.init();
-
-        // Controller
-        this.router.init();
+        this.intro.exec().then(() => {
+            // Controller
+            this.router.init();
+        });
 
         // Analytics
         this.analytics = new Analytics();
