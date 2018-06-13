@@ -1,7 +1,6 @@
 import * as core from "../core";
 import ImageController from "./ImageController";
 import AnimateController from "./AnimateController";
-import PageController from "./PageController";
 
 
 /**
@@ -56,7 +55,6 @@ class Controllers {
         this.controllers = [];
 
         this.push( "animate", core.dom.body.find( core.config.lazyAnimSelector ), AnimateController, true );
-        this.push( "page", core.dom.body.find( ".js-page" ), PageController, true );
 
         this.images = this.element.find( core.config.lazyImageSelector );
         this.imageController = new ImageController( this.images );

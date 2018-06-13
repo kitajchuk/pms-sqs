@@ -16,21 +16,9 @@
         position: relative;
     }
 
-    &.is-animated {
-        .anim {
-            opacity: 1;
-            transform: translateY( 0 );
-            }
-        .menu--title,
-        .menu--categories {
-            transition-delay: 300ms;
-            }
-        .navi {
-            transition-delay: 400ms;
-            }
-    }
+    &.is-animated {}
     &.is-animated-out {
         opacity: 0;
-        transform: translate3d( 0, -$anim-1, 0 );
+        transform: translate3d( 0, 0, 0 );
     }
 }

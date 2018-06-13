@@ -2,7 +2,9 @@
 .menu--title {
     display: none;
     }
-.menu__meta {}
+.menu__title {
+    margin-top: 10px;
+}
 .menu__a + .menu__a {
     margin-left: 20px;
     }

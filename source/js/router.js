@@ -177,6 +177,8 @@ const router = {
     changePageOut ( data ) {
         this.changeClass( data );
         this.controllers.destroy();
+
+        header.clear();
     },
 
 

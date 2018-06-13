@@ -184,8 +184,12 @@ const loadImages = function ( images, handler, useVariant ) {
             if ( dims.width > dims.height ) {
                 $img.addClass( "image--wide" );
 
-            } else {
+            } else if ( dims.height > dims.width ) {
                 $img.addClass( "image--tall" );
+                $img.parent().addClass( "media--tall" );
+
+            } else {
+                $img.addClass( "image--box" );
             }
         }
 

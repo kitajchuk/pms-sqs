@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="is-{collection.title|slugify}-page {.if item}is-uid-page{.end}">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,13 +20,20 @@
         {squarespace-headers}
     </head>
     <body>
-        {# Splash page #}
+        {# Splash #}
         {.equal? collection.id "5a21b3cb08522905d704fbc2"}
             {@|apply splash.block}
+
+        {# Feed #}
         {.or}
             <header class="header js-header -wrap -fzero" data-root="/feed/" data-init='{.equal? collection.id "5a8b1f569140b7effc3429c7"}true{.or}false{.end}'>
-                <menu class="menu menu--categories js-menu-categories -column anim anim--tr"></menu>
-                <menu class="menu menu--title js-menu-title -column anim anim--tr"></menu>
+                <menu class="menu menu--categories js-menu-categories -column"></menu>
+                <menu class="menu menu--title js-menu-title -column">
+                    {.if item}
+                        <div class="menu__meta p -grey">{item.categories.0}</div>
+                        <div class="menu__title p">{item.title}</div>
+                    {.end}
+                </menu>
                 <squarespace:navigation navigationId="navi" template="navi" />
             </header>
             <main class="main js-main -fzero" data-content-field="main-content" data-website-id="{website.id}" {.section collection}data-collection-id="{collection.id}" data-collection-title="{.if collection.homepage}{website.siteTitle}{.or}{collection.title} – {website.siteTitle}{.end}"{.end} {.section item}data-item-id="{item.id}" data-item-title="{item.title} – {collection.title} – {website.siteTitle}"{.end}>
@@ -36,16 +43,19 @@
                     {squarespace.main-content}
                 {.end}
             </main>
-            <footer class="footer js-footer -wrap -fzero">
-                <div class="footer__col -column -column--2of4 -text--left anim anim--tr">
-                    <a href="mailto:{websiteSettings.contactEmail}" class="p a" target="_blank">{websiteSettings.contactEmail}</a>
-                </div>
-                <div class="footer__col -column -column--2of4 -text--right anim anim--tr">
-                    {.repeated section website.socialAccounts}
-                        <a href="{profileUrl}" class="footer__social p a -column" target="_blank">{serviceName}</a>
-                    {.end}
-                </div>
-            </footer>
+            <div class="screen screen--dark info js-info" data-root="/info/">
+                <div class="info__content cms -wrap js-info-content"></div>
+                <footer class="footer -wrap -fzero">
+                    <div class="footer__col -column -column--2of4 -text--left">
+                        <a href="mailto:{websiteSettings.contactEmail}" class="p a" target="_blank">{websiteSettings.contactEmail}</a>
+                    </div>
+                    <div class="footer__col -column -column--2of4 -text--right">
+                        {.repeated section website.socialAccounts}
+                            <a href="{profileUrl}" class="footer__social p a -column" target="_blank">{serviceName}</a>
+                        {.end}
+                    </div>
+                </footer>
+            </div>
             <div class="screen screen--dark intro js-intro is-active">
                 <div class="h1 -light">{website.siteTitle}</div>
             </div>

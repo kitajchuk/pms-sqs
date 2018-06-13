@@ -76,24 +76,24 @@
 
 
 .article {
-    &.is-animated {
-        .anim--tr {
-            opacity: 1;
-            transform: translateY( 0 );
-            }
-        .article__image {
-            transition-delay: 300ms;
-            }
-    }
-    &.is-animated-out {
-        .anim--tr {
-            opacity: 0;
-            transform: translateY( -$anim-1 );
-            }
-        .article__image {
-            transition-delay: 0ms;
-            }
-    }
+    // &.is-animated {
+    //     .anim--tr {
+    //         opacity: 1;
+    //         transform: translateY( 0 );
+    //         }
+    //     .article__image {
+    //         transition-delay: 300ms;
+    //         }
+    // }
+    // &.is-animated-out {
+    //     .anim--tr {
+    //         opacity: 0;
+    //         transform: translateY( -$anim-1 );
+    //         }
+    //     .article__image {
+    //         transition-delay: 0ms;
+    //         }
+    // }
 }
 .article__image {
     padding-top: $padding-1;
@@ -113,43 +113,43 @@
     &:first-child {
         padding-top: 0;
         }
-    &.is-animated {
-        .anim--tr {
-            opacity: 1;
-            transform: translateY( 0 );
-            }
-        .feed__meta {
-            transition-delay: 300ms;
-            }
-        .feed__title {
-            transition-delay: 400ms;
-            }
-        .feed__media {
-            transition-delay: 500ms;
-            }
-    }
-    &.is-animated-out {
-        .anim--tr {
-            opacity: 0;
-            transform: translateY( -$anim-1 );
-            }
-        .feed__meta {
-            transition-delay: 0ms;
-            }
-        .feed__title {
-            transition-delay: 0ms;
-            }
-        .feed__media {
-            transition-delay: 0ms;
-            }
-    }
+    // &.is-animated {
+    //     .anim--tr {
+    //         opacity: 1;
+    //         transform: translateY( 0 );
+    //         }
+    //     .feed__meta {
+    //         transition-delay: 300ms;
+    //         }
+    //     .feed__title {
+    //         transition-delay: 400ms;
+    //         }
+    //     .feed__media {
+    //         transition-delay: 500ms;
+    //         }
+    // }
+    // &.is-animated-out {
+    //     .anim--tr {
+    //         opacity: 0;
+    //         transform: translateY( -$anim-1 );
+    //         }
+    //     .feed__meta {
+    //         transition-delay: 0ms;
+    //         }
+    //     .feed__title {
+    //         transition-delay: 0ms;
+    //         }
+    //     .feed__media {
+    //         transition-delay: 0ms;
+    //         }
+    // }
 
     @include respond( $break-mobile-full ) {
         display: flex;
         flex-wrap: wrap;
     }
 }
-.feed__title {
+.feed__meta {
     margin-top: 10px;
     }
 .feed__info {
@@ -167,15 +167,18 @@
         width: 100%;
     }
 
-    .media {
+    .media {}
+    .media--tall {
         padding-bottom: 100%;
-        }
+    }
     .media__node {
-        left: 50%;
-        position: absolute;
-        top: 50%;
-        transform: translateX( -50% ) translateY( -50% );
+        &.image--tall {
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translateX( -50% ) translateY( -50% );
         }
+    }
     .image--wide {
         width: 100%;
         }

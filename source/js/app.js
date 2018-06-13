@@ -8,6 +8,7 @@ import * as core from "./core";
 import Analytics from "./class/Analytics";
 import header from "./header";
 import intro from "./intro";
+import info from "./info";
 import splash from "./splash";
 
 
@@ -23,6 +24,7 @@ class App {
         this.core = core;
         this.header = header;
         this.intro = intro;
+        this.info = info;
         this.router = router;
         this.splash = splash;
 
@@ -60,6 +62,7 @@ class App {
         // Views
         this.header.init();
         this.splash.init();
+        this.info.init();
         this.intro.exec().then(() => {
             // Controller
             this.router.init();

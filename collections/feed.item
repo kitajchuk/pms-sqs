@@ -1,6 +1,6 @@
 {.section item}
-    <article class="article js-article -wrap -text--center js-lazy-anim" data-title="{.if excerpt}{excerpt|htmlattr}{.or}{title}{.end}" data-category="{.repeated section categories}{@}{.end}">
-        <section class="article__image anim anim--tr">
+    <article class="article js-article -wrap -text--center" data-title="{.if excerpt}{excerpt|htmlattr}{.or}{title}{.end}" data-category="{.repeated section categories}{@}{.end}">
+        <section class="article__image">
             {@|apply image.block}
         </section>
     </article>
