@@ -20,12 +20,8 @@
         visibility: visible;
         z-index: $z_layer_screen;
         -webkit-overflow-scrolling: touch;
-
-        .screen__wrap {
-            pointer-events: auto;
-            }
-        }
     }
+}
 .screen--dark {
     background-color: $black;
     }

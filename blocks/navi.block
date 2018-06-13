@@ -2,8 +2,7 @@
     {.repeated section items}
         {.section collection}
             {.var @slug title|slugify}
-            <a class="navi__a navi__a--{@slug} js-navi-a js-navi--{@slug} p a" href="#{@slug}">{title}</a>
+            <a class="navi__a navi__a--{@slug} js-navi-info p a" data-slug="{@slug}" href="#{@slug}">{title}</a>
         {.end}
     {.end}
-    <a class="navi__a navi__a--close js-navi-close p a" href="#">Close</a>
 </nav>

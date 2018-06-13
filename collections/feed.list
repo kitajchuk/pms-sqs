@@ -11,10 +11,8 @@
                         {.end}
                     </a>
                 </div>
-                <div class="feed__meta p -grey">
-                    {.repeated section categories}
-                        <a href="{collection.fullUrl}?category={@}" class="">{@}</a>
-                    {.end}
+                <div class="feed__meta p a -grey">
+                    {.repeated section categories}{@}{.end}
                 </div>
             </div>
             <div class="feed__media -column -column--2of4 -text--center">

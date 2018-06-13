@@ -2,7 +2,7 @@
  * Document States
 *******************************************************************************/
 .is-hoverable {
-    .a:hover {
+    .a--grey:hover {
         color: $black;
         border-bottom-color: transparent;
     }
@@ -25,25 +25,52 @@
 }
 
 .is-uid-page {
-    .navi__a--info {
-        display: none;
-        }
-    .navi__a--close {
-        display: inline-block;
-        }
-    .menu--title {
-        display: inline-block;
-        }
     .menu--categories {
         display: none;
-        }
+    }
+
+    .navi--returner {
+        display: block;
+    }
 }
 
-.is-info-page {
-    color: $white;
-    transition-delay: 400ms;
+.is-info-open {
+    overflow: hidden;
+
+    .navi {
+        color: $white;
+    }
+    .navi--mobile,
+    .navi--returner {
+        pointer-events: none;
+        visibility: hidden;
+    }
+    .navi__a--info {
+        &:after {
+            background-color: $white;
+        }
+    }
+
+    .menu--categories {
+        pointer-events: none;
+        visibility: hidden;
+    }
+
+    .main {
+        pointer-events: none;
+    }
+
+    .info {
+        pointer-events: auto;
+    }
 }
-.is-info-page,
-.is-page-black {
-    background-color: $black;
+
+.is-navi-open {
+    .menu--categories {
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible;
+        z-index: $z_layer_screen;
+        -webkit-overflow-scrolling: touch;
+    }
 }

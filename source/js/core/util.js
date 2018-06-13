@@ -171,6 +171,13 @@ const loadImages = function ( images, handler, useVariant ) {
     // {original, 1500w, 1000w, 750w, 500w, 300w, 100w}
     i = images.length;
 
+    // Normalize the mobile image asset if there is one
+    // if ( window.innerWidth <= config.mobileMediaHack && detect.isDevice() ) {
+    //     const mobiles = images.filter( config.mobileImageSelector );
+    //
+    //     mobiles.forEach(( el, i ) => {});
+    // }
+
     for ( i; i--; ) {
         $img = images.eq( i );
         data = $img.data();

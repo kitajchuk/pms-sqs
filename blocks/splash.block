@@ -7,13 +7,13 @@
                 {squarespace.main-content}
             {.end}
         </div>
-        <div class="splash__footer">
-            <div class="splash__col -column -column--2of4 -text--left">
+        <div class="splash__footer footer">
+            <div class="footer__col -column -column--2of4 -text--left">
                 <a href="mailto:{websiteSettings.contactEmail}" class="p a" target="_blank">{websiteSettings.contactEmail}</a>
             </div>
-            <div class="splash__col -column -column--2of4 -text--right">
+            <div class="footer__col -column -column--2of4 -text--right">
                 {.repeated section website.socialAccounts}
-                    <a href="{profileUrl}" class="splash__social p a -column" target="_blank">{serviceName}</a>
+                    <a href="{profileUrl}" class="footer__social p a -column" target="_blank">{serviceName}</a>
                 {.end}
             </div>
         </div>

@@ -26,14 +26,18 @@
 
         {# Feed #}
         {.or}
-            <header class="header js-header -wrap -fzero" data-root="/feed/" data-init='{.equal? collection.id "5a8b1f569140b7effc3429c7"}true{.or}false{.end}'>
+            <header class="header js-header -wrap -fzero" data-root="/feed/">
                 <menu class="menu menu--categories js-menu-categories -column"></menu>
-                <menu class="menu menu--title js-menu-title -column">
-                    {.if item}
-                        <div class="menu__meta p -grey">{item.categories.0}</div>
-                        <div class="menu__title p">{item.title}</div>
-                    {.end}
-                </menu>
+                <nav class="navi navi--mobile -column">
+                    <a class="navi__a navi__a--mobile js-navi-mobile-trigger a p" href="#">
+                        View <span class="navi__a--mobile-category js-navi-mobile-category"></span>
+                    </a>
+                </nav>
+                <nav class="navi navi--returner -column">
+                    <a class="navi__a navi__a--returner js-navi-returner" href="#">
+                        {@|apply svg-returner.block}
+                    </a>
+                </nav>
                 <squarespace:navigation navigationId="navi" template="navi" />
             </header>
             <main class="main js-main -fzero" data-content-field="main-content" data-website-id="{website.id}" {.section collection}data-collection-id="{collection.id}" data-collection-title="{.if collection.homepage}{website.siteTitle}{.or}{collection.title} – {website.siteTitle}{.end}"{.end} {.section item}data-item-id="{item.id}" data-item-title="{item.title} – {collection.title} – {website.siteTitle}"{.end}>

@@ -56,7 +56,6 @@ const router = {
 
     prepPages () {
         this.controllers.exec();
-        header.intro();
     },
 
 
@@ -177,8 +176,6 @@ const router = {
     changePageOut ( data ) {
         this.changeClass( data );
         this.controllers.destroy();
-
-        header.clear();
     },
 
 

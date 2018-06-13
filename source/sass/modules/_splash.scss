@@ -6,35 +6,10 @@
     position: relative;
     width: 100vw;
     }
-.splash__header {
-
-}
 .splash__footer {
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    padding: 5vw 6vw;
-    width: 100%;
-
-    .a {
-        color: $white;
-    }
-}
-.splash__social {
-    text-transform: capitalize;
-    }
-.splash__social + .splash__social {
-    margin-left: 32px;
-}
-.splash__col {
-    @include respond( 640px ) {
-        text-align: center !important;
-        width: 100%;
-    }
-}
-
-.splash__col + .splash__col {
-    @include respond( 640px ) {
-        margin-top: 5vw;
+    .footer__col {
+        @include respond( $break-mobile-full ) {
+            text-align: center !important;
+        }
     }
 }

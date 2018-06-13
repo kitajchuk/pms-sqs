@@ -17,32 +17,48 @@ const info = {
         if ( this.element.length ) {
             this.data = this.element.data();
 
-            this.load().then(() => {
-                this.bind();
+            this.load().then(( json ) => {
+                this.json = json;
+                this.done();
             });
         }
     },
 
 
     load () {
-        return new Promise(( resolve ) => {
-            $.ajax({
-                url: this.data.root,
-                data: {
-                    format: "json"
-                },
-                dataType: "json",
-                method: "GET"
-
-            }).then(( json ) => {
-                this.content[ 0 ].innerHTML = `${json.mainContent}`;
-                resolve( json );
-            });
+        return $.ajax({
+            url: this.data.root,
+            data: {
+                format: "json"
+            },
+            dataType: "json",
+            method: "GET"
         });
     },
 
 
-    bind () {}
+    done () {
+        this.content[ 0 ].innerHTML = `${this.json.mainContent}`;
+    },
+
+
+    open () {
+        this._isOpen = true;
+        this.element.addClass( "is-active" );
+        core.dom.html.addClass( "is-info-open" );
+    },
+
+
+    close () {
+        this._isOpen = false;
+        this.element.removeClass( "is-active" );
+        core.dom.html.removeClass( "is-info-open" );
+    },
+
+
+    isOpen () {
+        return this._isOpen;
+    }
 };
 
 

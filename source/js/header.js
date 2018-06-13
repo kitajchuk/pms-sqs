@@ -1,6 +1,8 @@
 import * as core from "./core";
 import $ from "properjs-hobo";
 import paramalama from "paramalama";
+import info from "./info";
+import viewCats from "./views/cats";
 
 
 /**
@@ -13,15 +15,22 @@ import paramalama from "paramalama";
 const header = {
     init () {
         this.element = core.dom.body.find( ".js-header" );
-        this.footer = core.dom.body.find( ".js-footer" );
 
         if ( this.element.length ) {
+            this.info = this.element.find( ".js-navi-info" );
             this.data = this.element.data();
             this.categoryMenu = this.element.find( ".js-menu-categories" );
             this.titleMenu = this.element.find( ".js-menu-title" );
             this.navi = this.element.find( ".js-navi" );
+            this.returner = this.element.find( ".js-navi-returner" );
+            this.returner[ 0 ].href = this.data.root;
+            this.mobileCategory = this.element.find( ".js-navi-mobile-category" );
+            this.defaultCategory = "everything";
+            this._isNaviOpen = false;
 
-            this.load().then(() => {
+            this.load().then(( json ) => {
+                this.json = json;
+                this.done();
                 this.bind();
             });
         }
@@ -29,95 +38,89 @@ const header = {
 
 
     load () {
-        return new Promise(( resolve ) => {
-            const query = paramalama( window.location.search );
+        const query = paramalama( window.location.search );
 
-            query.format = "json";
+        query.format = "json";
 
-            $.ajax({
-                url: this.data.root,
-                data: query,
-                dataType: "json",
-                method: "GET"
-
-            }).then(( json ) => {
-                this.categoryMenu[ 0 ].innerHTML = `
-                    <a class="menu__a menu__a--everything js-menu-category js-menu--everything p a a--grey ${json.categoryFilter ? "" : "is-active"}" href="${json.collection.fullUrl}">Everything</a>
-                    ${json.collection.categories.reverse().map(( category ) => {
-                        return `
-                            <a class="menu__a menu__a--${category.toLowerCase()} js-menu-category js-menu--${category.toLowerCase()} p a a--grey ${json.categoryFilter && json.categoryFilter === category ? "is-active" : ""}" href="${json.collection.fullUrl}?category=${category}">
-                                ${category}
-                            </a>
-                        `;
-
-                    }).join( "" )}
-                `;
-                this.categories = this.element.find( ".js-menu-category" );
-                this.close = this.element.find( ".js-navi-close" );
-                this.close[ 0 ].href = this.data.root;
-                resolve( json );
-            });
+        return $.ajax({
+            url: this.data.root,
+            data: query,
+            dataType: "json",
+            method: "GET"
         });
+    },
+
+
+    done () {
+        const cats = viewCats( this );
+
+        this.categoryMenu[ 0 ].innerHTML = cats.html;
+        this.categories = this.element.find( ".js-menu-category" );
+
+        this.mobileCategory[ 0 ].innerHTML = cats.meow;
     },
 
 
     bind () {
-        this.element.on( "click", ".js-menu-category, .js-navi-a", ( e ) => {
+        this.element.on( "click", ".js-menu-category", ( e ) => {
             const elem = $( e.target );
+            const data = elem.data();
 
             this.categories.removeClass( "is-active" );
             elem.addClass( "is-active" );
+
+            this.mobileCategory[ 0 ].innerHTML = data.cat;
+
+            if ( this._isNaviOpen ) {
+                this.closeNavi();
+            }
         });
 
-        this.element.on( "click", ".js-navi-a", () => {
-            this.animOut();
+        this.element.on( "click", ".js-navi-info", () => {
+            if ( info.isOpen() ) {
+                info.close();
+
+            } else {
+                info.open();
+            }
         });
-    },
 
+        this.element.on( "click", ".js-navi-mobile-trigger", () => {
+            if ( this._isNaviOpen ) {
+                this.closeNavi();
 
-    intro () {
-        if ( this.element.length && this.data.init === "true" ) {
-            this.animIn();
-        }
-    },
+            } else {
+                this.openNavi();
+            }
+        });
 
-
-    animIn () {
-        this.element.removeClass( "is-animated-out" ).addClass( "is-animated" );
-    },
-
-
-    animOut () {
-        this.element.addClass( "is-animated-out" );
+        this.categoryMenu.on( "click", () => {
+            if ( this._isNaviOpen ) {
+                this.closeNavi();
+            }
+        });
     },
 
 
     update ( view, params ) {
         if ( this.element.length ) {
             const elem = params.category ? this.categories.filter( `.js-menu--${params.category.toLowerCase()}` ) : this.categories.filter( ".js-menu--everything" );
-            const article = core.dom.body.find( ".js-article" );
-            const data = article.data();
 
             this.categories.removeClass( "is-active" );
             elem.addClass( "is-active" );
-
-            if ( article.length ) {
-                this.setTitle( data );
-            }
         }
     },
 
 
-    clear () {
-        this.titleMenu[ 0 ].innerHTML = ``;
+    openNavi () {
+        this._isNaviOpen = true;
+        core.dom.html.addClass( "is-navi-open" );
     },
 
 
-    setTitle ( data ) {
-        this.titleMenu[ 0 ].innerHTML = `
-            <div class="menu__meta p -grey">${data.category}</div>
-            <div class="menu__title p">${data.title}</div>
-        `;
+    closeNavi () {
+        this._isNaviOpen = false;
+        core.dom.html.removeClass( "is-navi-open" );
     }
 };
 

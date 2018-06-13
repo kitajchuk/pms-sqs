@@ -1,3 +1,8 @@
 .svg {
     transition: fill $fast-duration $ease;
     }
+.svg--returner {
+    fill: $black;
+    height: 19.5px;
+    width: 22px;
+}

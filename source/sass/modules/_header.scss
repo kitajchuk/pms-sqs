@@ -22,3 +22,42 @@
         transform: translate3d( 0, 0, 0 );
     }
 }
+
+
+
+.menu--categories {
+    @include respond( $break-mobile-full ) {
+        align-items: center;
+        background-color: rgba( 0, 0, 0, 0.9 );
+        bottom: 0;
+        display: flex;
+        left: 0;
+        opacity: 0;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        padding-left: $padding-1;
+        padding-right: $padding-1;
+        pointer-events: none;
+        position: fixed;
+        right: 0;
+        text-align: left;
+        top: 0;
+        transition: opacity $fast-duration $ease,
+                    z-index $fast-duration $ease,
+                    visibility $fast-duration $ease;
+        visibility: hidden;
+        z-index: $z_layer_behind;
+    }
+}
+.menu__a {
+    text-transform: capitalize;
+
+    @include respond( $break-mobile-full ) {
+        display: block;
+    }
+}
+.menu__a + .menu__a {
+    @include respond-min( $break-mobile-full + 1px ) {
+        margin-left: 20px;
+    }
+}

@@ -28,7 +28,7 @@ module.exports = ( env ) => {
             // First build opens localhost for you
             if ( !isOpen ) {
                 isOpen = true;
-                open( local );
+                open( `${local}/feed/` );
 
             // Subsequent builds trigger SQS reloads
             } else {

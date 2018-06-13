@@ -49,7 +49,7 @@
         font-size: $h1-size-3;
     }
 
-    @include respond( 640px ) {
+    @include respond( $break-mobile-full ) {
         font-size: 20px;
     }
 
