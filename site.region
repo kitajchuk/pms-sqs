@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="is-{collection.title|slugify}-page {.if item}is-uid-page{.end}">
+<html class="is-{collection.title|slugify}-page {.if item}is-uid-page {.if item.customContent.darkTheme}is-dark-theme{.end}{.end}">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

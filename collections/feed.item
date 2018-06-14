@@ -1,5 +1,5 @@
 {.section item}
-    <article class="article js-article -wrap" data-title="{.if excerpt}{excerpt|htmlattr}{.or}{title}{.end}" data-category="{.repeated section categories}{@}{.end}">
+    <article class="article js-article -wrap">
         <header class="article__header">
             <div class="article__title p">{item.title}</div>
             <div class="article__meta p -grey">{item.categories.0}</div>

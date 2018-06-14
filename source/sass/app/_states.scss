@@ -106,3 +106,24 @@
         opacity: 1;
     }
 }
+
+.is-dark-theme {
+    background-color: $black;
+    color: $white;
+
+    ._svg--circle {
+        background-color: $white;
+    }
+
+    ._svg--returner {
+        fill: $white;
+    }
+
+    .a.is-active {
+        color: $white;
+    }
+
+    .navi__a--mobile-category {
+        border-bottom-color: $white;
+    }
+}

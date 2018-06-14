@@ -23,6 +23,7 @@ const router = {
      *
      */
     init () {
+        this.isDarkTheme = core.dom.html.is( ".is-dark-theme" );
         this.pageClass = "";
         this.pageDuration = core.util.getElementDuration( core.dom.main[ 0 ] );
         this.controllers = new Controllers({
@@ -31,6 +32,7 @@ const router = {
                 core.emitter.fire( "app--page-teardown" );
             }
         });
+        this.bindLinks();
         this.bindEmpty();
         this.initPages();
         this.prepPages();
@@ -38,6 +40,21 @@ const router = {
         core.emitter.on( "app--page-teardown", () => this.topper() );
 
         core.log( "[Router initialized]", this );
+    },
+
+
+    bindLinks () {
+        core.dom.body.on( "click", ".js-links-navi", ( e ) => {
+            const target = $( e.target );
+            const link = target.is( ".js-links-navi" ) ? target : target.closest( ".js-links-navi" );
+            const data = link.data();
+
+            console.log( "darkTheme", data.darkTheme );
+
+            if ( data.darkTheme ) {
+                this.isDarkTheme = true;
+            }
+        });
     },
 
 
@@ -164,6 +181,19 @@ const router = {
     },
 
 
+    changeTheme ( /*data*/ ) {
+        console.log( "isDarkTheme", this.isDarkTheme );
+
+        if ( this.isDarkTheme ) {
+            this.isDarkTheme = false;
+            core.dom.html.addClass( "is-dark-theme" );
+
+        } else {
+            core.dom.html.removeClass( "is-dark-theme" );
+        }
+    },
+
+
     /**
      *
      * @public
@@ -175,6 +205,7 @@ const router = {
      */
     changePageOut ( data ) {
         this.changeClass( data );
+        this.changeTheme( data );
         this.controllers.destroy();
         core.dom.html.addClass( "is-page-out" );
     },
@@ -202,7 +233,7 @@ const router = {
         // Execute `pre` controller actions
         this.controllers.exec();
 
-        this.changeClass( data );
+        // this.changeTheme( data );
 
         header.update( this.view, paramalama( window.location.search ) );
     },
@@ -272,14 +303,14 @@ const router = {
 
     // Initialize core sqs blocks after ajax routing
     execSquarespace () {
-        setTimeout(() => {
-            window.Squarespace.initializeVideo( window.Y );
-            window.Squarespace.initializeCommerce( window.Y );
-            window.Squarespace.initializeFormBlocks( window.Y, window.Y );
-            window.Squarespace.initializeLayoutBlocks( window.Y );
-            window.Squarespace.initializeSummaryV2Block( window.Y );
-
-        }, 0 );
+        // setTimeout(() => {
+        //     window.Squarespace.initializeVideo( window.Y );
+        //     window.Squarespace.initializeCommerce( window.Y );
+        //     window.Squarespace.initializeFormBlocks( window.Y, window.Y );
+        //     window.Squarespace.initializeLayoutBlocks( window.Y );
+        //     window.Squarespace.initializeSummaryV2Block( window.Y );
+        //
+        // }, 0 );
     }
 };
 
