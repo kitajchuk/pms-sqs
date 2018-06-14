@@ -135,24 +135,15 @@ const getElementsInView = function ( $nodes ) {
  * @method loadImages
  * @param {object} images Optional collection of images to load
  * @param {function} handler Optional handler for load conditions
- * @param {boolean} useVariant Optional flag to skip loading size variants
  * @memberof util
  * @returns {instance}
  *
  */
-const loadImages = function ( images, handler, useVariant ) {
+const loadImages = function ( images, handler ) {
     const rQuery = /\?(.*)$/;
     const map = function ( vnt ) {
         return parseInt( vnt, 10 );
     };
-    let $img = null;
-    let data = null;
-    let dims = null;
-    let vars = null;
-    let width = null;
-    let variant = null;
-    let source = null;
-    let i = null;
 
     // Normalize the handler
     handler = (handler || isElementLoadable);
@@ -160,49 +151,43 @@ const loadImages = function ( images, handler, useVariant ) {
     // Normalize the images
     images = (images || dom.main.find( config.lazyImageSelector ));
 
-    // Normalize the `useVariant` flag
-    if ( !useVariant && useVariant !== false ) {
-        useVariant = true;
-    }
+    images.forEach(( el, i ) => {
+        const image = images.eq( i );
+        const data = image.data();
 
-    // Get the right size image from Squarespace
-    // http://developers.squarespace.com/using-the-imageloader/
-    // Depending on the original upload size, we have these variants
-    // {original, 1500w, 1000w, 750w, 500w, 300w, 100w}
-    i = images.length;
+        // Normalize for mobile media asset
+        if ( data.mobile && window.innerWidth <= config.mobileMediaHack && detect.isDevice() ) {
+            data.imgSrc = data.mobile.assetUrl;
+            data.originalSize = data.mobile.originalSize;
+            data.variants = data.mobile.systemDataVariants;
+        }
 
-    // Normalize the mobile image asset if there is one
-    // if ( window.innerWidth <= config.mobileMediaHack && detect.isDevice() ) {
-    //     const mobiles = images.filter( config.mobileImageSelector );
-    //
-    //     mobiles.forEach(( el, i ) => {});
-    // }
-
-    for ( i; i--; ) {
-        $img = images.eq( i );
-        data = $img.data();
-        width = ($img[ 0 ].clientWidth || $img[ 0 ].parentNode.clientWidth || window.innerWidth);
-        source = data.imgSrc.replace( rQuery, "" );
+        // Get the right size image from Squarespace
+        // http://developers.squarespace.com/using-the-imageloader/
+        // Depending on the original upload size, we have these variants
+        // {original, 1500w, 1000w, 750w, 500w, 300w, 100w}
+        const width = (image[ 0 ].clientWidth || image[ 0 ].parentNode.clientWidth || window.innerWidth);
+        const source = data.imgSrc.replace( rQuery, "" );
 
         // Pre-process portrait vs landscape using originalSize
         if ( data.originalSize ) {
-            dims = getOriginalDims( data.originalSize );
+            const dims = getOriginalDims( data.originalSize );
 
             if ( dims.width > dims.height ) {
-                $img.addClass( "image--wide" );
+                image.addClass( "image--wide" );
 
             } else if ( dims.height > dims.width ) {
-                $img.addClass( "image--tall" );
-                $img.parent().addClass( "media--tall" );
+                image.addClass( "image--tall" );
+                image.parent().addClass( "media--tall" );
 
             } else {
-                $img.addClass( "image--box" );
+                image.addClass( "image--box" );
             }
         }
 
-        if ( useVariant && data.variants ) {
-            vars = data.variants.split( "," ).map( map );
-            variant = getClosestValue( vars, width );
+        if ( data.variants ) {
+            const vars = data.variants.split( "," ).map( map );
+            let variant = getClosestValue( vars, width );
 
             // If the pixel density is higher, use a larger image ?
             if ( window.devicePixelRatio > 1 ) {
@@ -213,9 +198,9 @@ const loadImages = function ( images, handler, useVariant ) {
                 variant = getClosestValue( vars, variant );
             }
 
-            $img[ 0 ].setAttribute( config.lazyImageAttr, `${source}?format=${variant}w` );
+            image.attr( config.lazyImageAttr, `${source}?format=${variant}w` );
         }
-    }
+    });
 
     return new ImageLoader({
         elements: images,

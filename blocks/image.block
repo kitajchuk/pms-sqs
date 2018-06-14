@@ -1,9 +1,13 @@
-{.section item}
-    <div class="media js-media">
-        <img class="media__node js-media-node image js-lazy-image" data-img-src="{assetUrl}" data-variants="{systemDataVariants}" data-original-size="{originalSize}" />
-    </div>
+{.if item}
+    {.var @media item}
 {.or}
-    <div class="media js-media">
-        <img class="media__node js-media-node image js-lazy-image" data-img-src="{assetUrl}" data-variants="{systemDataVariants}" data-original-size="{originalSize}" />
-    </div>
+    {.var @media @}
 {.end}
+
+{.if @media.customContent.mobileImage}
+    {.var @mobile @media.customContent.mobileImage}
+{.end}
+
+<div class="media js-media">
+    <img class="media__node js-media-node image js-lazy-image" data-img-src="{@media.assetUrl}" data-variants="{@media.systemDataVariants}" data-original-size="{@media.originalSize}" {.if @mobile}data-mobile="{@mobile|json|htmlattr}"{.end} />
+</div>
