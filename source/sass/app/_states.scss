@@ -25,29 +25,31 @@
 }
 
 .is-uid-page {
+    .navi--mobile,
     .menu--categories {
-        display: none;
+        @include noop();
     }
 
     .navi--returner {
-        display: block;
-    }
-
-    .navi--mobile {
-        display: none;
+        @include poon();
     }
 }
 
 .is-info-open {
     overflow: hidden;
 
+    .main,
+    .navi--returner,
+    .menu--categories {
+        @include noop();
+    }
+
     .navi {
         color: $white;
     }
     .navi--mobile,
     .navi--returner {
-        pointer-events: none;
-        visibility: hidden;
+        @include hide();
     }
     .navi__a--info {
         &:after {
@@ -56,12 +58,7 @@
     }
 
     .menu--categories {
-        pointer-events: none;
-        visibility: hidden;
-    }
-
-    .main {
-        pointer-events: none;
+        @include hide();
     }
 
     .info {
@@ -70,11 +67,27 @@
 }
 
 .is-navi-open {
+    .main {
+        @include noop();
+    }
+
     .menu--categories {
         opacity: 1;
         pointer-events: auto;
         visibility: visible;
         z-index: $z_layer_screen;
         -webkit-overflow-scrolling: touch;
+    }
+}
+
+.is-page-out {
+    .main {
+        @include noop();
+    }
+}
+
+.is-page-in {
+    .main {
+        opacity: 1;
     }
 }

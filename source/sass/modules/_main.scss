@@ -1,7 +1,8 @@
 .main {
     // overflow: hidden;
     padding-top: $header-height;
-    transition-duration: $base-duration;
+    transition: opacity $base-duration $ease,
+                transform $base-duration $ease;
 
     @include respond( $break-mobile-full ) {
         padding-top: 0;

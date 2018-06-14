@@ -176,6 +176,7 @@ const router = {
     changePageOut ( data ) {
         this.changeClass( data );
         this.controllers.destroy();
+        core.dom.html.addClass( "is-page-out" );
     },
 
 
@@ -218,7 +219,12 @@ const router = {
      */
     changePageIn ( /* data */ ) {
         this.execSquarespace();
+        core.dom.html.addClass( "is-page-in" );
 
+        setTimeout(() => {
+            core.dom.html.removeClass( "is-page-in is-page-out" );
+
+        }, this.pageDuration );
     },
 
 

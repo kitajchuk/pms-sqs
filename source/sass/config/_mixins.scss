@@ -50,6 +50,18 @@
         @content;
     }
 }
+@mixin noop() {
+    opacity: 0;
+    pointer-events: none;
+}
+@mixin poon() {
+    opacity: 1;
+    pointer-events: auto;
+}
+@mixin hide() {
+    pointer-events: none;
+    visibility: hidden;
+}
 
 
 

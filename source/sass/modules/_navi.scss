@@ -1,11 +1,23 @@
 .navi {}
+.navi--main {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY( -50% );
+}
 .navi--mobile,
 .navi--returner {
-    display: none;
+    @include noop();
+    left: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY( -50% );
+    transition: opacity $base-duration $ease,
+                transform $base-duration $ease;
 }
 .navi--mobile {
     @include respond( $break-mobile-full ) {
-        display: block;
+        @include poon();
     }
 }
 .navi__a--info {

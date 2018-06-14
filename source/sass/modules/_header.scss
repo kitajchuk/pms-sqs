@@ -2,7 +2,6 @@
     align-items: center;
     display: flex;
     height: $header-height;
-    justify-content: space-between;
     left: 0;
     position: fixed;
     top: 0;
@@ -22,10 +21,20 @@
         transform: translate3d( 0, 0, 0 );
     }
 }
+.header__wrap {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+}
 
 
 
 .menu--categories {
+    transition: opacity $base-duration $ease,
+                transform $base-duration $ease;
+
     @include respond( $break-mobile-full ) {
         align-items: center;
         background-color: rgba( 0, 0, 0, 0.9 );
