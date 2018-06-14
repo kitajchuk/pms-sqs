@@ -4,8 +4,8 @@
             <div class="article__title p">{item.title}</div>
             <div class="article__meta p -grey">{item.categories.0}</div>
         </header>
-        <section class="article__image">
-            {@|apply image.block}
-        </section>
+        <main class="article__content">
+            {item.body}
+        </main>
     </article>
 {.end}

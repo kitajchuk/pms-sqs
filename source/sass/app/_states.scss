@@ -2,9 +2,9 @@
  * Document States
 *******************************************************************************/
 .is-hoverable {
+    p a:hover,
     .a--grey:hover {
         color: $black;
-        border-bottom-color: transparent;
     }
     .splash {
         .a:hover {
@@ -15,6 +15,16 @@
     .footer {
         .a:hover {
             color: $white;
+            border-bottom-color: $white;
+        }
+    }
+    .menu__a:hover {
+        @include respond( $mobile-breakpoint ) {
+            color: $white;
+        }
+    }
+    .menu__a.is-active:hover {
+        @include respond( $mobile-breakpoint ) {
             border-bottom-color: $white;
         }
     }
@@ -39,9 +49,14 @@
     overflow: hidden;
 
     .main,
+    .navi--main,
     .navi--returner,
     .menu--categories {
         @include noop();
+    }
+
+    .navi--ender {
+        @include poon();
     }
 
     .navi {

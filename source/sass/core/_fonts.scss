@@ -4,8 +4,14 @@
 
 // Klim fonts...
 @font-face {
-    font-family: $font-family-sans;
+    font-family: $font-family-reg;
     src: url( "/assets/fonts/UntitledSansWeb-Regular.woff" ) format( "woff" );
+    font-style: normal;
+    font-stretch: normal;
+}
+@font-face {
+    font-family: $font-family-bold;
+    src: url( "/assets/fonts/UntitledSansWeb-Bold.woff" ) format( "woff" );
     font-style: normal;
     font-stretch: normal;
 }

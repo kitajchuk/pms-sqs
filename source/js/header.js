@@ -23,6 +23,7 @@ const header = {
             this.titleMenu = this.element.find( ".js-menu-title" );
             this.navi = this.element.find( ".js-navi" );
             this.returner = this.element.find( ".js-navi-returner" );
+            this.ender = this.element.find( ".js-navi-ender" );
             this.returner[ 0 ].href = this.data.root;
             this.mobileCategory = this.element.find( ".js-navi-mobile-category" );
             this.defaultCategory = "everything";
@@ -77,11 +78,14 @@ const header = {
         });
 
         this.element.on( "click", ".js-navi-info", () => {
+            if ( !info.isOpen() ) {
+                info.open();
+            }
+        });
+
+        this.element.on( "click", ".js-navi-ender", () => {
             if ( info.isOpen() ) {
                 info.close();
-
-            } else {
-                info.open();
             }
         });
 

@@ -1,5 +1,6 @@
 .navi {}
-.navi--main {
+.navi--main,
+.navi--ender {
     position: absolute;
     right: 0;
     top: 50%;
@@ -16,27 +17,15 @@
                 transform $base-duration $ease;
 }
 .navi--mobile {
-    @include respond( $break-mobile-full ) {
+    @include respond( $mobile-breakpoint ) {
         @include poon();
     }
 }
+.navi--ender {
+    @include noop();
+}
 .navi__a--info {
     display: block;
-    position: relative;
-    text-indent: -9999px;
-
-    &:after {
-        background-color: $black;
-        border-radius: 24px;
-        content: "";
-        display: inline-block;
-        height: 24px;
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY( -50% );
-        width: 24px;
-    }
 }
 .navi__a--mobile-category {
     border-bottom: 1px solid $black;

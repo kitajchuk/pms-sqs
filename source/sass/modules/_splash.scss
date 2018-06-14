@@ -5,10 +5,20 @@
     overflow: hidden;
     position: relative;
     width: 100vw;
+
+    h1, .h1 {
+        @include respond( $break-tablet-medium ) {
+            @include h2();
+        }
+
+        @include respond( $break-mobile-medium ) {
+            @include p();
+        }
     }
+}
 .splash__footer {
     .footer__col {
-        @include respond( $break-mobile-full ) {
+        @include respond( $break-tablet-medium ) {
             text-align: center !important;
         }
     }

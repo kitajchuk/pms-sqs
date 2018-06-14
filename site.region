@@ -39,7 +39,17 @@
                             {@|apply svg-returner.block}
                         </a>
                     </nav>
-                    <squarespace:navigation navigationId="navi" template="navi" />
+                    <nav class="navi navi--ender -column">
+                        <a class="navi__a navi__a--ender js-navi-ender" href="#">
+                            {@|apply svg-ender.block}
+                        </a>
+                    </nav>
+                    <nav class="navi navi--main -column">
+                        <a class="navi__a navi__a--info js-navi-info p a" data-slug="info" href="#info">
+                            {@|apply svg-circle.block}
+                        </a>
+                    </nav>
+                    <!-- <squarespace:navigation navigationId="navi" template="navi" /> -->
                 </div>
             </header>
             <main class="main js-main -fzero" data-content-field="main-content" data-website-id="{website.id}" {.section collection}data-collection-id="{collection.id}" data-collection-title="{.if collection.homepage}{website.siteTitle}{.or}{collection.title} – {website.siteTitle}{.end}"{.end} {.section item}data-item-id="{item.id}" data-item-title="{item.title} – {collection.title} – {website.siteTitle}"{.end}>

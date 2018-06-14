@@ -4,7 +4,7 @@
     transition: opacity $base-duration $ease,
                 transform $base-duration $ease;
 
-    @include respond( $break-mobile-full ) {
+    @include respond( $mobile-breakpoint ) {
         padding-top: 0;
     }
 }
@@ -19,7 +19,7 @@
     color: $white;
     padding-top: $header-height;
 
-    @include respond( $break-mobile-full ) {
+    @include respond( $mobile-breakpoint ) {
         padding-top: $header-height-mobile;
     }
 }
@@ -44,15 +44,15 @@
     margin-left: 32px;
 }
 .footer__col {
-    @include respond( $break-mobile-full ) {
+    @include respond( $break-tablet-medium ) {
         text-align: left !important;
         width: 100%;
     }
 }
 
 .footer__col + .footer__col {
-    @include respond( $break-mobile-full ) {
-        margin-top: 5vw;
+    @include respond( $break-tablet-medium ) {
+        margin-top: $expander-1 / 2;
     }
 }
 
@@ -74,18 +74,16 @@
     }
 
     &.-wrap {
-        @include respond( $break-mobile-full ) {
+        @include respond( $mobile-breakpoint ) {
             padding-left: 0;
             padding-right: 0;
         }
     }
 }
 .feed__item {
-    &:first-child {
-        padding-top: 0;
-        }
+    padding-bottom: $expander-1;
 
-    @include respond( $break-mobile-full ) {
+    @include respond( $mobile-breakpoint ) {
         display: flex;
         flex-wrap: wrap;
     }
@@ -96,14 +94,14 @@
 .feed__info {
     padding-right: $padding-1 / 2;
 
-    @include respond( $break-mobile-full ) {
+    @include respond( $mobile-breakpoint ) {
         order: 2;
         padding: 30px $padding-1 0 $padding-1;
         width: 100%;
     }
 }
 .feed__media {
-    @include respond( $break-mobile-full ) {
+    @include respond( $mobile-breakpoint ) {
         order: 1;
         width: 100%;
     }

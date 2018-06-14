@@ -10,8 +10,12 @@
 /******************************************************************************
  * Fonts: Styles
 *******************************************************************************/
-@mixin font-family-sans() {
-    font-family: $font-family-sans;
+@mixin font-family-reg() {
+    font-family: $font-family-reg;
+    @include font-normal();
+}
+@mixin font-family-bold() {
+    font-family: $font-family-bold;
     @include font-normal();
 }
 
@@ -20,19 +24,77 @@
  * Type
 *******************************************************************************/
 @mixin p() {
-    font-size: $p-size;
+    font-size: $p-size-mobile;
     line-height: $p-line;
-    @include font-family-sans();
+    @include font-family-reg();
+
+    @include respond-min( $mobile-breakpoint ) {
+        font-size: $p-size-fluid;
+    }
+
+    @include respond-min( $desktop-breakpoint ) {
+        font-size: $p-size-max;
+    }
+}
+@mixin s() {
+    @include font-family-bold();
 }
 @mixin a() {
     display: inline;
     text-decoration: none;
-    @include font-family-sans();
+    @include font-family-reg();
 }
 @mixin h1() {
-    font-size: $h1-size;
+    font-size: $h1-size-mobile;
     line-height: $h1-line;
-    @include font-family-sans();
+    @include font-family-reg();
+
+    @include respond-min( $mobile-breakpoint ) {
+        font-size: $h1-size-fluid;
+    }
+
+    @include respond-min( $desktop-breakpoint ) {
+        font-size: $h1-size-max;
+    }
+}
+@mixin h2() {
+    font-size: $h2-size-mobile;
+    line-height: $h2-line;
+    @include font-family-reg();
+
+    @include respond-min( $mobile-breakpoint ) {
+        font-size: $h2-size-fluid;
+    }
+
+    @include respond-min( $desktop-breakpoint ) {
+        font-size: $h2-size-max;
+    }
+}
+@mixin h3() {
+    font-size: $h3-size-mobile;
+    line-height: $h3-line;
+    @include font-family-reg();
+
+    @include respond-min( $mobile-breakpoint ) {
+        font-size: $h3-size-fluid;
+    }
+
+    @include respond-min( $desktop-breakpoint ) {
+        font-size: $h3-size-max;
+    }
+}
+@mixin h4() {
+    font-size: $h4-size-mobile;
+    line-height: $h4-line;
+    @include font-family-reg();
+
+    @include respond-min( $mobile-breakpoint ) {
+        font-size: $h4-size-fluid;
+    }
+
+    @include respond-min( $desktop-breakpoint ) {
+        font-size: $h4-size-max;
+    }
 }
 
 

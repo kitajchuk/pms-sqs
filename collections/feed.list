@@ -1,6 +1,6 @@
 <section class="feed js-feed -wrap">
     {.repeated section items}
-        <article class="feed__item -exp">
+        <article class="feed__item">
             <div class="feed__info -column -column--2of4">
                 <div class="feed__title p">
                     <a href="{fullUrl}">
