@@ -1,6 +1,6 @@
-import * as core from "../core";
+import * as core from "../../core";
 import $ from "properjs-hobo";
-import Store from "../core/Store";
+import Store from "../../core/Store";
 
 
 // Singleton

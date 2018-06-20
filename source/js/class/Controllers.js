@@ -1,6 +1,6 @@
 import * as core from "../core";
-import ImageController from "./ImageController";
-import AnimateController from "./AnimateController";
+import ImageController from "./controllers/ImageController";
+import AnimateController from "./controllers/AnimateController";
 
 
 /**

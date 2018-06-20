@@ -5,11 +5,11 @@ require( "../sass/screen.scss" );
 // Load the JS
 import router from "./router";
 import * as core from "./core";
-import Analytics from "./class/Analytics";
-import header from "./header";
-import intro from "./intro";
-import info from "./info";
-import splash from "./splash";
+import Analytics from "./class/services/Analytics";
+import header from "./modules/header";
+import intro from "./modules/intro";
+import info from "./modules/info";
+import splash from "./modules/splash";
 
 
 /**

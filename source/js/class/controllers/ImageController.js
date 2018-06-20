@@ -1,5 +1,5 @@
-import * as util from "../core/util";
-import log from "../core/log";
+import * as util from "../../core/util";
+import log from "../../core/log";
 import Controller from "properjs-controller";
 
 

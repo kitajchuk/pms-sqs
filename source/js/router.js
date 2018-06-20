@@ -2,7 +2,7 @@ import $ from "properjs-hobo";
 import PageController from "properjs-pagecontroller";
 import Controllers from "./class/Controllers";
 import * as core from "./core";
-import header from "./header";
+import header from "./modules/header";
 import paramalama from "paramalama";
 
 

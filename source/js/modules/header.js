@@ -1,8 +1,8 @@
-import * as core from "./core";
+import * as core from "../core";
 import $ from "properjs-hobo";
 import paramalama from "paramalama";
 import info from "./info";
-import viewCats from "./views/cats";
+import viewCats from "../views/cats";
 
 
 /**
