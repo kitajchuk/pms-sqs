@@ -182,8 +182,6 @@ const router = {
 
 
     changeTheme ( /*data*/ ) {
-        console.log( "isDarkTheme", this.isDarkTheme );
-
         if ( this.isDarkTheme ) {
             this.isDarkTheme = false;
             core.dom.html.addClass( "is-dark-theme" );

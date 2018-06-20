@@ -94,12 +94,13 @@
     }
 }
 .feed__item {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     padding-bottom: $expander-1;
 
-    @include respond( $mobile-breakpoint ) {
-        display: flex;
-        flex-wrap: wrap;
-    }
+    @include respond( $mobile-breakpoint ) {}
 }
 .feed__meta {
     margin-top: 10px;
@@ -109,7 +110,7 @@
 
     @include respond( $mobile-breakpoint ) {
         order: 2;
-        padding: 30px $padding-1 0 $padding-1;
+        padding: 30px $padding-1 $padding-1;
         width: 100%;
     }
 }
