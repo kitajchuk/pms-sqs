@@ -1,8 +1,5 @@
 .main {
-    // overflow: hidden;
     padding-top: $header-height;
-    transition: opacity $base-duration $ease,
-                transform $base-duration $ease;
 
     @include respond( $mobile-breakpoint ) {
         padding-top: 0;

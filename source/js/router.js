@@ -1,9 +1,12 @@
 import $ from "properjs-hobo";
+import Controller from "properjs-controller";
 import PageController from "properjs-pagecontroller";
+import paramalama from "paramalama";
+import * as gsap from "gsap/all";
 import Controllers from "./class/Controllers";
 import * as core from "./core";
 import header from "./modules/header";
-import paramalama from "paramalama";
+
 
 
 /**
@@ -23,9 +26,12 @@ const router = {
      *
      */
     init () {
+        this.gsap = gsap;
+        this.blit = new Controller();
+        this.anim = null;
         this.isDarkTheme = core.dom.html.is( ".is-dark-theme" );
         this.pageClass = "";
-        this.pageDuration = core.util.getElementDuration( core.dom.main[ 0 ] );
+        this.animDuration = 400;
         this.controllers = new Controllers({
             el: core.dom.main,
             cb: () => {
@@ -48,8 +54,6 @@ const router = {
             const target = $( e.target );
             const link = target.is( ".js-links-navi" ) ? target : target.closest( ".js-links-navi" );
             const data = link.data();
-
-            console.log( "darkTheme", data.darkTheme );
 
             if ( data.darkTheme ) {
                 this.isDarkTheme = true;
@@ -86,7 +90,7 @@ const router = {
      */
     initPages () {
         this.controller = new PageController({
-            transitionTime: this.pageDuration,
+            transitionTime: this.animDuration,
             routerOptions: {
                 async: !core.env.isConfig()
             }
@@ -184,11 +188,54 @@ const router = {
     changeTheme ( /*data*/ ) {
         if ( this.isDarkTheme ) {
             this.isDarkTheme = false;
-            core.dom.html.addClass( "is-dark-theme" );
+            gsap.TweenLite.to( core.dom.html[ 0 ], (this.animDuration / 1000), {
+                css: {
+                    color: "#fff",
+                    backgroundColor: "#000"
+                },
+                ease: gsap.Power2.easeInOut,
+                onComplete: () => {
+                    core.dom.html.addClass( "is-dark-theme" );
+                }
+            });
 
         } else {
-            core.dom.html.removeClass( "is-dark-theme" );
+            gsap.TweenLite.to( core.dom.html[ 0 ], (this.animDuration / 1000), {
+                css: {
+                    color: "#000",
+                    backgroundColor: "#fff"
+                },
+                ease: gsap.Power2.easeInOut,
+                onComplete: () => {
+                    core.dom.html.removeClass( "is-dark-theme" );
+                }
+            });
         }
+    },
+
+
+    animPageOut () {
+        this.anim = gsap.TweenLite.to( core.dom.main[ 0 ], (this.animDuration / 1000), {
+            css: {
+                opacity: 0
+            },
+            ease: gsap.Power2.easeInOut
+        });
+    },
+
+
+    animPageIn () {
+        this.blit.go(() => {
+            if ( this.anim && !this.anim.isActive() ) {
+                this.blit.stop();
+                this.anim = gsap.TweenLite.to( core.dom.main[ 0 ], (this.animDuration / 1000), {
+                    css: {
+                        opacity: 1
+                    },
+                    ease: gsap.Power2.easeInOut
+                });
+            }
+        });
     },
 
 
@@ -205,7 +252,8 @@ const router = {
         this.changeClass( data );
         this.changeTheme( data );
         this.controllers.destroy();
-        core.dom.html.addClass( "is-page-out" );
+
+        this.animPageOut();
     },
 
 
@@ -221,9 +269,20 @@ const router = {
     changeContent ( data ) {
         const doc = this.parseDoc( data.response );
 
-        core.dom.main[ 0 ].innerHTML = doc.html;
+        this.blit.go(() => {
+            if ( this.anim && !this.anim.isActive() ) {
+                this.blit.stop();
+                this.anim = gsap.TweenLite.to( core.dom.main[ 0 ], (this.animDuration / 1000), {
+                    css: {
+                        opacity: 1
+                    },
+                    ease: gsap.Power2.easeInOut
+                });
+            }
+        });
 
-        core.emitter.fire( "app--analytics-pageview", doc );
+        // Swap out the document HTML
+        core.dom.main[ 0 ].innerHTML = doc.html;
 
         // Ensure topout prior to preload being done...
         this.topper();
@@ -231,9 +290,11 @@ const router = {
         // Execute `pre` controller actions
         this.controllers.exec();
 
-        // this.changeTheme( data );
-
+        // Update <header> UI
         header.update( this.view, paramalama( window.location.search ) );
+
+        // Fire analytics handlers
+        core.emitter.fire( "app--analytics-pageview", doc );
     },
 
 
@@ -248,12 +309,8 @@ const router = {
      */
     changePageIn ( /* data */ ) {
         this.execSquarespace();
-        core.dom.html.addClass( "is-page-in" );
 
-        setTimeout(() => {
-            core.dom.html.removeClass( "is-page-in is-page-out" );
-
-        }, this.pageDuration );
+        this.animPageIn();
     },
 
 

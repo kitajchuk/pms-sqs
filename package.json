@@ -19,7 +19,8 @@
     "url": "ssh://git@github.com:kitajchuk/boxen.git"
   },
   "dependencies": {
-    "@squarespace/core": "^1.1.0"
+    "@squarespace/core": "^1.1.0",
+    "gsap": "^2.0.1"
   },
   "devDependencies": {
     "@squarespace/toolbelt": "^0.8.4",

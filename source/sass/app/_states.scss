@@ -48,7 +48,6 @@
 .is-info-open {
     overflow: hidden;
 
-    .main,
     .navi--main,
     .navi--returner,
     .menu--categories {
@@ -92,18 +91,6 @@
         visibility: visible;
         z-index: $z_layer_screen;
         -webkit-overflow-scrolling: touch;
-    }
-}
-
-.is-page-out {
-    .main {
-        @include noop();
-    }
-}
-
-.is-page-in {
-    .main {
-        opacity: 1;
     }
 }
 
