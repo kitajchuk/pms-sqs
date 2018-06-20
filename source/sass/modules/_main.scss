@@ -33,7 +33,7 @@
 .footer {
     bottom: 0;
     left: 0;
-    padding-bottom: $padding-1;
+    padding-bottom: #{"~\"calc( #{$padding-1} / 2 )\""};
     position: absolute;
     width: 100%;
 
