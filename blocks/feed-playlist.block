@@ -13,4 +13,5 @@
         </div>
     </a>
     <menu class="playlist__tracks js-soundcloud-tracks"></menu>
+    <div class="playlist__more js-soundcloud-more p -grey">See full tracklist</div>
 </main>
