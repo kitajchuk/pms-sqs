@@ -1,0 +1,7 @@
+<header class="article__header">
+    <div class="article__title p">{item.title}</div>
+    <div class="article__meta p -grey">{item.categories.0}</div>
+</header>
+<main class="article__content">
+    {item.body}
+</main>

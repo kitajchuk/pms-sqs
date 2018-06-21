@@ -36,6 +36,11 @@
         font-size: $p-size-max;
     }
 }
+@mixin m() {
+    font-size: $m-size;
+    line-height: $m-line;
+    @include font-family-reg();
+}
 @mixin s() {
     @include font-family-bold();
 }

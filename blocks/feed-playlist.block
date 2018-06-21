@@ -1,0 +1,16 @@
+<aside class="playlist__cover -column">
+    {@|apply image.block}
+</aside>
+<main class="playlist__details -column js-soundcloud" data-url="{sourceUrl}">
+    <header class="playlist__header">
+        <div class="playlist__title p">{title}</div>
+        <div class="playlist__meta p -grey">{categories.0}</div>
+    </header>
+    <a class="playlist__linkto" href="{sourceUrl}" target="_blank">
+        {@|apply svg-play.block}
+        <div class="p">
+            {.if customContent.quickText}{customContent.quickText}{.or}Play on SoundCloud{.end}
+        </div>
+    </a>
+    <menu class="playlist__tracks js-soundcloud-tracks"></menu>
+</main>

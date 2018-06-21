@@ -1,11 +1,9 @@
 {.section item}
-    <article class="article js-article -wrap">
-        <header class="article__header">
-            <div class="article__title p">{item.title}</div>
-            <div class="article__meta p -grey">{item.categories.0}</div>
-        </header>
-        <main class="article__content">
-            {item.body}
-        </main>
+    <article class='{.equal? categories.0 "Playlists"}playlist js-playlist{.or}article js-article{.end} -wrap'>
+        {.equal? categories.0 "Playlists"}
+            {@|apply feed-playlist.block}
+        {.or}
+            {@|apply feed-detail.block}
+        {.end}
     </article>
 {.end}
