@@ -1,7 +1,7 @@
 import * as core from "../core";
 import ImageController from "./controllers/ImageController";
 import AnimateController from "./controllers/AnimateController";
-import SoundCloudController from "./controllers/SoundCloudController";
+import PlaylistController from "./controllers/PlaylistController";
 
 
 /**
@@ -56,7 +56,7 @@ class Controllers {
         this.controllers = [];
 
         this.push( "animate", core.dom.body.find( core.config.lazyAnimSelector ), AnimateController, true );
-        this.push( "soundcloud", core.dom.body.find( ".js-soundcloud" ), SoundCloudController, true );
+        this.push( "playlist", core.dom.body.find( ".js-playlist" ), PlaylistController, true );
 
         this.images = this.element.find( core.config.lazyImageSelector );
         this.imageController = new ImageController( this.images );

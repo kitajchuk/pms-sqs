@@ -92,10 +92,12 @@
     }
 }
 .playlist__tracks__track {
+    opacity: 0;
     overflow: hidden;
     padding: 10px 0;
     white-space: nowrap;
     text-overflow: ellipsis;
+    transform: translate3d( 0, 0, 0 );
 }
 .playlist__tracks__track {
     align-items: center;
@@ -107,7 +109,9 @@
 }
 .playlist__more {
     cursor: pointer;
+    opacity: 0;
     padding-top: $padding-1 / 2;
+    transform: translate3d( 0, 0, 0 );
 }
 
 
