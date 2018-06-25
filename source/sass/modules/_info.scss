@@ -1,0 +1,15 @@
+.info {
+    color: $white;
+    padding-top: $header-height;
+
+    @include respond( $mobile-breakpoint ) {
+        padding-top: $header-height-mobile;
+    }
+
+    .footer {
+        @include respond( $mobile-breakpoint ) {
+            padding-top: $expander-1;
+            position: relative;
+        }
+    }
+}

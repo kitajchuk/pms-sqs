@@ -1,0 +1,35 @@
+.footer {
+    bottom: 0;
+    left: 0;
+    padding-bottom: $padding-1 / 2;
+    position: absolute;
+    width: 100%;
+
+    .a {
+        color: $white;
+    }
+
+    .p {
+        @include respond( $mobile-breakpoint ) {
+            font-size: $h4-size-mobile;
+        }
+    }
+}
+.footer__social {
+    text-transform: capitalize;
+    }
+.footer__social + .footer__social {
+    margin-left: 32px;
+}
+.footer__col {
+    @include respond( $break-tablet-medium ) {
+        text-align: left !important;
+        width: 100%;
+    }
+}
+
+.footer__col + .footer__col {
+    @include respond( $break-tablet-medium ) {
+        margin-top: $expander-1 / 2;
+    }
+}
