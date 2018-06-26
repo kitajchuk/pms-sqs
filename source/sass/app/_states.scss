@@ -3,20 +3,12 @@
 *******************************************************************************/
 .is-hoverable {
     p a:hover,
-    .a--grey:hover {
-        color: $black;
+    .a--lit:hover {
+        color: black;
     }
-    .splash {
-        .a:hover {
-            color: $white;
-            border-bottom-color: $white;
-        }
-    }
-    .footer {
-        .a:hover {
-            color: $white;
-            border-bottom-color: $white;
-        }
+    .a--dim:hover,
+    .splash .sqs-block-html a:hover {
+        color: $medium;
     }
     .menu__a:hover {
         @include respond( $mobile-breakpoint ) {

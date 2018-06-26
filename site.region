@@ -49,7 +49,6 @@
                             {@|apply svg-circle.block}
                         </a>
                     </nav>
-                    <!-- <squarespace:navigation navigationId="navi" template="navi" /> -->
                 </div>
             </header>
             <main class="main js-main -fzero" data-content-field="main-content" data-website-id="{website.id}" {.section collection}data-collection-id="{collection.id}" data-collection-title="{.if collection.homepage}{website.siteTitle}{.or}{collection.title} – {website.siteTitle}{.end}"{.end} {.section item}data-item-id="{item.id}" data-item-title="{item.title} – {collection.title} – {website.siteTitle}"{.end}>
@@ -63,11 +62,11 @@
                 <div class="info__content cms -wrap js-info-content"></div>
                 <footer class="footer -wrap -fzero">
                     <div class="footer__col -column -column--2of4 -text--left">
-                        <a href="mailto:{websiteSettings.contactEmail}" class="p a" target="_blank">{websiteSettings.contactEmail}</a>
+                        <a href="mailto:{websiteSettings.contactEmail}" class="p a a--dim" target="_blank">{websiteSettings.contactEmail}</a>
                     </div>
                     <div class="footer__col -column -column--2of4 -text--right">
                         {.repeated section website.socialAccounts}
-                            <a href="{profileUrl}" class="footer__social p a -column" target="_blank">{serviceName}</a>
+                            <a href="{profileUrl}" class="footer__social p a a--dim -column" target="_blank">{serviceName}</a>
                         {.end}
                     </div>
                 </footer>

@@ -28,14 +28,16 @@ strong, .s {
     border-bottom: 1px solid transparent;
     transition: color $fast-duration $ease,
                 border-bottom-color $fast-duration $ease;
-
+}
+.a--lit {
     &.is-active {
         color: $black;
         border-bottom-color: transparent;
     }
 }
-.a--grey {
-    color: $grey;
+.a--dim {}
+.a--blk {
+    display: inline-block;
 }
 
 
