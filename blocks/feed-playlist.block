@@ -12,6 +12,8 @@
             {.if customContent.quickText}{customContent.quickText}{.or}Play on SoundCloud{.end}
         </div>
     </a>
-    <menu class="playlist__tracks js-playlist-tracks"></menu>
-    <div class="playlist__more js-playlist-more p -grey">See full tracklist</div>
+    <menu class="playlist__tracks js-playlist-tracks">
+        {@|apply loading.block}
+    </menu>
+    <div class="playlist__more js-playlist-more p a a--dim a--blk -grey">See full tracklist</div>
 </main>

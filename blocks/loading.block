@@ -1,0 +1,8 @@
+<div class="loading">
+    <div class="loading__dots">
+        <div class="loading__dot"></div>
+        <div class="loading__dot"></div>
+        <div class="loading__dot"></div>
+        <div class="loading__dot"></div>
+    </div>
+</div>

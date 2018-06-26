@@ -18,6 +18,8 @@ class PlaylistController {
         this.linkto = this.element.find( ".js-playlist-linkto" );
         this.tracks = this.element.find( ".js-playlist-tracks" );
         this.button = this.element.find( ".js-playlist-more" );
+        this.duration = 200;
+        this.delay = 20;
 
         this.load();
         this.bind();
@@ -26,9 +28,18 @@ class PlaylistController {
 
     bind () {
         this.button.on( "click", () => {
-            this.button.remove();
+            if ( this.button.is( ".is-clicked" ) ) {
+                this.button.removeClass( "is-clicked" );
+                this.button[ 0 ].innerHTML = "See full tracklist";
 
-            this.add( this.remainder, 6 );
+                this.remove( 6, this.json.tracks.length );
+
+            } else {
+                this.button.addClass( "is-clicked" );
+                this.button[ 0 ].innerHTML = "Close tracklist";
+
+                this.add( this.remainder, 6 );
+            }
         });
     }
 
@@ -49,9 +60,11 @@ class PlaylistController {
             this.initial = this.json.tracks.slice( 0, 6 );
             this.remainder = this.json.tracks.slice( 6, this.json.tracks.length );
 
-            this.add( this.initial, 0 );
+            setTimeout(() => {
+                this.tracks[ 0 ].innerHTML = "";
+                this.add( this.initial, 0 );
 
-            console.log( this );
+            }, 1000 );
 
         }).catch(( error ) => {
             core.log( error );
@@ -68,23 +81,53 @@ class PlaylistController {
 
         anim.staggerTo(
             elem,
-            (200 / 1000),
+            (this.duration / 1000),
             {
                 css: {
+                    y: 0,
                     opacity: 1
                 },
                 ease: gsap.Power2.easeInOut,
                 onComplete: () => {
-                    gsap.TweenLite.to( this.button[ 0 ], (200 / 1000), {
+                    gsap.TweenLite.to( this.button[ 0 ], (this.duration / 1000), {
                         css: {
                             opacity: 1
                         },
-                        ease: gsap.Power2.easeOut
+                        ease: gsap.Power2.easeInOut
                     });
                 }
             },
-            (50 / 1000)
+            (this.delay / 1000)
         );
+    }
+
+
+    remove ( offset, bounds ) {
+        const tracks = $( this.tracks.find( ".js-playlist-track" ).splice( offset, bounds ).reverse() );
+        const anim = new gsap.TimelineLite();
+        let blit = 0;
+
+        anim.staggerTo(
+            tracks,
+            (this.duration / 1000),
+            {
+                css: {
+                    y: -tracks[ 0 ].getBoundingClientRect().height,
+                    opacity: 0
+                },
+                ease: gsap.Power2.easeInOut,
+                onComplete: () => {
+                    tracks.eq( blit ).remove();
+                    blit++;
+                }
+            },
+            (this.delay / 1000)
+        );
+
+        gsap.TweenLite.to( window, (this.duration / 1000), {
+            scrollTo: 0,
+            ease: gsap.Power2.easeInOut
+        });
     }
 
 

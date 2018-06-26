@@ -28,20 +28,24 @@
         margin-left: 20px;
     }
 }
+.playlist__tracks {
+    min-height: 222px;
+    position: relative;
+}
 .playlist__tracks__track {
+    align-items: center;
+    display: flex;
     opacity: 0;
     overflow: hidden;
     padding: 10px 0;
     white-space: nowrap;
     text-overflow: ellipsis;
-    transform: translate3d( 0, 0, 0 );
-}
-.playlist__tracks__track {
-    align-items: center;
-    display: flex;
+    transform: translate3d( 0, -100%, 0 );
 }
 .playlist__tracks__number {
     padding-right: 50px;
+    transition: color $fast-duration $ease,
+                border-bottom-color $fast-duration $ease;
     width: 22px;
 }
 .playlist__more {
