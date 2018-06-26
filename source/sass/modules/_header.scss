@@ -11,9 +11,13 @@
     transition: opacity $base-duration $ease,
                 transform $base-duration $ease;
 
-    @include respond( $mobile-breakpoint ) {
+    @include respond( $header-break-mobile ) {
         height: $header-height-mobile;
         position: relative;
+    }
+
+    @include respond-min( $header-break-static ) {
+        height: $header-height-static;
     }
 
     &.is-animated {}

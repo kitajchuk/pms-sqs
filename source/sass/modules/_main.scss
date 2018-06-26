@@ -1,8 +1,12 @@
 .main {
     padding-top: $header-height;
 
-    @include respond( $mobile-breakpoint ) {
+    @include respond( $header-break-mobile ) {
         padding-top: 0;
+    }
+
+    @include respond-min( $header-break-static ) {
+        padding-top: $header-height-static;
     }
 }
 

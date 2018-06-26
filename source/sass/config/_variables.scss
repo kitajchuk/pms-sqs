@@ -37,7 +37,8 @@ $anim-1: 64px;
 /******************************************************************************
  * Sizes
 *******************************************************************************/
-$header-height: 246px;
+$header-height: 16vw;
+$header-height-static: 256px;
 $header-height-mobile: 128px;
 
 
@@ -92,6 +93,8 @@ $break-mobile-small: 320px;
 // App usage
 $mobile-breakpoint: $break-mobile-full;
 $desktop-breakpoint: $break-desktop-full;
+$header-break-mobile: 800px;
+$header-break-static: 1600px;
 
 
 
