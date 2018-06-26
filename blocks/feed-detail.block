@@ -1,4 +1,4 @@
-<header class="article__header">
+<header class="article__header -wrap">
     <div class="article__title p">{item.title}</div>
     <div class="article__meta p -grey">{item.categories.0}</div>
 </header>

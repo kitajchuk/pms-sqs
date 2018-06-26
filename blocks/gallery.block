@@ -1,0 +1,33 @@
+{.equal? options.design "grid"}
+    {.var @length items|count}
+
+    {.equal? @length 2}
+        <div class="diptych -wrap">
+            {.repeated section items}
+                <div class="diptych__item">
+                    <div class="media js-media">
+                        <img class="media__node js-media-node image js-lazy-image" data-img-src="{assetUrl}" data-variants="{systemDataVariants}" data-original-size="{originalSize}" />
+                        {.if body}
+                            <div class="media__cap m -grey">{body|safe}</div>
+                        {.end}
+                    </div>
+                </div>
+            {.end}
+        </div>
+    {.or}
+        <div class="grid -wrap">
+            {.repeated section items}
+                <div class="grid__item">
+                    <div class="media js-media">
+                        <img class="media__node js-media-node image js-lazy-image" data-img-src="{assetUrl}" data-variants="{systemDataVariants}" data-original-size="{originalSize}" />
+                        {.if body}
+                            <div class="media__cap m -grey">{body|safe}</div>
+                        {.end}
+                    </div>
+                </div>
+            {.end}
+        </div>
+    {.end}
+
+    <script>console.log( "Gallery length: {@length}", {@|json-pretty} );</script>
+{.end}

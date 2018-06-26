@@ -129,6 +129,10 @@
     pointer-events: none;
     visibility: hidden;
 }
+@mixin wrap() {
+    padding-left: $padding-1;
+    padding-right: $padding-1;
+}
 
 
 

@@ -44,3 +44,16 @@
         height: $expander-1 !important;
     }
 }
+.sqs-block-html {
+    .sqs-block-content {
+        .main & {
+            @include wrap();
+        }
+
+        a {
+            border-bottom: 1px solid transparent;
+            transition: color $fast-duration $ease,
+                        border-bottom-color $fast-duration $ease;
+        }
+    }
+}
