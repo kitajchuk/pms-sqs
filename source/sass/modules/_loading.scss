@@ -1,7 +1,7 @@
 .loading {
     transition: opacity $base-duration $ease,
                 visibility $base-duration $ease;
-    width: 45px;
+    width: $button-play-size;
     z-index: 1;
 
     .is-loaded & {

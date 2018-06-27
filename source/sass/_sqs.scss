@@ -57,3 +57,8 @@
         }
     }
 }
+.sqs-block-video {
+    .sqs-block-content {
+        @include wrap();
+    }
+}

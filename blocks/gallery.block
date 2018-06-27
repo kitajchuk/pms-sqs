@@ -28,6 +28,4 @@
             {.end}
         </div>
     {.end}
-
-    <script>console.log( "Gallery length: {@length}", {@|json-pretty} );</script>
 {.end}

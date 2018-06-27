@@ -2,6 +2,7 @@ import * as core from "../core";
 import ImageController from "./controllers/ImageController";
 import AnimateController from "./controllers/AnimateController";
 import PlaylistController from "./controllers/PlaylistController";
+import VideoController from "./controllers/VideoController";
 
 
 /**
@@ -57,6 +58,7 @@ class Controllers {
 
         this.push( "animate", core.dom.body.find( core.config.lazyAnimSelector ), AnimateController, true );
         this.push( "playlist", core.dom.body.find( ".js-playlist" ), PlaylistController, true );
+        this.push( "video", core.dom.body.find( ".sqs-block-video" ), VideoController, true );
 
         this.images = this.element.find( core.config.lazyImageSelector );
         this.imageController = new ImageController( this.images );

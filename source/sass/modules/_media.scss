@@ -169,3 +169,50 @@
         width: 100%;
     }
 }
+
+
+
+.embed {
+    overflow: hidden;
+    position: relative;
+    }
+.embed__aspect {
+    background-color: $black;
+    position: relative;
+    width: 100%;
+    }
+.embed__poster,
+.embed__element {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    }
+.embed__poster {
+    transition: opacity $base-duration $ease;
+
+    @include state( "embed", "playing" ) {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+.embed__playbtn {
+    cursor: pointer;
+    height: $button-play-size;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate3d( -50%, -50%, 0 );
+    transition: opacity $base-duration $ease;
+    width: $button-play-size;
+
+    @include state( "embed", "playing" ) {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    ._svg--play {
+        fill: $white;
+    }
+}

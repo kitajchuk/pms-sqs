@@ -1,30 +1,4 @@
-import $ from "properjs-hobo";
-// import * as core from "../core";
-import VideoFS from "./VideoFS";
-import embedVideoView from "../views/embed-video";
-
-
-
-/**
- *
- * @public
- * @global
- * @class Video
- * @classdesc Handle video logics.
- *
- */
-class Video {
-    constructor ( element ) {
-        this.element = element;
-        this.data = this.element.data();
-        this.embed = $( embedVideoView( this.data ) );
-        this.element.append( this.embed );
-        this.videoFS = new VideoFS( this.element, this.embed, this.data );
-    }
-
-
-    destroy () {}
-}
+import Video from "../components/Video";
 
 
 

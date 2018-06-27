@@ -3,6 +3,7 @@ require( "../sass/screen.scss" );
 
 
 // Load the JS
+// import $ from "properjs-hobo";
 import router from "./router";
 import * as core from "./core";
 import Analytics from "./class/services/Analytics";
