@@ -1,6 +1,6 @@
 <header class="article__header -wrap">
     <div class="article__title p">{item.title}</div>
-    <div class="article__meta p -grey">{item.categories.0}</div>
+    <a class="article__meta p a a--lit -grey" href="{collection.fullUrl}?category={item.categories.0}">{item.categories.0}</a>
 </header>
 <main class="article__content">
     {item.body}
