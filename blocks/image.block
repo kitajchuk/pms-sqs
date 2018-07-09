@@ -14,11 +14,11 @@
     {.var @overlap info.designLayout}
     {.var @imagePos info.imagePosition}
 {.or}
-    {.var @caption ""}
-    {.var @card ""}
-    {.var @overlap ""}
-    {.var @imagePos ""}
-    {.var @wrap ""}
+    {.var @caption false}
+    {.var @card false}
+    {.var @overlap false}
+    {.var @imagePos false}
+    {.var @wrap false}
 {.end}
 
 {.equal? @card "card"}

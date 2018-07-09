@@ -20,6 +20,11 @@
             border-bottom-color: $white;
         }
     }
+    .feed__media:hover {
+        .feed__quickview {
+            opacity: 1;
+        }
+    }
 }
 
 .is-touchable {
