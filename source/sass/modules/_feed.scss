@@ -66,14 +66,17 @@
     width: 100%;
 }
 .feed__quickview__wrap {
-    align-items: center;
     bottom: 0;
-    display: flex;
-    justify-content: flex-start;
     left: 0;
     padding: 0 0 $button-play-size $button-play-size;
     position: absolute;
     width: 100%;
+}
+.feed__quickview__hit {
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
+    pointer-events: auto;
 }
 .feed__quickview__icon {
     ._svg--play {

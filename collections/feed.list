@@ -22,18 +22,20 @@
                     </a>
                     <div class="feed__quickview">
                         <div class="feed__quickview__wrap">
-                            <div class="feed__quickview__icon">{@|apply svg-play.block}</div>
-                            <div class="feed__quickview__text p -light">
-                                {.if customContent.quickText}
-                                    {customContent.quickText}
-                                {.or}
-                                    {.equal? categories.0 "Playlists"}
-                                        Listen on SoundCloud
+                            <a class="feed__quickview__hit" {.equal? categories.0 "Playlists"}href="{sourceUrl}" target="_blank"{.or}href="#"{.end}>
+                                <div class="feed__quickview__icon">{@|apply svg-play.block}</div>
+                                <div class="feed__quickview__text p -light">
+                                    {.if customContent.quickText}
+                                        {customContent.quickText}
                                     {.or}
-                                        Quick view
+                                        {.equal? categories.0 "Playlists"}
+                                            Listen on SoundCloud
+                                        {.or}
+                                            Quick view
+                                        {.end}
                                     {.end}
-                                {.end}
-                            </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
