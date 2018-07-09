@@ -3,6 +3,7 @@ import ImageController from "./controllers/ImageController";
 import AnimateController from "./controllers/AnimateController";
 import PlaylistController from "./controllers/PlaylistController";
 import VideoController from "./controllers/VideoController";
+import RelatedController from "./controllers/RelatedController";
 
 
 /**
@@ -59,6 +60,7 @@ class Controllers {
         this.push( "animate", core.dom.body.find( core.config.lazyAnimSelector ), AnimateController, true );
         this.push( "playlist", core.dom.body.find( ".js-playlist" ), PlaylistController, true );
         this.push( "video", core.dom.body.find( ".sqs-block-video" ), VideoController, true );
+        this.push( "related", core.dom.body.find( ".js-related" ), RelatedController, true );
 
         this.images = this.element.find( core.config.lazyImageSelector );
         this.imageController = new ImageController( this.images );

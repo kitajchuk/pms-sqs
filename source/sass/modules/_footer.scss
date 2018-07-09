@@ -33,3 +33,19 @@
         margin-top: $expander-1 / 2;
     }
 }
+
+
+
+.related {}
+.related__label {
+    border-bottom: 1px solid $grey-lit;
+    margin-bottom: $padding-1 / 2;
+    padding-bottom: $padding-1 / 2;
+
+    .is-dark-theme & {
+        border-bottom-color: $charcoal;
+    }
+}
+.related__item {
+    padding-bottom: $padding-1;
+}

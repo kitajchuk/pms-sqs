@@ -6,4 +6,5 @@
             {@|apply feed-detail.block}
         {.end}
     </article>
+    <footer class="related js-related" data-collection="{collection|json|htmlattr}" data-item="{@|json|htmlattr}" data-category="{categories.0}"></footer>
 {.end}
