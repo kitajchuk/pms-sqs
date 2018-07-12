@@ -4,6 +4,9 @@
 .-wrap {
     @include wrap();
     }
+.-wrap2 {
+    @include wrap2();
+    }
 .-vtop {
     vertical-align: top;
     }

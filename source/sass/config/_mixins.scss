@@ -133,6 +133,10 @@
     padding-left: $padding-1;
     padding-right: $padding-1;
 }
+@mixin wrap2() {
+    padding-left: $padding-2;
+    padding-right: $padding-2;
+}
 
 
 

@@ -1,6 +1,13 @@
 .media {
     position: relative;
 }
+.media__node {
+    max-width: 100%;
+    width: 100%;
+}
+.media__cap {
+    padding-top: 20px;
+}
 .media--card {
     align-items: center;
     display: flex;
@@ -80,8 +87,10 @@
 
     .media__node {
         display: inline-block;
+        opacity: 1;
         position: relative;
         transform: translateX( -50% );
+        transition: opacity $base-duration $ease;
         z-index: 2;
 
         @include respond( $mobile-breakpoint ) {
@@ -107,12 +116,6 @@
             transform: none;
         }
     }
-}
-.media__node {
-    max-width: 100%;
-}
-.media__cap {
-    padding-top: 20px;
 }
 
 
@@ -163,10 +166,6 @@
 .grid__item {
     padding: 0 $padding-1 / 2;
     width: 33.333333%;
-
-    .media__node {
-        width: 100%;
-    }
 
     @include respond( $mobile-breakpoint ) {
         padding: 0 0 $padding-1 0;
