@@ -1,5 +1,6 @@
 export default ( collection, category, items ) => {
     const isPlaylist = (category === "Playlists");
+
     return `
         <div class="related__label p -text--center -wrap">More in ${category}</div>
         <div class="grid -wrap">
