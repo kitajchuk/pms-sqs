@@ -25,6 +25,11 @@
             opacity: 1;
         }
     }
+    .grid__image:hover {
+        .grid__image__hover {
+            opacity: 1;
+        }
+    }
 }
 
 .is-touchable {

@@ -10,6 +10,7 @@ export default ( collection, category, items ) => {
                         <div class="media js-media">
                             <a class="grid__image" href="${item.fullUrl}">
                                 <img class="media__node js-media-node image js-lazy-image" data-img-src="${item.assetUrl}" data-variants="${item.systemDataVariants}" data-original-size="${item.originalSize}" />
+                                <div class="grid__image__hover"></div>
                             </a>
                             <a class="grid__title p" href="${item.fullUrl}">${item.title}</a>
                             <a class="grid__meta p a ${isPlaylist ? `a--dim` : `a--lit`} -grey" href="${collection.fullUrl}?category=${item.categories[ 0 ]}">${item.categories[ 0 ]}</a>
