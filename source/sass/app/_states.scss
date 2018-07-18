@@ -33,6 +33,11 @@
     .media--overlap .media__node:hover {
         opacity: 0;
     }
+    .navi__a--info:hover {
+        .navi__label--info {
+            @include poon();
+        }
+    }
 }
 
 .is-touchable {
@@ -53,14 +58,9 @@
 .is-info-open {
     overflow: hidden;
 
-    .navi--main,
     .navi--returner,
     .menu--categories {
         @include noop();
-    }
-
-    .navi--ender {
-        @include poon();
     }
 
     .navi {
@@ -71,7 +71,7 @@
         @include hide();
     }
     .navi__a--info {
-        &:after {
+        ._svg--circle {
             background-color: $white;
         }
     }
@@ -82,6 +82,16 @@
 
     .info {
         pointer-events: auto;
+    }
+}
+.is-hoverable.is-info-open {
+    .navi__a--info:hover {
+        .navi__label--info {
+            @include noop();
+        }
+        .navi__label--close {
+            @include poon();
+        }
     }
 }
 

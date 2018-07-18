@@ -39,13 +39,10 @@
                             {@|apply svg-returner.block}
                         </a>
                     </nav>
-                    <nav class="navi navi--ender -column">
-                        <a class="navi__a navi__a--ender js-navi-ender" href="#">
-                            {@|apply svg-ender.block}
-                        </a>
-                    </nav>
                     <nav class="navi navi--main -column">
-                        <a class="navi__a navi__a--info js-navi-info p a" data-slug="info" href="#info">
+                        <a class="navi__a navi__a--info js-navi-info" data-slug="info" href="#info">
+                            <span class="navi__label navi__label--info p a">Info</span>
+                            <span class="navi__label navi__label--close p a">Close</span>
                             {@|apply svg-circle.block}
                         </a>
                     </nav>

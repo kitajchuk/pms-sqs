@@ -1,6 +1,5 @@
 .navi {}
-.navi--main,
-.navi--ender {
+.navi--main {
     position: absolute;
     right: 0;
     top: 50%;
@@ -21,13 +20,19 @@
         @include poon();
     }
 }
-.navi--ender {
-    @include noop();
-}
 .navi__a--info {
     display: block;
 }
 .navi__a--mobile-category {
     border-bottom: 1px solid $black;
     text-transform: capitalize;
+}
+.navi__label {
+    @include noop();
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translate3d( -20px, -50%, 0 );
+    transition: opacity $base-duration $ease $base-duration,
+                transform $base-duration $ease;
 }
