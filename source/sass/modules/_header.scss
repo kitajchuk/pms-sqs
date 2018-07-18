@@ -8,8 +8,10 @@
     top: 0;
     width: 100%;
     z-index: $z_layer_header;
-    transition: opacity $base-duration $ease,
-                transform $base-duration $ease;
+    transition: height $base-duration $ease,
+                opacity $base-duration $ease,
+                transform $base-duration $ease,
+                background-color $base-duration $ease;
 
     @include respond( $header-break-mobile ) {
         height: $header-height-mobile;
@@ -20,11 +22,32 @@
         height: $header-height-static;
     }
 
-    &.is-animated {}
-    &.is-animated-out {
-        opacity: 0;
-        transform: translate3d( 0, 0, 0 );
+    .is-header-small & {
+        height: $header-height-small;
     }
+
+    .is-header-small.is-scroll-up {
+        background-color: rgba( 255, 255, 255, 0.95 );
+    }
+
+    .is-header-small.is-dark-theme.is-scroll-up & {
+        background-color: rgba( 0, 0, 0, 0.80 );
+    }
+
+    .is-header-small.is-scroll-down & {
+        opacity: 0;
+        transform: translate3d( 0, -100%, 0 );
+    }
+
+    .is-header-small.is-info-open & {
+        background-color: transparent;
+    }
+
+    // &.is-animated {}
+    // &.is-animated-out {
+    //     opacity: 0;
+    //     transform: translate3d( 0, 0, 0 );
+    // }
 }
 .header__wrap {
     align-items: center;

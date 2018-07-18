@@ -3,6 +3,8 @@ import $ from "properjs-hobo";
 import paramalama from "paramalama";
 import info from "./info";
 import viewCats from "../views/cats";
+import ScrollController from "properjs-scrollcontroller";
+import ResizeController from "properjs-resizecontroller";
 
 
 /**
@@ -15,6 +17,8 @@ import viewCats from "../views/cats";
 const header = {
     init () {
         this.element = core.dom.body.find( ".js-header" );
+        this.bounds = this.element[ 0 ].getBoundingClientRect();
+        this.static = 90;
 
         if ( this.element.length ) {
             this.info = this.element.find( ".js-navi-info" );
@@ -27,11 +31,14 @@ const header = {
             this.mobileCategory = this.element.find( ".js-navi-mobile-category" );
             this.defaultCategory = "everything";
             this._isNaviOpen = false;
+            this.scroller = new ScrollController();
+            this.resizer = new ResizeController();
 
             this.load().then(( json ) => {
                 this.json = json;
                 this.done();
                 this.bind();
+                this.watch();
             });
         }
     },
@@ -98,6 +105,32 @@ const header = {
             if ( this._isNaviOpen ) {
                 this.closeNavi();
             }
+        });
+    },
+
+
+    watch () {
+        this.scroller.on( "scroll", () => {
+            const scrollPos = this.scroller.getScrollY();
+
+            if ( scrollPos >= this.bounds.height ) {
+                core.dom.html.addClass( "is-header-small" );
+
+            } else {
+                core.dom.html.removeClass( "is-header-small" );
+            }
+        });
+
+        this.scroller.on( "scrolldown", () => {
+            core.dom.html.addClass( "is-scroll-down" ).removeClass( "is-scroll-up" );
+        });
+
+        this.scroller.on( "scrollup", () => {
+            core.dom.html.addClass( "is-scroll-up" ).removeClass( "is-scroll-down" );
+        });
+
+        this.resizer.on( "resize", () => {
+            this.bounds = this.element[ 0 ].getBoundingClientRect();
         });
     },
 
