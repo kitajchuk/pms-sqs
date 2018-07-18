@@ -116,7 +116,7 @@ const header = {
             if ( scrollPos >= this.bounds.height ) {
                 core.dom.html.addClass( "is-header-small" );
 
-            } else {
+            } else if ( scrollPos <= 0 ) {
                 core.dom.html.removeClass( "is-header-small" );
             }
         });
