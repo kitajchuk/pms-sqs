@@ -27,12 +27,3 @@
     border-bottom: 1px solid $black;
     text-transform: capitalize;
 }
-.navi__label {
-    @include noop();
-    position: absolute;
-    right: 100%;
-    top: 50%;
-    transform: translate3d( -20px, -50%, 0 );
-    transition: opacity $base-duration $ease $base-duration,
-                transform $base-duration $ease;
-}

@@ -2,7 +2,7 @@
     padding-top: $header-height;
 
     @include respond( $header-break-mobile ) {
-        padding-top: 0;
+        padding-top:  $header-height-mobile;
     }
 
     @include respond-min( $header-break-static ) {

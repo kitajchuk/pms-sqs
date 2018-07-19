@@ -221,22 +221,32 @@
 }
 .embed__playbtn {
     cursor: pointer;
-    height: $button-play-size;
+    height: $button-play-size-big;
     left: 50%;
     position: absolute;
     top: 50%;
     transform: translate3d( -50%, -50%, 0 );
     transition: opacity $base-duration $ease;
-    width: $button-play-size;
+    width: $button-play-size-big;
 
     @include state( "embed", "playing" ) {
         opacity: 0;
         pointer-events: none;
     }
 
+    @include respond( $mobile-breakpoint ) {
+        height: $button-play-size;
+        width: $button-play-size;
+    }
+
     ._svg--play {
         fill: $white;
-        height: 82px;
-        width: 82px;
+        height: $button-play-size-big;
+        width: $button-play-size-big;
+
+        @include respond( $mobile-breakpoint ) {
+            height: $button-play-size;
+            width: $button-play-size;
+        }
     }
 }

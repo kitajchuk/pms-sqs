@@ -291,7 +291,7 @@ const router = {
         this.controllers.exec();
 
         // Update <header> UI
-        header.update( this.view, paramalama( window.location.search ) );
+        header.updateCategory( this.view, paramalama( window.location.search ) );
 
         // Fire analytics handlers
         core.emitter.fire( "app--analytics-pageview", doc );

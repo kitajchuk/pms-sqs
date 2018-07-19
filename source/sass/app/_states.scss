@@ -33,11 +33,6 @@
     .media--overlap .media__node:hover {
         opacity: 0;
     }
-    .navi__a--info:hover {
-        .navi__label--info {
-            @include poon();
-        }
-    }
 }
 
 .is-touchable {
@@ -63,7 +58,8 @@
         @include noop();
     }
 
-    .navi {
+    .navi,
+    .header-labels {
         color: $white;
     }
     .navi--mobile,
@@ -82,16 +78,6 @@
 
     .info {
         pointer-events: auto;
-    }
-}
-.is-hoverable.is-info-open {
-    .navi__a--info:hover {
-        .navi__label--info {
-            @include noop();
-        }
-        .navi__label--close {
-            @include poon();
-        }
     }
 }
 

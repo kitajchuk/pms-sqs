@@ -15,7 +15,6 @@
 
     @include respond( $header-break-mobile ) {
         height: $header-height-mobile;
-        position: relative;
     }
 
     @include respond-min( $header-break-static ) {
@@ -42,12 +41,6 @@
     .is-header-small.is-info-open & {
         background-color: transparent;
     }
-
-    // &.is-animated {}
-    // &.is-animated-out {
-    //     opacity: 0;
-    //     transform: translate3d( 0, 0, 0 );
-    // }
 }
 .header__wrap {
     align-items: center;
@@ -56,6 +49,27 @@
     position: relative;
     pointer-events: auto;
     width: 100%;
+}
+
+
+
+.header-labels {
+    left: 0;
+    position: fixed;
+    pointer-events: none;
+    top: 0;
+    z-index: $z_layer_header;
+}
+.header-labels__label {
+    left: 0;
+    position: fixed;
+    top: 0;
+}
+.header-labels__label__text {
+    @include noop();
+    cursor: default;
+
+    &.is-hover {}
 }
 
 
