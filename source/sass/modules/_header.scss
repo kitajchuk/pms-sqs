@@ -63,6 +63,10 @@
     z-index: $z_layer_header;
     pointer-events: none;
 
+    .is-touchable & {
+        display: none;
+    }
+
     ._svg--circle {
         .is-info-open & {
             background-color: $white;

@@ -57,7 +57,6 @@ const header = {
                 this.done();
                 this.bindClick();
                 this.bindWatch();
-                this.moveDot();
 
                 if ( !core.detect.isDevice() ) {
                     this.bindMouse();

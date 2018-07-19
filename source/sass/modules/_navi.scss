@@ -32,7 +32,16 @@
 
     ._svg--circle {
         background-color: transparent;
-        // border: 1px solid red;
+
+        .is-touchable & {
+            background-color: $black;
+        }
+        .is-touchable.is-info-open & {
+            background-color: $white;
+        }
+        .is-touchable.is-dark-theme & {
+            background-color: $white;
+        }
     }
 }
 .navi__label {
