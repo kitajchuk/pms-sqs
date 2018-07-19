@@ -80,52 +80,96 @@
 
 
 
+.menu--mobile {
+    align-items: center;
+    background-color: rgba( 0, 0, 0, 0.9 );
+    bottom: 0;
+    display: flex;
+    left: 0;
+    opacity: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-left: $padding-1;
+    padding-right: $padding-1;
+    pointer-events: none;
+    position: fixed;
+    right: 0;
+    text-align: left;
+    top: 0;
+    transition: opacity $fast-duration $ease,
+                z-index $fast-duration $ease,
+                visibility $fast-duration $ease;
+    visibility: hidden;
+    z-index: $z_layer_behind;
+
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+    .menu__a {
+        display: block;
+
+        .is-hoverable &:hover {
+            .menu__text {
+                color: $white;
+            }
+        }
+
+        &.is-active {
+            .menu__text {
+                border-bottom: 1px solid $white;
+                color: $white;
+            }
+        }
+    }
+
+    .menu__text {
+        color: $grey;
+        display: inline-block;
+        font-size: $p-size-max;
+        margin: 12px 0;
+    }
+
+    .is-navi-open & {
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible;
+        z-index: $z_layer_screen;
+        -webkit-overflow-scrolling: touch;
+    }
+}
 .menu--categories {
     transition: opacity $base-duration $ease,
                 transform $base-duration $ease;
 
-    @include respond( $mobile-breakpoint ) {
-        align-items: center;
-        background-color: rgba( 0, 0, 0, 0.9 );
-        bottom: 0;
-        display: flex;
-        left: 0;
-        opacity: 0;
-        overflow-x: hidden;
-        overflow-y: scroll;
-        padding-left: $padding-1;
-        padding-right: $padding-1;
-        pointer-events: none;
-        position: fixed;
-        right: 0;
-        text-align: left;
-        top: 0;
-        transition: opacity $fast-duration $ease,
-                    z-index $fast-duration $ease,
-                    visibility $fast-duration $ease;
-        visibility: hidden;
-        z-index: $z_layer_behind;
-    }
-}
-.menu__a {
-    text-transform: capitalize;
+    .menu__a {
+        display: inline-block;
 
-    &.is-active {
-        @include respond( $mobile-breakpoint ) {
-            border-bottom: 1px solid $white;
-            color: $white;
+        .is-hoverable &:hover {
+            .menu__text {
+                color: $black;
+            }
+        }
+
+        &.is-active {
+            .menu__text {
+                border-bottom: 1px solid $black;
+                color: $black;
+            }
+        }
+    }
+
+    .menu__a + .menu__a {
+        @include respond-min( $mobile-breakpoint + 1px ) {
+            margin-left: 20px;
         }
     }
 
     @include respond( $mobile-breakpoint ) {
-        color: $grey;
-        display: block;
-        font-size: $p-size-max;
-        margin: 12px 0;
+        display: none;
     }
 }
-.menu__a + .menu__a {
-    @include respond-min( $mobile-breakpoint + 1px ) {
-        margin-left: 20px;
-    }
+.menu__text {
+    text-transform: capitalize;
+    pointer-events: none;
 }

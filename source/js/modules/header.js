@@ -83,27 +83,41 @@ const header = {
     done () {
         const cats = viewCats( this );
 
-        this.categoryMenu[ 0 ].innerHTML = cats.html;
-        this.categories = this.element.find( ".js-menu-category" );
-
         this.mobileCategory[ 0 ].innerHTML = cats.meow;
+        this.categoryMenu[ 0 ].innerHTML = cats.html;
+        this.categoryMenuMobile = $( this.categoryMenu[ 0 ].cloneNode( true ) );
+        this.categoryMenuMobile.removeClass( "menu--categories" ).addClass( "menu--mobile" );
+
+        // Append mobile menu then query ALL category elements
+        core.dom.body.append( this.categoryMenuMobile );
+        this.categories = core.dom.body.find( ".js-menu-category" );
     },
 
 
     bindClick () {
-        this.categoryMenu.on( "click", ".js-menu-category", ( e ) => {
+        const onClickMenu = () => {
+            if ( this._isNaviOpen ) {
+                this.closeNavi();
+            }
+        };
+        const onClickCategory = ( e ) => {
             const elem = $( e.target );
             const data = elem.data();
 
             this.categories.removeClass( "is-active" );
-            elem.addClass( "is-active" );
+            this.categories.filter( `.js-menu--${data.cat}` ).addClass( "is-active" );
 
             this.mobileCategory[ 0 ].innerHTML = data.cat;
 
             if ( this._isNaviOpen ) {
                 this.closeNavi();
             }
-        });
+        };
+
+        this.categoryMenu.on( "click", onClickMenu );
+        this.categoryMenu.on( "click", ".js-menu-category", onClickCategory );
+        this.categoryMenuMobile.on( "click", onClickMenu );
+        this.categoryMenuMobile.on( "click", ".js-menu-category", onClickCategory );
 
         this.mobileTrigger.on( "click", () => {
             if ( this._isNaviOpen ) {
@@ -111,12 +125,6 @@ const header = {
 
             } else {
                 this.openNavi();
-            }
-        });
-
-        this.categoryMenu.on( "click", () => {
-            if ( this._isNaviOpen ) {
-                this.closeNavi();
             }
         });
 
@@ -163,6 +171,10 @@ const header = {
         mouseController.go(() => {
             if ( !this._isNaviHover && !this.tween ) {
                 this.moveDot();
+            }
+
+            if ( window.innerWidth >= core.config.mobileMediaHack ) {
+                this.closeNavi();
             }
         });
 
@@ -359,10 +371,10 @@ const header = {
 
     updateCategory ( view, params ) {
         if ( this.element.length ) {
-            const elem = params.category ? this.categories.filter( `.js-menu--${params.category.toLowerCase()}` ) : this.categories.filter( ".js-menu--everything" );
+            const cats = params.category ? this.categories.filter( `.js-menu--${params.category.toLowerCase()}` ) : this.categories.filter( ".js-menu--everything" );
 
             this.categories.removeClass( "is-active" );
-            elem.addClass( "is-active" );
+            cats.addClass( "is-active" );
         }
     },
 
