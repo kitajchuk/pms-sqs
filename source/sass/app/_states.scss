@@ -58,18 +58,12 @@
         @include noop();
     }
 
-    .navi,
-    .header-labels {
+    .navi {
         color: $white;
     }
     .navi--mobile,
     .navi--returner {
         @include hide();
-    }
-    .navi__a--info {
-        ._svg--circle {
-            background-color: $white;
-        }
     }
 
     .menu--categories {
@@ -98,10 +92,6 @@
 .is-dark-theme {
     background-color: $black;
     color: $white;
-
-    ._svg--circle {
-        background-color: $white;
-    }
 
     ._svg--play,
     ._svg--returner {

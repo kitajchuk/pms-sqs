@@ -39,20 +39,21 @@
                             {@|apply svg-returner.block}
                         </a>
                     </nav>
-                    <nav class="navi navi--main -column">
+                    <nav class="navi navi--main">
+                        <div class="navi__label navi__label--info js-label-info p a">
+                            <div class="navi__label__text">Info</div>
+                        </div>
+                        <div class="navi__label navi__label--close js-label-close p a">
+                            <div class="navi__label__text">Close</div>
+                        </div>
                         <a class="navi__a navi__a--info js-navi-info" data-slug="info" href="#info">
                             {@|apply svg-circle.block}
                         </a>
                     </nav>
                 </div>
             </header>
-            <div class="header-labels js-header-labels">
-                <div class="header-labels__label header-labels__label--info p a">
-                    <div class="header-labels__label__text js-label-info">Info</div>
-                </div>
-                <div class="header-labels__label header-labels__label--close p a">
-                    <div class="header-labels__label__text js-label-close">Close</div>
-                </div>
+            <div class="dotinfo js-dotinfo">
+                {@|apply svg-circle.block}
             </div>
             <main class="main js-main -fzero" data-content-field="main-content" data-website-id="{website.id}" {.section collection}data-collection-id="{collection.id}" data-collection-title="{.if collection.homepage}{website.siteTitle}{.or}{collection.title} – {website.siteTitle}{.end}"{.end} {.section item}data-item-id="{item.id}" data-item-title="{item.title} – {collection.title} – {website.siteTitle}"{.end}>
                 {.equal? collection.typeName "page"}

@@ -5,7 +5,6 @@ import paramalama from "paramalama";
 import info from "./info";
 import viewCats from "../views/cats";
 import ScrollController from "properjs-scrollcontroller";
-import ResizeController from "properjs-resizecontroller";
 import Controller from "properjs-controller";
 import throttle from "properjs-throttle";
 
@@ -24,43 +23,41 @@ const header = {
         if ( this.element.length ) {
             // Event controllers
             this.scroller = new ScrollController();
-            this.resizer = new ResizeController();
             this.controller = new Controller();
 
             // Mixed properties
             this.data = this.element.data();
             this.defaultCategory = "everything";
+
+            // Elements
+            this.categoryMenu = this.element.find( ".js-menu-categories" );
+            this.titleMenu = this.element.find( ".js-menu-title" );
+            this.returner = this.element.find( ".js-navi-returner" );
+            this.returner[ 0 ].href = this.data.root;
+            this.mobileCategory = this.element.find( ".js-navi-mobile-category" );
+            this.mobileTrigger = this.element.find( ".js-navi-mobile-trigger" );
+
+            // Mousemove elements
+            this.infoTrigger = this.element.find( ".js-navi-info" );
+            this.dotinfo = core.dom.body.find( ".js-dotinfo" );
+            this.labelInfo = this.element.find( ".js-label-info" );
+            this.labelClose = this.element.find( ".js-label-close" );
             this.tween = null;
             this.mouse = null;
-            this.threshold = 100;
-
-            // Interaction flags
+            this.threshold = 64;
+            this.thresholdBreak = 24;
             this._isNaviOpen = false;
             this._isNaviHover = false;
             this._isNaviClick = false;
             this._isNaviTween = false;
             this._isNaviHoverIcon = false;
-            this._isNaviHoverDisabled = false;
-
-            // Elements
-            this.infoTrigger = this.element.find( ".js-navi-info" );
-            this.categoryMenu = this.element.find( ".js-menu-categories" );
-            this.titleMenu = this.element.find( ".js-menu-title" );
-            this.navi = this.element.find( ".js-navi" );
-            this.returner = this.element.find( ".js-navi-returner" );
-            this.returner[ 0 ].href = this.data.root;
-            this.mobileCategory = this.element.find( ".js-navi-mobile-category" );
-            this.mobileTrigger = this.element.find( ".js-navi-mobile-trigger" );
-            this.infoLabels = core.dom.body.find( ".js-header-labels" );
-            this.labelInfo = this.infoLabels.find( ".js-label-info" );
-            this.labelClose = this.infoLabels.find( ".js-label-close" );
 
             this.load().then(( json ) => {
                 this.json = json;
                 this.done();
                 this.bindClick();
                 this.bindWatch();
-                this.resetLabels();
+                this.moveDot();
 
                 if ( !core.detect.isDevice() ) {
                     this.bindMouse();
@@ -147,7 +144,8 @@ const header = {
                 core.dom.html.removeClass( "is-header-small" );
             }
 
-            this.resetLabels();
+            // Scrolling at all kills whole interaction
+            this.resetHover();
         });
 
         this.scroller.on( "scrolldown", () => {
@@ -157,52 +155,60 @@ const header = {
         this.scroller.on( "scrollup", () => {
             core.dom.html.addClass( "is-scroll-up" ).removeClass( "is-scroll-down" );
         });
-
-        this.resizer.on( "resize", () => {
-            this.resetLabels();
-        });
     },
 
 
     bindMouse () {
+        const mouseController = new Controller();
+
+        mouseController.go(() => {
+            if ( !this._isNaviHover && !this.tween ) {
+                this.moveDot();
+            }
+        });
+
         this.infoTrigger.on( "mouseenter", () => {
             if ( !this._isNaviHoverIcon ) {
-                const label = info.isOpen() ? this.labelClose : this.labelInfo;
-                const labelValues = this.getLabelValues( label );
-
-                this.disableTween();
                 this._isNaviHoverIcon = true;
 
-                this.tweenLabel( label[ 0 ], 0.75, {
-                    x: labelValues.x,
-                    y: labelValues.y,
-                    opacity: 1
-                });
+                if ( info.isOpen() ) {
+                    this.labelInfo.removeClass( "is-hover" );
+                    this.labelClose.addClass( "is-hover" );
+
+                } else {
+                    this.labelInfo.addClass( "is-hover" );
+                    this.labelClose.removeClass( "is-hover" );
+                }
             }
 
         }).on( "mouseleave", () => {
             if ( this._isNaviHoverIcon ) {
                 this._isNaviHoverIcon = false;
-                this.enableTween();
+                this.labelInfo.removeClass( "is-hover" );
+                this.labelClose.removeClass( "is-hover" );
             }
 
         }).on( "click", () => {
             if ( !this._isNaviClick ) {
-                this.resetLabels();
                 this._isNaviClick = true;
+                this.labelClose.removeClass( "is-hover" );
+                this.labelInfo.removeClass( "is-hover" );
             }
         });
 
         core.dom.doc.on( "mousemove", ( e ) => {
-            const label = info.isOpen() ? this.labelClose : this.labelInfo;
-            const labelValues = this.getLabelValues( label );
+            const dotBounds = this.infoTrigger[ 0 ].getBoundingClientRect();
+            const dotCenter = {
+                x: dotBounds.left + (dotBounds.width / 2),
+                y: dotBounds.top + (dotBounds.height / 2)
+            };
 
             // Store realtime Event
             this.mouse = e;
             this.distance = this.getDistanceBetween(
-                labelValues.x,
+                dotCenter.x,
                 this.mouse.clientX,
-                labelValues.y,
+                dotCenter.y,
                 this.mouse.clientY
             );
 
@@ -210,21 +216,16 @@ const header = {
             if ( this._isNaviClick ) {
                 this.resetClick();
 
-            // Suppress interaction for a whole cycle
-            } else if ( this.distance < this.threshold && this._isNaviHoverDisabled ) {
-                // Silence is golden...
-
-            } else if ( this.distance >= this.threshold && this._isNaviHoverDisabled ) {
-                // End the silence!
-                this._isNaviHoverDisabled = false;
+            } else if ( this.distance <= this.thresholdBreak ) {
+                this.resetDot();
 
             // End Interaction
             } else if ( this.distance >= this.threshold ) {
-                this.resetLabel();
+                this.resetDot();
 
             // Start Interaction
             } else if ( this.distance < this.threshold && !this._isNaviHover && !this._isNaviHoverIcon ) {
-                this.enableLabel();
+                this.enableDot();
 
             // Enter tween cycle
             } else if ( this.distance < this.threshold && this._isNaviHover && !this._isNaviHoverIcon && !this._isNaviTween ) {
@@ -235,8 +236,13 @@ const header = {
 
 
     disableTween () {
-        this._isNaviTween = false;
+        if ( this.tween ) {
+            this.tween.kill();
+            this.tween = null;
+        }
+
         this.controller.stop();
+        this._isNaviTween = false;
     },
 
 
@@ -245,103 +251,87 @@ const header = {
 
         this.controller.go(throttle(() => {
             if ( this._isNaviTween ) {
-                const label = info.isOpen() ? this.labelClose : this.labelInfo;
-                const closestPoint = this.getClosestPointToMouse( label );
+                const dotBounds = this.infoTrigger[ 0 ].getBoundingClientRect();
+                const dotCenter = {
+                    x: dotBounds.left + (dotBounds.width / 2),
+                    y: dotBounds.top + (dotBounds.height / 2)
+                };
                 const midpoint = this.getMidpointOfLine(
                     this.mouse.clientX,
-                    closestPoint.x,
+                    dotCenter.x,
                     this.mouse.clientY,
-                    closestPoint.y
+                    dotCenter.y
                 );
-                const infoBounds = this.infoTrigger[ 0 ].getBoundingClientRect();
 
-                if ( this.mouse.clientX < (infoBounds.left + (infoBounds.width / 2)) ) {
-                    this.tweenLabel( label[ 0 ], 0.75, {
-                        x: (midpoint.x - closestPoint.xOff),
-                        y: (midpoint.y - closestPoint.yOff),
-                        opacity: 1
-                    });
-
-                } else {
-                    this.tweenLabel( label[ 0 ], 0.75, {
-                        opacity: 1
-                    });
-                }
+                this.tweenDot( 0.75, {
+                    x: midpoint.x - (dotBounds.width / 2),
+                    y: midpoint.y - (dotBounds.height / 2)
+                });
             }
 
         }, 50 ));
     },
 
 
-    enableLabel () {
-        const label = info.isOpen() ? this.labelClose : this.labelInfo;
-
+    enableDot () {
         this._isNaviHover = true;
-        label.addClass( "is-hover" );
     },
 
 
     resetClick () {
         this.disableTween();
-        this._isNaviHoverDisabled = true;
         this._isNaviHover = false;
         this._isNaviClick = false;
         this._isNaviHoverIcon = false;
     },
 
 
-    resetLabel () {
-        const label = info.isOpen() ? this.labelClose : this.labelInfo;
-        const labelValues = this.getLabelValues( label );
+    resetDot () {
+        const dotBounds = this.infoTrigger[ 0 ].getBoundingClientRect();
 
         this.disableTween();
         this._isNaviHover = false;
         this._isNaviClick = false;
-        this._isNaviHoverIcon = false;
-        this.labelClose.removeClass( "is-hover" );
-        this.labelInfo.removeClass( "is-hover" );
 
-        this.tweenLabel( label[ 0 ], 0.5, {
-            x: labelValues.x,
-            y: labelValues.y,
-            opacity: 0
+        this.tweenDot( 0.5, {
+            x: dotBounds.left,
+            y: dotBounds.top
         });
     },
 
 
-    resetLabels () {
+    resetHover () {
         this.disableTween();
         this._isNaviHover = false;
         this._isNaviClick = false;
+        this._isNaviTween = false;
         this._isNaviHoverIcon = false;
-        this.labelClose.removeClass( "is-hover" );
-        this.labelInfo.removeClass( "is-hover" );
+    },
 
-        [this.labelInfo, this.labelClose].forEach(( label ) => {
-            const labelValues = this.getLabelValues( label );
 
-            gsap.TweenLite.to( label, 0, {
-                css: {
-                    x: labelValues.x,
-                    y: labelValues.y,
-                    opacity: 0
-                },
-                ease: gsap.Power4.easeOut
-            });
+    moveDot () {
+        const dotBounds = this.infoTrigger[ 0 ].getBoundingClientRect();
+
+        gsap.TweenLite.set( this.dotinfo[ 0 ], {
+            css: {
+                x: dotBounds.left,
+                y: dotBounds.top
+            }
         });
     },
 
 
-    tweenLabel ( label, dur, css ) {
+    tweenDot ( dur, css ) {
         if ( this.tween ) {
             this.tween.kill();
         }
 
         return new Promise(( resolve ) => {
-            this.tween = gsap.TweenLite.to( label, dur, {
+            this.tween = gsap.TweenLite.to( this.dotinfo[ 0 ], dur, {
                 css,
                 ease: gsap.Power4.easeOut,
                 onComplete: () => {
+                    this.tween = null;
                     resolve();
                 }
             });
@@ -365,67 +355,6 @@ const header = {
         const y3 = y1 - y2;
 
         return Math.sqrt( Math.pow( x3, 2 ) + Math.pow( y3, 2 ) );
-    },
-
-
-    getLabelValues ( label ) {
-        const infoBounds = this.infoTrigger[ 0 ].getBoundingClientRect();
-        const labelBounds = label[ 0 ].getBoundingClientRect();
-
-        return {
-            x: (infoBounds.left - (labelBounds.width + 20)),
-            y: (infoBounds.top + (infoBounds.height / 2)) - (labelBounds.height / 2)
-        };
-    },
-
-
-    getClosestPointToMouse ( label ) {
-        const labelBounds = label[ 0 ].getBoundingClientRect();
-        const labelPoints = [
-            // top left
-            { x: labelBounds.x, y: labelBounds.y, xOff: 0, yOff: 0, label: "top left" },
-            // top middle
-            { x: labelBounds.x + (labelBounds.width / 2), y: labelBounds.y, xOff: labelBounds.width / 2, yOff: 0, label: "top middle" },
-            // top right
-            { x: labelBounds.x + labelBounds.width, y: labelBounds.y, xOff: labelBounds.width, yOff: 0, label: "top right" },
-            // bottom left
-            { x: labelBounds.x, y: labelBounds.y + labelBounds.height, xOff: 0, yOff: labelBounds.height, label: "bottom left" },
-            // bottom middle
-            { x: labelBounds.x + (labelBounds.width / 2), y: labelBounds.y + labelBounds.height, xOff: labelBounds.width / 2, yOff: labelBounds.height, label: "bottom middle" },
-            // bottom right
-            { x: labelBounds.x + labelBounds.width, y: labelBounds.y + labelBounds.height, xOff: labelBounds.width, yOff: labelBounds.height, label: "bottom right" },
-            // middle left
-            { x: labelBounds.x, y: labelBounds.y + (labelBounds.height / 2), xOff: 0, yOff: labelBounds.height / 2, label: "middle left" },
-            // middle right
-            { x: labelBounds.x + labelBounds.width, y: labelBounds.y + (labelBounds.height / 2), xOff: labelBounds.width, yOff: labelBounds.height / 2, label: "middle right" }
-        ];
-
-        const updatedPoints = labelPoints.map(( labelPoint ) => {
-            labelPoint.distance = this.getDistanceBetween(
-                this.mouse.clientX,
-                labelPoint.x,
-                this.mouse.clientY,
-                labelPoint.y
-            );
-
-            return labelPoint;
-
-        }).sort(( labelPointA, labelPointB ) => {
-            let ret = 0;
-
-            // sort lowest to top always
-            if ( labelPointA.distance < labelPointB.distance ) {
-                ret = -1;
-            }
-
-            if ( labelPointB.distance < labelPointA.distance ) {
-                ret = 1;
-            }
-
-            return ret;
-        });
-
-        return updatedPoints.shift();
     },
 
 

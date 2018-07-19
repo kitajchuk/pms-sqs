@@ -54,23 +54,24 @@
 
 
 
-.header-labels {
-    left: 0;
+.dotinfo {
+    height: 24px;
+    width: 24px;
     position: fixed;
-    pointer-events: none;
+    left: 0;
     top: 0;
     z-index: $z_layer_header;
-}
-.header-labels__label {
-    left: 0;
-    position: fixed;
-    top: 0;
-}
-.header-labels__label__text {
-    @include noop();
-    cursor: default;
+    pointer-events: none;
 
-    &.is-hover {}
+    ._svg--circle {
+        .is-info-open & {
+            background-color: $white;
+        }
+
+        .is-dark-theme & {
+            background-color: $white;
+        }
+    }
 }
 
 

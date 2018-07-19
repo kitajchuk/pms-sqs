@@ -20,10 +20,33 @@
         @include poon();
     }
 }
-.navi__a--info {
-    display: block;
-}
 .navi__a--mobile-category {
     border-bottom: 1px solid $black;
     text-transform: capitalize;
+}
+
+
+
+.navi__a--info {
+    display: block;
+
+    ._svg--circle {
+        background-color: transparent;
+        // border: 1px solid red;
+    }
+}
+.navi__label {
+    @include noop();
+    cursor: default;
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translate3d( -20px, -35%, 0 );
+    transition: opacity $base-duration $ease,
+                transform $base-duration $ease;
+
+    &.is-hover {
+        opacity: 1;
+        transform: translate3d( -20px, -50%, 0 );
+    }
 }
