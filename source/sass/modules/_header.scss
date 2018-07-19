@@ -8,6 +8,7 @@
     top: 0;
     width: 100%;
     z-index: $z_layer_header;
+    transform: translate3d( 0, 0, 0 );
     transition: height $base-duration $ease,
                 opacity $base-duration $ease,
                 transform $base-duration $ease,

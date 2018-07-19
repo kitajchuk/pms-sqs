@@ -6,6 +6,7 @@ import info from "./info";
 import viewCats from "../views/cats";
 import ScrollController from "properjs-scrollcontroller";
 import ResizeController from "properjs-resizecontroller";
+import Controller from "properjs-controller";
 import throttle from "properjs-throttle";
 
 
@@ -19,11 +20,30 @@ import throttle from "properjs-throttle";
 const header = {
     init () {
         this.element = core.dom.body.find( ".js-header" );
-        this.bounds = this.element[ 0 ].getBoundingClientRect();
 
         if ( this.element.length ) {
-            this.infoTrigger = this.element.find( ".js-navi-info" );
+            // Event controllers
+            this.scroller = new ScrollController();
+            this.resizer = new ResizeController();
+            this.controller = new Controller();
+
+            // Mixed properties
             this.data = this.element.data();
+            this.defaultCategory = "everything";
+            this.tween = null;
+            this.mouse = null;
+            this.threshold = 100;
+
+            // Interaction flags
+            this._isNaviOpen = false;
+            this._isNaviHover = false;
+            this._isNaviClick = false;
+            this._isNaviTween = false;
+            this._isNaviHoverIcon = false;
+            this._isNaviHoverDisabled = false;
+
+            // Elements
+            this.infoTrigger = this.element.find( ".js-navi-info" );
             this.categoryMenu = this.element.find( ".js-menu-categories" );
             this.titleMenu = this.element.find( ".js-menu-title" );
             this.navi = this.element.find( ".js-navi" );
@@ -31,27 +51,19 @@ const header = {
             this.returner[ 0 ].href = this.data.root;
             this.mobileCategory = this.element.find( ".js-navi-mobile-category" );
             this.mobileTrigger = this.element.find( ".js-navi-mobile-trigger" );
-            this.defaultCategory = "everything";
-            this.scroller = new ScrollController();
-            this.resizer = new ResizeController();
             this.infoLabels = core.dom.body.find( ".js-header-labels" );
             this.labelInfo = this.infoLabels.find( ".js-label-info" );
             this.labelClose = this.infoLabels.find( ".js-label-close" );
-            this._isNaviOpen = false;
-            this._isNaviHover = false;
-            this._isNaviClick = false;
-            this._isNaviTween = false;
-            this._isNaviHoverIcon = false;
 
             this.load().then(( json ) => {
                 this.json = json;
                 this.done();
-                this.bind();
-                this.watch();
+                this.bindClick();
+                this.bindWatch();
+                this.resetLabels();
 
                 if ( !core.detect.isDevice() ) {
-                    this.mouse();
-                    this.updateLabels();
+                    this.bindMouse();
                 }
             });
         }
@@ -82,8 +94,8 @@ const header = {
     },
 
 
-    bind () {
-        this.element.on( "click", ".js-menu-category", ( e ) => {
+    bindClick () {
+        this.categoryMenu.on( "click", ".js-menu-category", ( e ) => {
             const elem = $( e.target );
             const data = elem.data();
 
@@ -123,16 +135,19 @@ const header = {
     },
 
 
-    watch () {
+    bindWatch () {
         this.scroller.on( "scroll", () => {
-            const scrollPos = this.scroller.getScrollY();
+            const scroll = this.scroller.getScrollY();
+            const bounds = this.element[ 0 ].getBoundingClientRect();
 
-            if ( scrollPos >= this.bounds.height ) {
+            if ( scroll >= bounds.height ) {
                 core.dom.html.addClass( "is-header-small" );
 
-            } else if ( scrollPos <= 0 ) {
+            } else if ( scroll <= 0 ) {
                 core.dom.html.removeClass( "is-header-small" );
             }
+
+            this.resetLabels();
         });
 
         this.scroller.on( "scrolldown", () => {
@@ -144,131 +159,192 @@ const header = {
         });
 
         this.resizer.on( "resize", () => {
-            this.bounds = this.element[ 0 ].getBoundingClientRect();
-            this.updateLabels();
+            this.resetLabels();
         });
     },
 
 
-    mouse () {
-        const threshold = 100;
-        let midpoint = null;
-        let tween = null;
-        let mouse = null;
-        let mouseDistance = null;
-        let label = null;
-        let labelValues = null;
-        let closestPoint = null;
-        let labelBounds = null;
-
+    bindMouse () {
         this.infoTrigger.on( "mouseenter", () => {
-            this._isNaviTween = false;
-            this._isNaviHoverIcon = true;
+            if ( !this._isNaviHoverIcon ) {
+                const label = info.isOpen() ? this.labelClose : this.labelInfo;
+                const labelValues = this.getLabelValues( label );
 
-            tween = gsap.TweenLite.to( label[ 0 ], 0.75, {
-                css: {
+                this.disableTween();
+                this._isNaviHoverIcon = true;
+
+                this.tweenLabel( label[ 0 ], 0.75, {
                     x: labelValues.x,
                     y: labelValues.y,
                     opacity: 1
-                },
-                ease: gsap.Power4.easeOut
-            });
+                });
+            }
+
+        }).on( "mouseleave", () => {
+            if ( this._isNaviHoverIcon ) {
+                this._isNaviHoverIcon = false;
+                this.enableTween();
+            }
+
+        }).on( "click", () => {
+            if ( !this._isNaviClick ) {
+                this.resetLabels();
+                this._isNaviClick = true;
+            }
         });
 
-        this.infoTrigger.on( "mouseleave", () => {
-            this._isNaviHoverIcon = false;
-            this._isNaviTween = true;
+        core.dom.doc.on( "mousemove", ( e ) => {
+            const label = info.isOpen() ? this.labelClose : this.labelInfo;
+            const labelValues = this.getLabelValues( label );
+
+            // Store realtime Event
+            this.mouse = e;
+            this.distance = this.getDistanceBetween(
+                labelValues.x,
+                this.mouse.clientX,
+                labelValues.y,
+                this.mouse.clientY
+            );
+
+            // Capture click
+            if ( this._isNaviClick ) {
+                this.resetClick();
+
+            // Suppress interaction for a whole cycle
+            } else if ( this.distance < this.threshold && this._isNaviHoverDisabled ) {
+                // Silence is golden...
+
+            } else if ( this.distance >= this.threshold && this._isNaviHoverDisabled ) {
+                // End the silence!
+                this._isNaviHoverDisabled = false;
+
+            // End Interaction
+            } else if ( this.distance >= this.threshold ) {
+                this.resetLabel();
+
+            // Start Interaction
+            } else if ( this.distance < this.threshold && !this._isNaviHover && !this._isNaviHoverIcon ) {
+                this.enableLabel();
+
+            // Enter tween cycle
+            } else if ( this.distance < this.threshold && this._isNaviHover && !this._isNaviHoverIcon && !this._isNaviTween ) {
+                this.enableTween();
+            }
         });
+    },
 
-        this.infoTrigger.on( "click", () => {
-            this._isNaviClick = true;
 
-            this.labelClose.removeClass( "is-hover" );
-            this.labelInfo.removeClass( "is-hover" );
+    disableTween () {
+        this._isNaviTween = false;
+        this.controller.stop();
+    },
 
-            gsap.TweenLite.to( [this.labelInfo[ 0 ], this.labelClose[ 0 ]], 0, {
+
+    enableTween () {
+        this._isNaviTween = true;
+
+        this.controller.go(throttle(() => {
+            if ( this._isNaviTween ) {
+                const label = info.isOpen() ? this.labelClose : this.labelInfo;
+                const closestPoint = this.getClosestPointToMouse( label );
+                const midpoint = this.getMidpointOfLine(
+                    this.mouse.clientX,
+                    closestPoint.x,
+                    this.mouse.clientY,
+                    closestPoint.y
+                );
+                const infoBounds = this.infoTrigger[ 0 ].getBoundingClientRect();
+
+                if ( this.mouse.clientX < (infoBounds.left + (infoBounds.width / 2)) ) {
+                    this.tweenLabel( label[ 0 ], 0.75, {
+                        x: (midpoint.x - closestPoint.xOff),
+                        y: (midpoint.y - closestPoint.yOff),
+                        opacity: 1
+                    });
+
+                } else {
+                    this.tweenLabel( label[ 0 ], 0.75, {
+                        opacity: 1
+                    });
+                }
+            }
+
+        }, 50 ));
+    },
+
+
+    enableLabel () {
+        const label = info.isOpen() ? this.labelClose : this.labelInfo;
+
+        this._isNaviHover = true;
+        label.addClass( "is-hover" );
+    },
+
+
+    resetClick () {
+        this.disableTween();
+        this._isNaviHoverDisabled = true;
+        this._isNaviHover = false;
+        this._isNaviClick = false;
+        this._isNaviHoverIcon = false;
+    },
+
+
+    resetLabel () {
+        const label = info.isOpen() ? this.labelClose : this.labelInfo;
+        const labelValues = this.getLabelValues( label );
+
+        this.disableTween();
+        this._isNaviHover = false;
+        this._isNaviClick = false;
+        this._isNaviHoverIcon = false;
+        this.labelClose.removeClass( "is-hover" );
+        this.labelInfo.removeClass( "is-hover" );
+
+        this.tweenLabel( label[ 0 ], 0.5, {
+            x: labelValues.x,
+            y: labelValues.y,
+            opacity: 0
+        });
+    },
+
+
+    resetLabels () {
+        this.disableTween();
+        this._isNaviHover = false;
+        this._isNaviClick = false;
+        this._isNaviHoverIcon = false;
+        this.labelClose.removeClass( "is-hover" );
+        this.labelInfo.removeClass( "is-hover" );
+
+        [this.labelInfo, this.labelClose].forEach(( label ) => {
+            const labelValues = this.getLabelValues( label );
+
+            gsap.TweenLite.to( label, 0, {
                 css: {
+                    x: labelValues.x,
+                    y: labelValues.y,
                     opacity: 0
                 },
                 ease: gsap.Power4.easeOut
             });
         });
+    },
 
-        core.dom.doc.on( "mousemove", throttle(() => {
-            if ( this._isNaviTween ) {
-                if ( tween ) {
-                    tween.kill();
+
+    tweenLabel ( label, dur, css ) {
+        if ( this.tween ) {
+            this.tween.kill();
+        }
+
+        return new Promise(( resolve ) => {
+            this.tween = gsap.TweenLite.to( label, dur, {
+                css,
+                ease: gsap.Power4.easeOut,
+                onComplete: () => {
+                    resolve();
                 }
-
-                midpoint = this.getMidpointOfLine(
-                    mouse.clientX,
-                    closestPoint.x,
-                    mouse.clientY,
-                    closestPoint.y
-                );
-
-                tween = gsap.TweenLite.to( label[ 0 ], 0.75, {
-                    css: {
-                        x: (midpoint.x - closestPoint.xOff),
-                        y: (midpoint.y - closestPoint.yOff),
-                        opacity: 1
-                    },
-                    ease: gsap.Power4.easeOut
-                });
-            }
-
-        }, 50 ));
-
-        core.dom.doc.on( "mousemove", ( e ) => {
-            // Store realtime Event
-            mouse = e;
-
-            // Store interaction Label
-            label = info.isOpen() ? this.labelClose : this.labelInfo;
-            labelValues = this.getLabelValues( label );
-            labelBounds = label[ 0 ].getBoundingClientRect();
-            mouseDistance = this.getDistanceBetween(
-                labelValues.x,
-                mouse.clientX,
-                labelValues.y,
-                mouse.clientY
-            );
-
-            // Start Interaction
-            if ( mouseDistance < threshold && !this._isNaviHover && !this._isNaviClick && !this._isNaviHoverIcon ) {
-                this._isNaviHover = true;
-                label.addClass( "is-hover" );
-
-            // End Interaction
-            } else if ( mouseDistance >= threshold && this._isNaviHover && !this._isNaviHoverIcon ) {
-                this._isNaviClick = false;
-                this._isNaviHover = false;
-                label.removeClass( "is-hover" );
-
-                // Exit tween cycle
-                if ( this._isNaviTween ) {
-                    this._isNaviTween = false;
-
-                    if ( tween ) {
-                        tween.kill();
-                    }
-
-                    tween = gsap.TweenLite.to( label[ 0 ], 0.5, {
-                        css: {
-                            x: labelValues.x,
-                            y: labelValues.y,
-                            opacity: 0
-                        },
-                        ease: gsap.Power4.easeOut
-                    });
-                }
-
-            // Enter tween cycle
-            } else if ( mouseDistance < threshold && this._isNaviHover && !this._isNaviClick && !this._isNaviTween && !this._isNaviHoverIcon ) {
-                closestPoint = this.getClosestPointToMouse( label, mouse );
-                this._isNaviTween = true;
-                // Set a flag for our throttled mousemove handler
-            }
+            });
         });
     },
 
@@ -303,7 +379,7 @@ const header = {
     },
 
 
-    getClosestPointToMouse ( label, mouse ) {
+    getClosestPointToMouse ( label ) {
         const labelBounds = label[ 0 ].getBoundingClientRect();
         const labelPoints = [
             // top left
@@ -326,9 +402,9 @@ const header = {
 
         const updatedPoints = labelPoints.map(( labelPoint ) => {
             labelPoint.distance = this.getDistanceBetween(
-                mouse.clientX,
+                this.mouse.clientX,
                 labelPoint.x,
-                mouse.clientY,
+                this.mouse.clientY,
                 labelPoint.y
             );
 
@@ -350,26 +426,6 @@ const header = {
         });
 
         return updatedPoints.shift();
-    },
-
-
-    updateLabels () {
-        const labelInfoValues = this.getLabelValues( this.labelInfo );
-        const labelCloseBounds = this.getLabelValues( this.labelClose );
-
-        core.util.translate3d(
-            this.labelInfo[ 0 ],
-            `${labelInfoValues.x}px`,
-            `${labelInfoValues.y}px`,
-            0
-        );
-
-        core.util.translate3d(
-            this.labelClose[ 0 ],
-            `${labelCloseBounds.x}px`,
-            `${labelCloseBounds.y}px`,
-            0
-        );
     },
 
 
