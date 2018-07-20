@@ -40,7 +40,7 @@ const intro = {
             const fixMinutes = theMinutes < 10 ? `0${theMinutes}` : theMinutes;
             const fixSeconds = theSeconds < 10 ? `0${theSeconds}` : theSeconds;
 
-            timeElem[ 0 ].innerHTML = `${fixHours}:${fixMinutes}:${theSeconds}`;
+            timeElem[ 0 ].innerHTML = `${fixHours}:${fixMinutes}:${fixSeconds}`;
             timeout = setTimeout( timeTicker, 100 );
         };
 
