@@ -193,7 +193,7 @@ const router = {
                     color: "#fff",
                     backgroundColor: "#000"
                 },
-                ease: gsap.Power2.easeInOut,
+                ease: gsap.Power4.easeInOut,
                 onComplete: () => {
                     core.dom.html.addClass( "is-dark-theme" );
                 }
@@ -205,7 +205,7 @@ const router = {
                     color: "#000",
                     backgroundColor: "#fff"
                 },
-                ease: gsap.Power2.easeInOut,
+                ease: gsap.Power4.easeInOut,
                 onComplete: () => {
                     core.dom.html.removeClass( "is-dark-theme" );
                 }
@@ -219,7 +219,7 @@ const router = {
             css: {
                 opacity: 0
             },
-            ease: gsap.Power2.easeInOut
+            ease: gsap.Power4.easeInOut
         });
     },
 
@@ -232,7 +232,7 @@ const router = {
                     css: {
                         opacity: 1
                     },
-                    ease: gsap.Power2.easeInOut
+                    ease: gsap.Power4.easeInOut
                 });
             }
         });
@@ -252,7 +252,7 @@ const router = {
         this.changeClass( data );
         this.changeTheme( data );
         this.controllers.destroy();
-
+        header.resetNavi();
         this.animPageOut();
     },
 
@@ -276,7 +276,7 @@ const router = {
                     css: {
                         opacity: 1
                     },
-                    ease: gsap.Power2.easeInOut
+                    ease: gsap.Power4.easeInOut
                 });
             }
         });
@@ -292,6 +292,7 @@ const router = {
 
         // Update <header> UI
         header.updateCategory( this.view, paramalama( window.location.search ) );
+        header.resetScroll();
 
         // Fire analytics handlers
         core.emitter.fire( "app--analytics-pageview", doc );
@@ -308,9 +309,12 @@ const router = {
      *
      */
     changePageIn ( /* data */ ) {
-        this.execSquarespace();
+        setTimeout(() => {
+            this.execSquarespace();
+            header.presentNavi();
+            this.animPageIn();
 
-        this.animPageIn();
+        }, this.animDuration );
     },
 
 

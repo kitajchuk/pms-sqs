@@ -4,22 +4,12 @@
 .is-hoverable {
     p a:hover,
     .a--lit:hover {
-        color: black;
+        color: $black;
     }
     .a--dim:hover,
     .splash .sqs-block-html a:hover {
         color: $medium;
     }
-    // .menu__a:hover {
-    //     @include respond( $mobile-breakpoint ) {
-    //         color: $white;
-    //     }
-    // }
-    // .menu__a.is-active:hover {
-    //     @include respond( $mobile-breakpoint ) {
-    //         border-bottom-color: $white;
-    //     }
-    // }
     .feed__media:hover {
         .feed__quickview {
             opacity: 1;
@@ -40,44 +30,43 @@
 }
 
 .is-uid-page {
-    .navi--mobile,
-    .menu--categories {
-        @include noop();
-    }
-
-    .navi--returner {
-        @include poon();
-    }
+    // .navi--mobile,
+    // .menu--categories {
+    //     @include noop();
+    // }
+    // .navi--returner {
+    //     @include poon();
+    // }
 }
 
 .is-info-open {
     overflow: hidden;
 
-    .navi--returner,
-    .menu--categories {
-        @include noop();
-    }
-
     .navi {
         color: $white;
     }
-    .navi--mobile,
-    .navi--returner {
-        @include hide();
-    }
-
-    .menu--categories {
-        @include hide();
-    }
-
+    .main,
     .info {
         pointer-events: auto;
     }
+
+    // .navi--returner,
+    // .menu--categories {
+    //     @include noop();
+    // }
+
+    // .navi--mobile,
+    // .navi--returner {
+    //     @include hide();
+    // }
+    // .menu--categories {
+    //     @include hide();
+    // }
 }
 
 .is-navi-open {
     .main {
-        @include noop();
+        pointer-events: auto;
     }
 }
 
@@ -96,5 +85,12 @@
 
     .navi__a--mobile-category {
         border-bottom-color: $white;
+    }
+}
+.is-hoverable.is-dark-theme {
+    p a:hover,
+    .menu__a:hover .a--lit,
+    .a--lit:hover {
+        color: $medium;
     }
 }

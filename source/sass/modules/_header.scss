@@ -3,6 +3,7 @@
     display: flex;
     height: $header-height;
     left: 0;
+    opacity: 1;
     position: fixed;
     pointer-events: none;
     top: 0;
@@ -35,12 +36,15 @@
     }
 
     .is-header-small.is-scroll-down & {
-        opacity: 0;
         transform: translate3d( 0, -100%, 0 );
     }
 
     .is-header-small.is-info-open & {
         background-color: transparent;
+    }
+
+    .is-header-houdini & {
+        opacity: 0;
     }
 }
 .header__wrap {
@@ -62,6 +66,7 @@
     top: 0;
     z-index: $z_layer_header;
     pointer-events: none;
+    transition: opacity $base-duration $ease;
 
     .is-touchable & {
         display: none;
@@ -75,6 +80,10 @@
         .is-dark-theme & {
             background-color: $white;
         }
+    }
+
+    .is-header-houdini & {
+        opacity: 0;
     }
 }
 

@@ -51,6 +51,7 @@ const header = {
             this._isNaviClick = false;
             this._isNaviTween = false;
             this._isNaviHoverIcon = false;
+            this._isNaviReset = false;
 
             this.load().then(( json ) => {
                 this.json = json;
@@ -141,26 +142,32 @@ const header = {
 
     bindWatch () {
         this.scroller.on( "scroll", () => {
-            const scroll = this.scroller.getScrollY();
-            const bounds = this.element[ 0 ].getBoundingClientRect();
+            if ( !this._isNaviReset ) {
+                const scroll = this.scroller.getScrollY();
+                const bounds = this.element[ 0 ].getBoundingClientRect();
 
-            if ( scroll >= bounds.height ) {
-                core.dom.html.addClass( "is-header-small" );
+                if ( scroll >= bounds.height ) {
+                    core.dom.html.addClass( "is-header-small" );
 
-            } else if ( scroll <= 0 ) {
-                core.dom.html.removeClass( "is-header-small" );
+                } else if ( scroll <= 0 ) {
+                    core.dom.html.removeClass( "is-header-small" );
+                }
+
+                // Scrolling at all kills whole interaction
+                this.resetHover();
             }
-
-            // Scrolling at all kills whole interaction
-            this.resetHover();
         });
 
         this.scroller.on( "scrolldown", () => {
-            core.dom.html.addClass( "is-scroll-down" ).removeClass( "is-scroll-up" );
+            if ( !this._isNaviReset ) {
+                core.dom.html.addClass( "is-scroll-down" ).removeClass( "is-scroll-up" );
+            }
         });
 
         this.scroller.on( "scrollup", () => {
-            core.dom.html.addClass( "is-scroll-up" ).removeClass( "is-scroll-down" );
+            if ( !this._isNaviReset ) {
+                core.dom.html.addClass( "is-scroll-up" ).removeClass( "is-scroll-down" );
+            }
         });
     },
 
@@ -202,8 +209,6 @@ const header = {
         }).on( "click", () => {
             if ( !this._isNaviClick ) {
                 this._isNaviClick = true;
-                this.labelClose.removeClass( "is-hover" );
-                this.labelInfo.removeClass( "is-hover" );
             }
         });
 
@@ -293,7 +298,7 @@ const header = {
         this.disableTween();
         this._isNaviHover = false;
         this._isNaviClick = false;
-        this._isNaviHoverIcon = false;
+        // this._isNaviHoverIcon = false;
     },
 
 
@@ -317,6 +322,24 @@ const header = {
         this._isNaviClick = false;
         this._isNaviTween = false;
         this._isNaviHoverIcon = false;
+    },
+
+
+    resetNavi () {
+        this._isNaviReset = true;
+        this.resetHover();
+        core.dom.html.addClass( "is-header-houdini" );
+    },
+
+
+    resetScroll () {
+        core.dom.html.removeClass( "is-header-small is-scroll-up is-scroll-down" );
+    },
+
+
+    presentNavi () {
+        this._isNaviReset = false;
+        core.dom.html.removeClass( "is-header-houdini" );
     },
 
 

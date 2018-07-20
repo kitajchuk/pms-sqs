@@ -87,13 +87,13 @@ class PlaylistController {
                     y: 0,
                     opacity: 1
                 },
-                ease: gsap.Power2.easeInOut,
+                ease: gsap.Power4.easeInOut,
                 onComplete: () => {
                     gsap.TweenLite.to( this.button[ 0 ], (this.duration / 1000), {
                         css: {
                             opacity: 1
                         },
-                        ease: gsap.Power2.easeInOut
+                        ease: gsap.Power4.easeInOut
                     });
                 }
             },
@@ -115,7 +115,7 @@ class PlaylistController {
                     y: -tracks[ 0 ].getBoundingClientRect().height,
                     opacity: 0
                 },
-                ease: gsap.Power2.easeInOut,
+                ease: gsap.Power4.easeInOut,
                 onComplete: () => {
                     tracks.eq( blit ).remove();
                     blit++;
@@ -126,7 +126,7 @@ class PlaylistController {
 
         gsap.TweenLite.to( window, (this.duration / 1000), {
             scrollTo: 0,
-            ease: gsap.Power2.easeInOut
+            ease: gsap.Power4.easeInOut
         });
     }
 
