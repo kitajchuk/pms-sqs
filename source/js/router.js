@@ -216,7 +216,7 @@ const router = {
     },
 
 
-    setClass ( step ) {
+    setClass () {
         if ( this.state.future.view ) {
             core.dom.html.addClass( `is-${this.state.now.view}-page` );
         }
