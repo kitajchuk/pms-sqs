@@ -31,7 +31,7 @@ const router = {
         this.anim = null;
         this.isDarkTheme = false;
         this.pageClass = "";
-        this.animDuration = 400;
+        this.animDuration = 500;
         this.controllers = new Controllers({
             el: core.dom.main,
             cb: () => {

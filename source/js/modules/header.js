@@ -298,7 +298,6 @@ const header = {
         this.disableTween();
         this._isNaviHover = false;
         this._isNaviClick = false;
-        // this._isNaviHoverIcon = false;
     },
 
 
@@ -328,7 +327,12 @@ const header = {
     resetNavi () {
         this._isNaviReset = true;
         this.resetHover();
-        core.dom.html.addClass( "is-header-houdini" );
+        gsap.TweenLite.to( this.element[ 0 ], 0.5, {
+            css: {
+                opacity: 0
+            },
+            ease: gsap.Power4.easeOut
+        });
     },
 
 
@@ -339,7 +343,12 @@ const header = {
 
     presentNavi () {
         this._isNaviReset = false;
-        core.dom.html.removeClass( "is-header-houdini" );
+        gsap.TweenLite.to( this.element[ 0 ], 0.5, {
+            css: {
+                opacity: 1
+            },
+            ease: gsap.Power4.easeOut
+        });
     },
 
 
