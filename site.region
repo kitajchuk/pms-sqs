@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="is-{collection.title|slugify}-page {.if item}is-uid-page {.if item.customContent.darkTheme}is-dark-theme{.end}{.end}">
+<html class="is-{collection.title|slugify}-page {.if item}is-uid-page {.if item.customContent.darkTheme}is-darkside{.end}{.end}">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -55,7 +55,7 @@
             <div class="dotinfo js-dotinfo">
                 {@|apply svg-circle.block}
             </div>
-            <main class="main js-main -fzero" data-content-field="main-content" data-website-id="{website.id}" {.section collection}data-collection-id="{collection.id}" data-collection-title="{.if collection.homepage}{website.siteTitle}{.or}{collection.title} – {website.siteTitle}{.end}"{.end} {.section item}data-item-id="{item.id}" data-item-title="{item.title} – {collection.title} – {website.siteTitle}"{.end}>
+            <main class="main js-main -fzero" data-content-field="main-content" data-website-id="{website.id}" {.section collection}data-collection-id="{collection.id}" data-collection-title="{.if collection.homepage}{website.siteTitle}{.or}{collection.title} – {website.siteTitle}{.end}"{.end} {.section item}data-item-id="{item.id}" data-item-title="{item.title} – {collection.title} – {website.siteTitle}" {.if item.customContent.darkTheme}data-darkside="true"{.end}{.end}>
                 {.equal? collection.typeName "page"}
                     {@|apply page.block}
                 {.or}

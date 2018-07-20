@@ -1,6 +1,14 @@
 .main {
     padding-top: $header-height;
 
+    .is-navi-open & {
+        pointer-events: auto;
+    }
+
+    .is-info-open & {
+        pointer-events: auto;
+    }
+
     @include respond( $header-break-mobile ) {
         padding-top:  $header-height-mobile;
     }

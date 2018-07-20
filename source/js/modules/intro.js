@@ -1,4 +1,5 @@
 import * as core from "../core";
+import Controller from "properjs-controller";
 
 
 /**
@@ -9,16 +10,18 @@ import * as core from "../core";
  *
  */
 const intro = {
-    exec () {
-        return new Promise(( resolve ) => {
-            setTimeout(() => {
+    init () {
+        this.logTime = Date.now();
+        this.minTime = 3000;
+        this.blit = new Controller();
+    },
+    teardown () {
+        this.blit.go(() => {
+            if ( (Date.now() - this.logTime) > this.minTime ) {
+                this.blit.stop();
                 core.dom.intro.removeClass( "is-active" );
-
-                resolve();
-
                 core.emitter.fire( "app--intro-teardown" );
-
-            }, 2000 );
+            }
         });
     }
 };

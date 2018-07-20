@@ -40,6 +40,7 @@ class App {
         });
 
         this.core.emitter.on( "app--page-teardown", () => {
+            this.router.topper();
             this.core.log( "App Page Teardown" );
         });
     }
@@ -58,15 +59,17 @@ class App {
         // Core
         this.core.detect.init();
 
-        // Utility ?
-
         // Views
-        this.header.init();
+        this.intro.init();
         this.splash.init();
-        this.info.init();
-        this.intro.exec().then(() => {
-            // Controller
+        this.header.init();
+        this.header.load().then(() => {
             this.router.init();
+            this.info.init();
+            this.intro.teardown();
+
+        }).catch(( error ) => {
+            this.core.log( "warn", error );
         });
 
         // Analytics

@@ -24,13 +24,10 @@
 
     .is-header-small & {
         height: $header-height-small;
-    }
-
-    .is-header-small.is-scroll-up & {
         background-color: rgba( 255, 255, 255, 0.95 );
     }
 
-    .is-header-small.is-dark-theme.is-scroll-up & {
+    .is-header-small.is-darkside & {
         background-color: rgba( 0, 0, 0, 0.80 );
     }
 
@@ -72,7 +69,7 @@
             background-color: $white;
         }
 
-        .is-dark-theme & {
+        .is-darkside & {
             background-color: $white;
         }
     }
@@ -143,8 +140,27 @@
     }
 }
 .menu--categories {
+    opacity: 1;
+    transform: translate3d( 0, 0, 0 );
     transition: opacity $base-duration $ease,
                 transform $base-duration $ease;
+
+    .is-uid-page & {
+        opacity: 0;
+        pointer-events: none;
+        transform: translate3d( 0, 15%, 0 );
+    }
+
+    .is-info-open & {
+        opacity: 0;
+        pointer-events: none;
+        transform: translate3d( 0, 15%, 0 );
+    }
+
+    .is-detail-feed & {
+        transition-delay: $base-duration;
+    }
+
 
     .menu__a {
         display: inline-block;

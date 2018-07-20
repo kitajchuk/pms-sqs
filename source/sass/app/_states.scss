@@ -25,31 +25,11 @@
     }
 }
 
-.is-touchable {
-    // Touch specific here?
-}
+.is-touchable {}
 
-.is-uid-page {
-    // .navi--mobile,
-    // .menu--categories {
-    //     @include noop();
-    // }
-    // .navi--returner {
-    //     @include poon();
-    // }
-}
+.is-uid-page {}
 
 .is-info-open {
-    overflow: hidden;
-
-    .navi {
-        color: $white;
-    }
-    .main,
-    .info {
-        pointer-events: auto;
-    }
-
     // .navi--returner,
     // .menu--categories {
     //     @include noop();
@@ -64,30 +44,29 @@
     // }
 }
 
-.is-navi-open {
-    .main {
-        pointer-events: auto;
-    }
-}
+.is-navi-open {}
 
-.is-dark-theme {
-    background-color: $black;
-    color: $white;
-
+.is-darkside {
     ._svg--play,
     ._svg--returner {
         fill: $white;
     }
-
     .a.is-active {
         color: $white;
     }
-
     .navi__a--mobile-category {
         border-bottom-color: $white;
     }
+    .menu--categories {
+        .menu__a.is-active {
+            .menu__text {
+                color: $white;
+                border-bottom-color: $white;
+            }
+        }
+    }
 }
-.is-hoverable.is-dark-theme {
+.is-hoverable.is-darkside {
     p a:hover,
     .menu__a:hover .a--lit,
     .a--lit:hover {

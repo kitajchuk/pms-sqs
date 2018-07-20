@@ -2,6 +2,10 @@
     color: $white;
     padding-top: $header-height;
 
+    .is-info-open & {
+        pointer-events: auto;
+    }
+
     @include respond( $header-break-mobile ) {
         padding-top: $header-height-mobile;
     }

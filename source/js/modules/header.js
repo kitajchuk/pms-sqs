@@ -52,31 +52,38 @@ const header = {
             this._isNaviTween = false;
             this._isNaviHoverIcon = false;
             this._isNaviReset = false;
-
-            this.load().then(( json ) => {
-                this.json = json;
-                this.done();
-                this.bindClick();
-                this.bindWatch();
-
-                if ( !core.detect.isDevice() ) {
-                    this.bindMouse();
-                }
-            });
         }
     },
 
 
     load () {
-        const query = paramalama( window.location.search );
+        return new Promise(( resolve, reject ) => {
+            if ( !this.element.length ) {
+                reject();
 
-        query.format = "json";
+            } else {
+                const query = paramalama( window.location.search );
 
-        return $.ajax({
-            url: this.data.root,
-            data: query,
-            dataType: "json",
-            method: "GET"
+                query.format = "json";
+
+                $.ajax({
+                    url: this.data.root,
+                    data: query,
+                    dataType: "json",
+                    method: "GET"
+
+                }).then(( json ) => {
+                    resolve();
+                    this.json = json;
+                    this.done();
+                    this.bindClick();
+                    this.bindWatch();
+
+                    if ( !core.detect.isDevice() ) {
+                        this.bindMouse();
+                    }
+                });
+            }
         });
     },
 
@@ -401,9 +408,9 @@ const header = {
     },
 
 
-    updateCategory ( view, params ) {
+    updateCategory ( view, category ) {
         if ( this.element.length ) {
-            const cats = params.category ? this.categories.filter( `.js-menu--${params.category.toLowerCase()}` ) : this.categories.filter( ".js-menu--everything" );
+            const cats = category ? this.categories.filter( `.js-menu--${category.toLowerCase()}` ) : this.categories.filter( ".js-menu--everything" );
 
             this.categories.removeClass( "is-active" );
             cats.addClass( "is-active" );
