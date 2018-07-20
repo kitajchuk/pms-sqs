@@ -145,6 +145,7 @@
     transition: opacity $base-duration $ease,
                 transform $base-duration $ease;
 
+    .is-intro &,
     .is-uid-page & {
         opacity: 0;
         pointer-events: none;

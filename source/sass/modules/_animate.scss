@@ -1,7 +1,8 @@
 /******************************************************************************
  * Animations
 *******************************************************************************/
-.anim {
+.anim,
+.article [class*=sqs-col] .sqs-block {
     transition-duration: $base-duration;
     transition-timing-function: $ease;
     }
@@ -13,13 +14,14 @@
         opacity: 1;
         }
     }
-.anim--tr {
+.anim--tr,
+.article [class*=sqs-col] .sqs-block {
     opacity: 0;
-    transform: translateY( $anim-1 );
+    transform: translate3d( 0, $anim-1, 0 );
     transition-property: transform, opacity;
 
     &.is-animated {
         opacity: 1;
-        transform: translateY( 0 );
+        transform: translate3d( 0, 0, 0 );
         }
     }

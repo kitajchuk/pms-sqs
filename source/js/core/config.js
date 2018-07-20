@@ -119,7 +119,7 @@ const config = {
      * @description The string selector used for animatable things.
      *
      */
-    lazyAnimSelector: ".js-lazy-anim",
+    lazyAnimSelector: ".js-lazy-anim, .js-article .sqs-block",
 
 
     /**

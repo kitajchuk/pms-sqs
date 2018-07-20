@@ -1,9 +1,9 @@
 <section class="feed js-feed -wrap">
     {.repeated section items}
         <div class="feed__item">
-            <div class="feed__info -column -column--2of4">
+            <div class="feed__info -column -column--2of4 anim anim--tr js-lazy-anim">
                 <div class="feed__title p">
-                    <a href="{fullUrl}" class="feed__text__link js-links-navi" {.if customContent.darkTheme}data-dark-theme="1"{.end}>
+                    <a href="{fullUrl}" class="feed__text__link">
                         {.if excerpt}
                             {excerpt}
                         {.or}
@@ -15,9 +15,9 @@
                     {categories.0}
                 </a>
             </div>
-            <div class="feed__media -column -column--2of4 -text--center">
+            <div class="feed__media -column -column--2of4 -text--center anim anim--tr js-lazy-anim">
                 <div class="feed__media__wrap">
-                    <a href="{fullUrl}" class="feed__media__link js-links-navi" {.if customContent.darkTheme}data-dark-theme="1"{.end}>
+                    <a href="{fullUrl}" class="feed__media__link">
                         {@|apply image.block}
                     </a>
                     <div class="feed__quickview">

@@ -57,13 +57,14 @@ class Controllers {
     exec () {
         this.controllers = [];
 
-        this.push( "animate", core.dom.body.find( core.config.lazyAnimSelector ), AnimateController, true );
         this.push( "playlist", core.dom.body.find( ".js-playlist" ), PlaylistController, true );
         this.push( "video", core.dom.body.find( ".sqs-block-video" ), VideoController, true );
         this.push( "related", core.dom.body.find( ".js-related" ), RelatedController, true );
 
+        this.anims = this.element.find( core.config.lazyAnimSelector );
         this.images = this.element.find( core.config.lazyImageSelector );
         this.imageController = new ImageController( this.images );
+        this.animController = new AnimateController( this.anims );
         this.imageController.on( "preloaded", () => {
             this.init();
 
@@ -74,9 +75,18 @@ class Controllers {
     }
 
 
+    animate () {
+        this.animController.start();
+    }
+
+
     destroy () {
         if ( this.imageController ) {
             this.imageController.destroy();
+        }
+
+        if ( this.animController ) {
+            this.animController.destroy();
         }
 
         this.kill();

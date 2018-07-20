@@ -33,7 +33,7 @@ const splash = {
 
             fourTwenty[ 0 ].innerHTML = `${fixHours}:${fixMinutes}${theSplit}`;
 
-            timeout = setTimeout( tickFourTwenty, 10000 );
+            timeout = setTimeout( tickFourTwenty, 100 );
         };
 
         tickFourTwenty();

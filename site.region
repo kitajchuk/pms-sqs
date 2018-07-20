@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="is-{collection.title|slugify}-page {.if item}is-uid-page {.if item.customContent.darkTheme}is-darkside{.end}{.end}">
+<html class="is-{collection.title|slugify}-page {.if item}is-uid-page {.if item.customContent.darkTheme}is-darkside{.end}{.end} is-intro">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -75,8 +75,12 @@
                     </div>
                 </footer>
             </div>
-            <div class="screen screen--dark intro js-intro is-active">
-                <div class="h1 -light">{website.siteTitle}</div>
+            <div class="screen screen--dark intro js-intro ghost">
+                {.var @geoLoco websiteSettings.storeSettings.contactLocation.addressLine2}
+                <div class="intro__wrap ghost__child">
+                    <div class="intro__title h1 -light anim anim--tr js-intro-anim">{website.siteTitle}</div>
+                    <div class="intro__time h1 -light anim anim--tr js-intro-anim"><span class="intro__time js-intro-time">04:20:00</span> &mdash; {.if @geoLoco}{@geoLoco}{.or}Los Angeles, CA{.end}</div>
+                </div>
             </div>
         {.end}
         <script type="text/javascript" src="/scripts/app.js?v={squarespace.template-revision}"></script>

@@ -1,5 +1,6 @@
 import $ from "properjs-hobo";
 import * as core from "../../core";
+import AnimateController from "./AnimateController";
 import viewRelated from "../../views/related";
 
 /**
@@ -44,13 +45,20 @@ class RelatedController {
 
             core.util.loadImages( this.element.find( core.config.lazyImageSelector ) );
 
+            this.animController = new AnimateController( this.element.find( core.config.lazyAnimSelector ) );
+            this.animController.start();
+
         }).catch(( error ) => {
             core.log( error );
         });
     }
 
 
-    destroy () {}
+    destroy () {
+        if ( this.animController ) {
+            this.animController.destroy();
+        }
+    }
 }
 
 

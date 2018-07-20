@@ -1,10 +1,20 @@
 .intro {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    z-index: $z_layer_intro;
+    text-align: center;
 
-    &.is-active {
-        z-index: $z_layer_intro;
+    .anim {
+        transform: translate3d( 0, 25%, 0 );
+
+        &.is-animated {
+            transform: translate3d( 0, 0, 0 );
         }
+    }
+
+    .is-intro & {
+        opacity: 1;
+        visibility: visible;
+        z-index: $z_layer_screen + 10;
+    }
+}
+.intro__time {
+    transition-delay: $base-duration;
 }

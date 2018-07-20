@@ -17,18 +17,9 @@ class AnimateController {
         this.className = "is-animated";
         this.classNameOut = "is-animated-out";
         this.elements = elements;
-        this.start();
     }
 
 
-    /**
-     *
-     * @instance
-     * @description Initialize the animation frame
-     * @memberof AnimateController
-     * @method start
-     *
-     */
     start () {
         this.scroller = new ScrollController();
         this.scroller.on( "scroll", () => {
@@ -63,18 +54,14 @@ class AnimateController {
 
         // Sequence the animation of the elements
         const animator = new Controller();
-        let lastTime = Date.now();
         let currElem = 0;
 
         animator.go(() => {
-            const currTime = Date.now();
-
             if ( currElem === elems.length ) {
                 animator.stop();
                 core.log( "[AnimateController] Animation Complete!" );
 
-            } else if ( (currTime - lastTime) >= 100 ) {
-                lastTime = currTime;
+            } else {
                 elems[ currElem ].className += ` ${this.className}`;
                 currElem++;
             }
@@ -82,14 +69,6 @@ class AnimateController {
     }
 
 
-    /**
-     *
-     * @instance
-     * @description Stop the animation frame
-     * @memberof AnimateController
-     * @method destroy
-     *
-     */
     destroy () {
         const visible = core.util.getElementsInView( core.dom.main.find( core.config.lazyAnimSelector ) );
 

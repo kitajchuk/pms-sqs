@@ -29,20 +29,7 @@ class App {
         this.router = router;
         this.splash = splash;
 
-        this.bind();
         this.init();
-    }
-
-
-    bind () {
-        this.core.emitter.on( "app--intro-teardown", () => {
-            this.core.log( "App Intro Teardown" );
-        });
-
-        this.core.emitter.on( "app--page-teardown", () => {
-            this.router.topper();
-            this.core.log( "App Page Teardown" );
-        });
     }
 
 

@@ -31,8 +31,13 @@ const router = {
         this.controllers = new Controllers({
             el: core.dom.main,
             cb: () => {
-                core.emitter.fire( "app--page-teardown" );
+                // core.emitter.fire( "app--page-teardown" );
+                this.topper();
             }
+        });
+
+        core.emitter.on( "app--intro-teardown", () => {
+            this.controllers.animate();
         });
 
         // Transition page state stuff
@@ -42,25 +47,11 @@ const router = {
         };
         this.church = null;
 
-        this.bindLinks();
         this.bindEmpty();
         this.initPages();
         this.prepPages();
 
         core.log( "[Router initialized]", this );
-    },
-
-
-    bindLinks () {
-        core.dom.body.on( "click", ".js-links-navi", ( e ) => {
-            const target = $( e.target );
-            const link = target.is( ".js-links-navi" ) ? target : target.closest( ".js-links-navi" );
-            const data = link.data();
-
-            if ( data.darkTheme ) {
-                this.isDarkTheme = true;
-            }
-        });
     },
 
 
@@ -275,6 +266,7 @@ const router = {
     changePageIn ( data ) {
         setTimeout(() => {
             core.dom.html.removeClass( "is-tranny" );
+            this.controllers.animate();
             this.execSquarespace();
             this.transitionIn();
             this.setState( "now", data );

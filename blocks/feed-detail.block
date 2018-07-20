@@ -1,4 +1,4 @@
-<header class="article__header -wrap">
+<header class="article__header -wrap anim anim--tr js-lazy-anim">
     <div class="article__title p">{item.title}</div>
     <a class="article__meta p a a--lit -grey" href="{collection.fullUrl}?category={item.categories.0}">{item.categories.0}</a>
 </header>
