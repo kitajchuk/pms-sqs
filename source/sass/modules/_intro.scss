@@ -1,6 +1,16 @@
 .intro {
     text-align: center;
 
+    h1, .h1 {
+        @include respond( $break-tablet-medium ) {
+            @include h2();
+        }
+
+        // @include respond( $break-mobile-medium ) {
+        //     @include p();
+        // }
+    }
+
     .anim {
         transform: translate3d( 0, 25%, 0 );
 
