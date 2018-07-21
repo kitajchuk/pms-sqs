@@ -41,7 +41,7 @@ const intro = {
             const fixSeconds = theSeconds < 10 ? `0${theSeconds}` : theSeconds;
 
             timeElem[ 0 ].innerHTML = `${fixHours}:${fixMinutes}:${fixSeconds}`;
-            timeout = setTimeout( timeTicker, 100 );
+            timeout = setTimeout( timeTicker, 500 );
         };
 
         timeTicker();
