@@ -43,22 +43,16 @@
             padding-right: 0;
         }
     }
-    .grid__title,
-    .grid__meta {
-        @include respond( $mobile-breakpoint ) {
-            @include wrap();
-        }
-    }
 }
 .related__label {
     border-bottom: 1px solid $grey-lit;
-    margin-bottom: $padding-1 / 2;
-    padding-bottom: $padding-1 / 2;
+    padding-bottom: $padding-1;
 
     .is-darkside & {
         border-bottom-color: $charcoal;
     }
 }
-.related__item {
+.related__grid {
+    padding-top: $padding-1;
     padding-bottom: $padding-1;
 }

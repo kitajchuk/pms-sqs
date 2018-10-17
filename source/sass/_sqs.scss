@@ -42,6 +42,10 @@
 .sqs-block-spacer {
     .sqs-block-content {
         height: $expander-1 !important;
+
+        @include respond( $mobile-breakpoint ) {
+            height: $expander-1 + $padding-1 !important;
+        }
     }
 }
 .sqs-block-html {

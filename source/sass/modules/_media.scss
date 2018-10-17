@@ -7,6 +7,10 @@
 }
 .media__cap {
     padding-top: 20px;
+
+    @include respond( $mobile-breakpoint ) {
+        padding: 30px $padding-1 $padding-1;
+    }
 }
 .media--card {
     align-items: center;
@@ -25,6 +29,7 @@
 
             @include respond( $mobile-breakpoint ) {
                 padding-bottom: $padding-1;
+                order: 2;
                 @include wrap();
             }
         }
@@ -143,7 +148,7 @@
 
         @include respond( $mobile-breakpoint ) {
             padding-left: 0;
-            padding-top: $padding-1;
+            padding-top: $expander-1 + $padding-1;
         }
     }
 }
@@ -166,13 +171,22 @@
     width: 33.333333%;
 
     @include respond( $mobile-breakpoint ) {
-        padding: 0 0 $padding-1 0;
+        padding: 0;
         width: 100%;
     }
+
+    & + .grid__item {
+        @include respond( $mobile-breakpoint ) {
+            padding-top: ($expander-1 + $padding-1);
+        }
+    }
 }
-.grid__title {
-    margin-top: 10px;
+.grid__info {
+    @include respond( $mobile-breakpoint ) {
+        padding: 30px $padding-1 $padding-1;
+    }
 }
+.grid__title {}
 .grid__image,
 .grid__title,
 .grid__meta {
