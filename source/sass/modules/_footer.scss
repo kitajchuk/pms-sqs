@@ -36,7 +36,20 @@
 
 
 
-.related {}
+.related {
+    .grid {
+        @include respond( $mobile-breakpoint ) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+    .grid__title,
+    .grid__meta {
+        @include respond( $mobile-breakpoint ) {
+            @include wrap();
+        }
+    }
+}
 .related__label {
     border-bottom: 1px solid $grey-lit;
     margin-bottom: $padding-1 / 2;

@@ -60,5 +60,37 @@
 .sqs-block-video {
     .sqs-block-content {
         @include wrap2();
+
+        @include respond( $mobile-breakpoint ) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+}
+.sqs-block-image {
+    .media {
+        @include respond( $mobile-breakpoint ) {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+    }
+    .media__cap {
+        @include respond( $mobile-breakpoint ) {
+            @include wrap();
+        }
+    }
+}
+.sqs-block-gallery {
+    .grid,
+    .diptych {
+        @include respond( $mobile-breakpoint ) {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+    }
+    .media__cap {
+        @include respond( $mobile-breakpoint ) {
+            @include wrap();
+        }
     }
 }
