@@ -86,6 +86,7 @@
                 <div class="quickview__wrap ghost__child">
                     <div class="quickview__header -wrap">
                         <div class="quickview__header__wrap">
+                            <a class="quickview__perma p -light js-quickview-perma" href=""></a>
                             <div class="quickview__ender js-quickview-ender">
                                 {@|apply svg-ender.block}
                             </div>

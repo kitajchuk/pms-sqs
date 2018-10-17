@@ -1,7 +1,7 @@
 import * as core from "../core";
 import $ from "properjs-hobo";
 import * as gsap from "gsap/all";
-import viewVideo from "../views/video";
+import Video from "../class/components/Video";
 
 
 /**
@@ -19,6 +19,7 @@ const quickview = {
             this.ender = this.element.find( ".js-quickview-ender" );
             this.gallery = this.element.find( ".js-quickview-gallery" );
             this.navi = this.element.find( ".js-quickview-navi" );
+            this.perma = this.element.find( ".js-quickview-perma" );
 
             this.items = [];
             this.navis = [];
@@ -41,34 +42,20 @@ const quickview = {
             this.close();
         });
 
-        this.element.on( "click", ( e ) => {
-            const target = $( e.target );
-
+        this.element.on( "click", () => {
             if ( !this._isOpen ) {
                 return;
             }
 
-            // goto
-            if ( target.is( ".quickview__navi__item" ) && !this._isTransition ) {
-                this.goto( target.index() );
-                this.transition();
-
-            // advance
-            } else if ( e.clientX > (window.innerWidth / 2) && !this._isTransition ) {
-                this.advance();
-                this.transition();
-
-            // rewind
-            } else if ( e.clientX < (window.innerWidth / 2) && !this._isTransition ) {
-                this.rewind();
-                this.transition();
-            }
+            this.advance();
+            this.transition();
         });
 
         core.dom.body.on( "click", ".js-quickview-hit", ( e ) => {
             const target = $( e.target );
 
             this.data = target.data();
+            this.prebuild();
             this.open();
             this.load().then(( json ) => {
                 this.json = json;
@@ -99,28 +86,33 @@ const quickview = {
         this.current++;
 
         if ( this.current === this.length ) {
-            this.current = 0;
-        }
-    },
-
-
-    rewind () {
-        this.current--;
-
-        if ( this.current < 0 ) {
-            this.current = this.length - 1;
+            this.close();
         }
     },
 
 
     transition () {
+        if ( !this._isOpen ) {
+            return;
+        }
+
         this._isTransition = true;
 
         const nextItem = this.items.eq( this.current ).addClass( "is-active" );
         const nextNavi = this.navis.eq( this.current ).addClass( "is-active" );
+        const nextVideo = nextItem.data().Video;
+        const currVideo = this.currItem.data().Video;
 
         this.currItem.removeClass( "is-active" );
         this.currNavi.removeClass( "is-active" );
+
+        if ( currVideo ) {
+            currVideo.pause();
+        }
+
+        if ( nextVideo ) {
+            nextVideo.play();
+        }
 
         gsap.TweenLite.to( this.currItem[ 0 ], 0.5, {
             css: {
@@ -150,6 +142,12 @@ const quickview = {
     },
 
 
+    prebuild () {
+        this.perma[ 0 ].innerHTML = this.data.title;
+        this.perma[ 0 ].href = this.data.href;
+    },
+
+
     build () {
         this.items = [];
         this.navis = [];
@@ -157,8 +155,6 @@ const quickview = {
             const block = this.blocks.eq( i );
             const data = block.data();
             const type = parseInt( data.blockType, 10 );
-
-            // console.log( data, block[ 0 ].outerHTML );
 
             // Image // Gallery
             if ( type === 5 || type === 8 ) {
@@ -171,11 +167,11 @@ const quickview = {
 
             // Video
             } else if ( type === 32 ) {
-                const image = block.find( "img" );
-
                 this.navis.push( `<div class="quickview__navi__item"></div>` );
-                this.items.push( `<div class="quickview__gallery__item">
-                    ${viewVideo( data.blockJson, image.data() )}
+                this.items.push( `<div class="quickview__gallery__item js-quickview-video">
+                    <div class="sqs-block-video" data-block-json='${JSON.stringify( data.blockJson )}'>
+                        <div class="sqs-block-content"></div>
+                    </div>
                 </div>` );
             }
         });
@@ -187,6 +183,13 @@ const quickview = {
         this.images = this.gallery.find( core.config.lazyImageSelector );
         this.currItem = this.items.first().addClass( "is-active" );
         this.currNavi = this.navis.first().addClass( "is-active" );
+
+        this.gallery.find( ".js-quickview-video" ).forEach(( el ) => {
+            const jsVideo = $( el );
+            const sqsVideo = jsVideo.find( ".sqs-block-video" );
+
+            jsVideo.data( "Video", new Video( sqsVideo ) );
+        });
 
         core.util.loadImages( this.images, core.util.noop ).on( "done", () => {
             const timeline = new gsap.TimelineLite();
@@ -249,9 +252,20 @@ const quickview = {
         this.element.removeClass( "is-active is-loaded" );
         core.dom.html.removeClass( "is-quickview-open" );
 
+        this.gallery.find( ".js-quickview-video" ).forEach(( el ) => {
+            const jsVideo = $( el );
+            const videoInstance = jsVideo.data().Video;
+
+            if ( videoInstance ) {
+                videoInstance.destroy();
+            }
+        });
+
         setTimeout(() => {
             this.navi[ 0 ].innerHTML = "";
             this.gallery[ 0 ].innerHTML = "";
+            this.perma[ 0 ].innerHTML = "";
+            this.perma[ 0 ].href = "";
 
         }, 500 );
     },

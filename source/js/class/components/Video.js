@@ -67,6 +67,16 @@ class Video {
     }
 
 
+    pause () {
+        if ( this.data.blockJson.resolvedBy === "vimeo" ) {
+            this.vimeoPostMessage( "pause", null );
+
+        } else {
+            this.youtubePlayer.pauseVideo();
+        }
+    }
+
+
 /******************************************************************************
  * Vimeo handling
 *******************************************************************************/

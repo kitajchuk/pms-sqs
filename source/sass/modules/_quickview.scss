@@ -2,6 +2,11 @@
     color: $white;
     text-align: center;
 
+    .embed__poster,
+    .embed__playbtn {
+        display: none;
+    }
+
     .is-quickview-open & {
         pointer-events: auto;
         z-index: $z_layer_header + 10;
@@ -12,7 +17,8 @@
         display: none;
     }
 }
-.quickview__ender {
+.quickview__ender,
+.quickview__perma {
     pointer-events: auto;
     cursor: pointer;
 }
@@ -38,7 +44,7 @@
 .quickview__header__wrap {
     align-items: center;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     position: relative;
     width: 100%;
 }

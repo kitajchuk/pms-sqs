@@ -6,6 +6,7 @@ import * as gsap from "gsap/all";
 import Controllers from "./class/Controllers";
 import * as core from "./core";
 import header from "./modules/header";
+import quickview from "./modules/quickview";
 
 
 
@@ -245,6 +246,9 @@ const router = {
         this.setClass();
         this.transitionOut();
         // header.resetNavi();
+        if ( quickview.isOpen() ) {
+            quickview.close();
+        }
         header.updateCategory(
             this.state.future.view,
             this.state.future.cat
