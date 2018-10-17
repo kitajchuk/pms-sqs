@@ -47,17 +47,6 @@ const dom = {
     /**
      *
      * @public
-     * @member intro
-     * @memberof core.dom
-     * @description The cached intro node.
-     *
-     */
-    intro: $( config.introSelector ),
-
-
-    /**
-     *
-     * @public
      * @member main
      * @memberof core.dom
      * @description The cached main node.

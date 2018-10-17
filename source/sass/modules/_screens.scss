@@ -10,15 +10,13 @@
     right: 0;
     top: 0;
     transition: opacity $base-duration $ease,
-                z-index $base-duration $ease,
                 visibility $base-duration $ease;
     visibility: hidden;
-    z-index: $z_layer_behind;
+    z-index: $z_layer_screen;
 
     &.is-active {
         opacity: 1;
         visibility: visible;
-        z-index: $z_layer_screen;
         -webkit-overflow-scrolling: touch;
     }
 }

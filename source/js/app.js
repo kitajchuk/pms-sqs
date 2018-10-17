@@ -11,6 +11,7 @@ import header from "./modules/header";
 import intro from "./modules/intro";
 import info from "./modules/info";
 import splash from "./modules/splash";
+import quickview from "./modules/quickview";
 
 
 /**
@@ -22,11 +23,13 @@ import splash from "./modules/splash";
  */
 class App {
     constructor () {
+        this.analytics = new Analytics();
         this.core = core;
         this.header = header;
         this.intro = intro;
         this.info = info;
         this.router = router;
+        this.quickview = quickview;
         this.splash = splash;
 
         this.init();
@@ -43,24 +46,19 @@ class App {
      *
      */
     init () {
-        // Core
         this.core.detect.init();
-
-        // Views
         this.intro.init();
         this.splash.init();
         this.header.init();
         this.header.load().then(() => {
             this.router.init();
             this.info.init();
+            this.quickview.init();
             this.intro.teardown();
 
         }).catch(( error ) => {
             this.core.log( "warn", error );
         });
-
-        // Analytics
-        this.analytics = new Analytics();
     }
 }
 

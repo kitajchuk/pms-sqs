@@ -11,6 +11,7 @@
     z-index: $z_layer_header;
     transform: translate3d( 0, 0, 0 );
     transition: height $base-duration $ease,
+                opacity $base-duration $ease,
                 transform $base-duration $ease,
                 background-color $base-duration $ease;
 
@@ -37,6 +38,11 @@
 
     .is-header-small.is-info-open & {
         background-color: transparent;
+    }
+
+    .is-header-small.is-scroll-up.is-quickview-open & {
+        opacity: 0;
+        transform: translate3d( 0, -100%, 0 );
     }
 }
 .header__wrap {
@@ -74,7 +80,7 @@
         }
     }
 
-    .is-header-houdini & {
+    .is-quickview-open & {
         opacity: 0;
     }
 }
@@ -118,7 +124,7 @@
 
         &.is-active {
             .menu__text {
-                border-bottom: 1px solid $white;
+                // border-bottom: 1px solid $white;
                 color: $white;
             }
         }
@@ -146,13 +152,9 @@
                 transform $base-duration $ease;
 
     .is-intro &,
-    .is-uid-page & {
-        opacity: 0;
-        pointer-events: none;
-        transform: translate3d( 0, 15%, 0 );
-    }
-
-    .is-info-open & {
+    .is-uid-page &,
+    .is-info-open &,
+    .is-quickview-open & {
         opacity: 0;
         pointer-events: none;
         transform: translate3d( 0, 15%, 0 );
@@ -174,7 +176,7 @@
 
         &.is-active {
             .menu__text {
-                border-bottom: 1px solid $black;
+                // border-bottom: 1px solid $black;
                 color: $black;
             }
         }

@@ -1,12 +1,10 @@
 .main {
     padding-top: $header-height;
 
-    .is-navi-open & {
-        pointer-events: auto;
-    }
-
-    .is-info-open & {
-        pointer-events: auto;
+    .is-navi-open &,
+    .is-info-open &,
+    .is-quickview-open & {
+        pointer-events: none;
     }
 
     @include respond( $header-break-mobile ) {

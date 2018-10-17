@@ -1,6 +1,6 @@
 .feed {
     .-grey {
-        display: block;
+        display: inline-block;
     }
 
     &.-wrap {
@@ -74,16 +74,29 @@
     width: 100%;
 }
 .feed__quickview__hit {
-    align-items: center;
-    display: flex;
-    justify-content: flex-start;
+    display: inline-block;
     pointer-events: auto;
+
+    .is-hoverable &:hover {
+        .feed__quickview__text {
+            border-bottom: 1px solid $white;
+        }
+    }
 }
 .feed__quickview__icon {
+    pointer-events: none;
+    display: inline-block;
+    vertical-align: middle;
+
     ._svg--play {
         fill: $white;
     }
 }
 .feed__quickview__text {
     margin-left: 20px;
+    pointer-events: none;
+    display: inline-block;
+    vertical-align: middle;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom-color $base-duration $ease;
 }

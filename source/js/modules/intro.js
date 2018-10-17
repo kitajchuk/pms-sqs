@@ -11,7 +11,7 @@ import Controller from "properjs-controller";
  */
 const intro = {
     init () {
-        this.element = core.dom.intro;
+        this.element = core.dom.body.find( ".js-intro" );
 
         if ( this.element.length ) {
             this.logTime = Date.now();

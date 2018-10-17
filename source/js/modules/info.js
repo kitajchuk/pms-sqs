@@ -12,9 +12,9 @@ import $ from "properjs-hobo";
 const info = {
     init () {
         this.element = core.dom.body.find( ".js-info" );
-        this.content = core.dom.body.find( ".js-info-content" );
 
         if ( this.element.length ) {
+            this.content = core.dom.body.find( ".js-info-content" );
             this.data = this.element.data();
 
             this.load().then(( json ) => {

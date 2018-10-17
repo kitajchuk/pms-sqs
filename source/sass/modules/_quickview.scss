@@ -1,0 +1,107 @@
+.quickview {
+    color: $white;
+    text-align: center;
+
+    .is-quickview-open & {
+        pointer-events: auto;
+        z-index: $z_layer_header + 10;
+    }
+}
+.quickview__loading {
+    .is-loaded & {
+        display: none;
+    }
+}
+.quickview__ender {
+    pointer-events: auto;
+    cursor: pointer;
+}
+.quickview__header {
+    align-items: center;
+    display: flex;
+    height: $header-height;
+    left: 0;
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+
+    @include respond( $header-break-mobile ) {
+        height: $header-height-mobile;
+    }
+
+    @include respond-min( $header-break-static ) {
+        height: $header-height-static;
+    }
+}
+.quickview__header__wrap {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    width: 100%;
+}
+.quickview__navi {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    padding-bottom: 5.5vw;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 2;
+}
+.quickview__navi__item {
+    height: 3px;
+    border-radius: 3px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 17.5px;
+    background-color: #d8d8d8;
+    opacity: 0;
+    transform: translate3d( 0, 5.5vw, 0 );
+    width: 100%;
+    cursor: pointer;
+}
+.quickview__gallery {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    position: absolute;
+    pointer-events: none;
+}
+.quickview__gallery__item {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.is-empty {
+        opacity: 1;
+    }
+    &.is-active {
+        .quickview__media__node {
+            pointer-events: auto;
+        }
+    }
+
+    .embed,
+    .image--wide {
+        width: 60vw;
+        height: auto;
+    }
+    .image--box,
+    .image--tall {
+        width: auto;
+        height: 65vh;
+    }
+}

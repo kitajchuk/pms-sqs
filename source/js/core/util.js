@@ -172,16 +172,17 @@ const loadImages = function ( images, handler ) {
         // Pre-process portrait vs landscape using originalSize
         if ( data.originalSize ) {
             const dims = getOriginalDims( data.originalSize );
+            const ratio = (dims.height / dims.width) * 100;
 
-            if ( dims.width > dims.height ) {
-                image.addClass( "image--wide" );
-
-            } else if ( dims.height > dims.width ) {
+            if ( ratio > 100 ) {
                 image.addClass( "image--tall" );
                 image.parent().addClass( "media--tall" );
 
-            } else {
+            } else if ( ratio >= 75 ) {
                 image.addClass( "image--box" );
+
+            } else {
+                image.addClass( "image--wide" );
             }
         }
 

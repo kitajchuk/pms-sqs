@@ -10,9 +10,14 @@
     .splash .sqs-block-html a:hover {
         color: $medium;
     }
-    .feed__media:hover {
+    .feed__media__wrap:hover {
         .feed__quickview {
             opacity: 1;
+
+            .anim {
+                opacity: 1;
+                transform: translate3d( 0, 0, 0 );
+            }
         }
     }
     .grid__image:hover {
@@ -45,6 +50,8 @@
 }
 
 .is-navi-open {}
+
+.is-quickview-open {}
 
 .is-darkside {
     ._svg--play,

@@ -8,11 +8,17 @@
     right: 0;
     top: 50%;
     transform: translateY( -50% );
+
+    .is-quickview-open & {
+        pointer-events: none;
+        opacity: 0;
+    }
 }
 .navi--returner {
     left: 0;
     opacity: 0;
     position: absolute;
+    pointer-events: none;
     top: 50%;
     transform: translate3d( 0, -35%, 0 );
     transition: opacity $base-duration $ease,
@@ -24,17 +30,12 @@
         transform: translate3d( 0, -50%, 0 );
     }
 
-    .is-info-open & {
-        opacity: 0;
-        pointer-events: none;
-        transform: translate3d( 0, -35%, 0 );
-    }
-
     .is-feed-detail & {
         transition-delay: $base-duration;
     }
 }
 .navi--mobile {
+    display: none;
     opacity: 0;
     pointer-events: none;
     transform: translate3d( 0, 15%, 0 );
@@ -54,6 +55,7 @@
     }
 
     @include respond( $mobile-breakpoint ) {
+        display: inline-block;
         opacity: 1;
         pointer-events: auto;
         transform: translate3d( 0, 0, 0 );
@@ -98,4 +100,8 @@
         opacity: 1;
         transform: translate3d( -20px, -50%, 0 );
     }
+}
+.navi__label--info,
+.navi__label--close {
+    display: none;
 }

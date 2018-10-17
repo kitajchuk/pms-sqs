@@ -19,14 +19,14 @@
         <meta name="msapplication-square310x310logo" content="/assets/touch/largetile.png?v={squarespace.template-revision}" />
         {squarespace-headers}
     </head>
-    <body>
+    <body class="-fzero">
         {# Splash #}
         {.equal? collection.id "5a21b3cb08522905d704fbc2"}
             {@|apply splash.block}
 
         {# Feed #}
         {.or}
-            <header class="header js-header -wrap -fzero" data-root="/feed/">
+            <header class="header js-header -wrap" data-root="/feed/">
                 <div class="header__wrap">
                     <menu class="menu menu--categories js-menu-categories -column"></menu>
                     <nav class="navi navi--mobile -column">
@@ -55,7 +55,7 @@
             <div class="dotinfo js-dotinfo">
                 {@|apply svg-circle.block}
             </div>
-            <main class="main js-main -fzero" data-content-field="main-content" data-website-id="{website.id}" {.section collection}data-collection-id="{collection.id}" data-collection-title="{.if collection.homepage}{website.siteTitle}{.or}{collection.title} – {website.siteTitle}{.end}"{.end} {.section item}data-item-id="{item.id}" data-item-title="{item.title} – {collection.title} – {website.siteTitle}" {.if item.customContent.darkTheme}data-darkside="true"{.end}{.end}>
+            <main class="main js-main" data-content-field="main-content" data-website-id="{website.id}" {.section collection}data-collection-id="{collection.id}" data-collection-title="{.if collection.homepage}{website.siteTitle}{.or}{collection.title} – {website.siteTitle}{.end}"{.end} {.section item}data-item-id="{item.id}" data-item-title="{item.title} – {collection.title} – {website.siteTitle}" {.if item.customContent.darkTheme}data-darkside="true"{.end}{.end}>
                 {.equal? collection.typeName "page"}
                     {@|apply page.block}
                 {.or}
@@ -77,9 +77,25 @@
             </div>
             <div class="screen screen--dark intro js-intro ghost">
                 {.var @geoLoco websiteSettings.storeSettings.contactLocation.addressLine2}
-                <div class="intro__wrap ghost__child">
-                    <div class="intro__title h1 -light anim anim--tr js-intro-anim">{website.siteTitle}</div>
-                    <div class="intro__time h1 -light anim anim--tr js-intro-anim"><span class="intro__time js-intro-time">04:20:00</span> &mdash; {.if @geoLoco}{@geoLoco}{.or}Los Angeles, CA{.end}</div>
+                <div class="intro__wrap ghost__child anim anim--tr js-intro-anim">
+                    <div class="intro__title h1 -light">{website.siteTitle}</div>
+                    <div class="intro__time h1 -light"><span class="intro__time js-intro-time">04:20:00</span> &mdash; {.if @geoLoco}{@geoLoco}{.or}Los Angeles, CA{.end}</div>
+                </div>
+            </div>
+            <div class="screen screen--dark quickview js-quickview ghost">
+                <div class="quickview__wrap ghost__child">
+                    <div class="quickview__header -wrap">
+                        <div class="quickview__header__wrap">
+                            <div class="quickview__ender js-quickview-ender">
+                                {@|apply svg-ender.block}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quickview__loading">
+                        {@|apply loading.block}
+                    </div>
+                    <div class="quickview__gallery js-quickview-gallery"></div>
+                    <div class="quickview__navi js-quickview-navi -wrap"></div>
                 </div>
             </div>
         {.end}

@@ -12,8 +12,10 @@ html {
         color: $white;
     }
 
+    &.is-intro,
     &.is-tranny,
-    &.is-info-open {
+    &.is-info-open,
+    &.is-quickview-open {
         overflow: hidden;
     }
 }
@@ -24,6 +26,11 @@ body {
     -webkit-tap-highlight-color: rgba( 0, 0, 0, 0 );
     -webkit-touch-callout: none;
     @include font-family-reg();
+}
+html,
+body {
+    overflow-x: hidden;
+    width: 100%;
 }
 
 

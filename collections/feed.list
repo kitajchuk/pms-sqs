@@ -22,7 +22,7 @@
                     </a>
                     <div class="feed__quickview">
                         <div class="feed__quickview__wrap">
-                            <a class="feed__quickview__hit" {.equal? categories.0 "Playlists"}href="{sourceUrl}" target="_blank"{.or}href="#"{.end}>
+                            <a class='feed__quickview__hit anim anim--tr {.equal? categories.0 "Playlists"}{.or}js-quickview-hit{.end}' {.equal? categories.0 "Playlists"}href="{sourceUrl}" target="_blank"{.or}href="#" data-href="{fullUrl}"{.end}>
                                 <div class="feed__quickview__icon">{@|apply svg-play.block}</div>
                                 <div class="feed__quickview__text p -light">
                                     {.if customContent.quickText}

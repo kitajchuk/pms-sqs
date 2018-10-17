@@ -21,6 +21,7 @@
 
     .is-intro & {
         opacity: 1;
+        pointer-events: auto;
         visibility: visible;
         z-index: $z_layer_screen + 10;
     }
