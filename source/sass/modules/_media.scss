@@ -160,7 +160,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 0 (-$padding-1 / 2);
+    // margin: 0 (-$padding-1 / 2);
 
     @include respond( $mobile-breakpoint ) {
         margin: 0;
@@ -182,6 +182,8 @@
     }
 }
 .grid__info {
+    padding-top: 30px;
+
     @include respond( $mobile-breakpoint ) {
         padding: 30px $padding-1 $padding-1;
     }
@@ -192,6 +194,7 @@
 .grid__meta {
     display: block;
     position: relative;
+    margin-top: 10px;
 }
 .grid__image__hover {
     background-color: rgba( 0, 0, 0, 0.2 );

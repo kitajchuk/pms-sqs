@@ -15,7 +15,7 @@
             {.end}
         </div>
     {.or}
-        <div class="grid -wrap">
+        <div class="grid">
             {.repeated section items}
                 <div class="grid__item">
                     <div class="media js-media">

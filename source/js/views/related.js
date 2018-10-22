@@ -3,7 +3,7 @@ export default ( collection, category, items ) => {
 
     return `
         <div class="related__label p -text--center -wrap anim anim--tr js-lazy-anim">More in ${category}</div>
-        <div class="related__grid grid -wrap">
+        <div class="related__grid grid">
             ${items.map(( item ) => {
                 return `
                     <div class="grid__item related__item anim anim--tr js-lazy-anim">
