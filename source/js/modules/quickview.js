@@ -74,6 +74,24 @@ const quickview = {
                 }
             });
         });
+
+        core.dom.doc.on( "keyup", ( e ) => {
+            if ( !this._isOpen ) {
+                return;
+            }
+
+            // Left
+            if ( e.keyCode === 37 ) {
+                this.rewind();
+                this.transition();
+            }
+
+            // Right
+            if ( e.keyCode === 39 ) {
+                this.advance();
+                this.transition();
+            }
+        });
     },
 
 
@@ -87,6 +105,13 @@ const quickview = {
 
         if ( this.current === this.length ) {
             this.close();
+        }
+    },
+
+
+    rewind () {
+        if ( this.current > 0 ) {
+            this.current--;
         }
     },
 
