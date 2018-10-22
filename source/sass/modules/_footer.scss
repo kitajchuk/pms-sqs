@@ -44,15 +44,12 @@
         }
     }
 }
-.related__label {
-    border-bottom: 1px solid $grey-lit;
+.related__grid {
+    border-top: 1px solid $grey-lit;
+    padding-top: $padding-1;
     padding-bottom: $padding-1;
 
     .is-darkside & {
-        border-bottom-color: $charcoal;
+        border-top-color: $charcoal;
     }
-}
-.related__grid {
-    padding-top: $padding-1;
-    padding-bottom: $padding-1;
 }

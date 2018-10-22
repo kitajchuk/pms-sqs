@@ -1,8 +1,8 @@
 export default ( collection, category, items ) => {
     const isPlaylist = (category === "Playlists");
+    //<div class="related__label p -text--center -wrap anim anim--tr js-lazy-anim">More in ${category}</div>
 
     return `
-        <div class="related__label p -text--center -wrap anim anim--tr js-lazy-anim">More in ${category}</div>
         <div class="related__grid grid">
             ${items.map(( item ) => {
                 return `
