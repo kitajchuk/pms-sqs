@@ -5,23 +5,28 @@
 .article [class*=sqs-col] .sqs-block {
     transition-duration: $base-duration;
     transition-timing-function: $ease;
-    }
+}
 .anim--op {
     opacity: 0;
     transition-property: opacity;
 
     &.is-animated {
         opacity: 1;
-        }
     }
+}
 .anim--tr,
 .article [class*=sqs-col] .sqs-block {
     opacity: 0;
     transform: translate3d( 0, $anim-1, 0 );
     transition-property: transform, opacity;
 
+    @include respond( $mobile-breakpoint ) {
+        transform: translate3d( 0, 0, 0 );
+        transition-property: opacity;
+    }
+
     &.is-animated {
         opacity: 1;
         transform: translate3d( 0, 0, 0 );
-        }
     }
+}
