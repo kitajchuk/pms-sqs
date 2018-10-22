@@ -22,6 +22,13 @@
     pointer-events: auto;
     cursor: pointer;
 }
+.quickview__perma {
+    max-width: 420px;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 .quickview__header {
     align-items: center;
     display: flex;
