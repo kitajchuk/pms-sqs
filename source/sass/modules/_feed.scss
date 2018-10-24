@@ -17,17 +17,23 @@
     justify-content: space-between;
     padding-bottom: $expander-1;
 
-    @include respond( $mobile-breakpoint ) {}
+    @include respond( $mobile-breakpoint ) {
+        padding-bottom: 0;
+    }
 }
 .feed__meta {
     margin-top: 10px;
+
+    @include respond( $mobile-breakpoint ) {
+        margin-top: 5px;
     }
+}
 .feed__info {
     padding-right: $padding-1 / 2;
 
     @include respond( $mobile-breakpoint ) {
         order: 2;
-        padding: 30px $padding-1 $padding-1;
+        padding: 30px $padding-2 $padding-1;
         width: 100%;
     }
 }
@@ -99,4 +105,22 @@
     vertical-align: middle;
     border-bottom: 1px solid transparent;
     transition: border-bottom-color $base-duration $ease;
+}
+
+
+
+.feed__link {
+    width: 100%;
+    display: block;
+
+    .media--overlap .media__text {
+        @include respond( $mobile-breakpoint ) {
+            padding: 30px $padding-2 $padding-2;
+        }
+    }
+
+    strong {
+        color: $grey;
+        @include font-family-reg();
+    }
 }

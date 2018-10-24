@@ -47,13 +47,12 @@ strong, .s {
 h1, .h1 {
     @include h1();
 }
-h2, .h2 {
+h2, .h2, .h2 p {
     @include h2();
 }
 h3, .h3 {
     @include h3();
 }
-h4,
-.h4 {
+h4, .h4, .h4 p, blockquote p {
     @include h4();
 }

@@ -31,6 +31,24 @@
 .playlist__tracks {
     min-height: 222px;
     position: relative;
+
+    &:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 50%;
+        background: linear-gradient( 180deg, rgba( 255,255,255,0 ) 0%, rgba( 255,255,255,1 ) 100% );
+
+        .is-darkside & {
+            background: linear-gradient( 180deg, rgba( 0,0,0,0 ) 0%, rgba( 0,0,0,1 ) 100% );
+        }
+    }
+
+    &.is-clicked:after {
+        display: none;
+    }
 }
 .playlist__tracks__track {
     display: block;

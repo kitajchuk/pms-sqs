@@ -3,7 +3,7 @@
 </aside>
 <main class="playlist__details -column" data-url="{sourceUrl}">
     <header class="playlist__header anim anim--tr js-lazy-anim">
-        <div class="playlist__title p">{title}</div>
+        <div class="playlist__title h4">{title}</div>
         <div class="playlist__meta p -grey">{categories.0}</div>
     </header>
     <a class="playlist__linkto js-playlist-linkto anim anim--tr js-lazy-anim" href="{sourceUrl}" target="_blank">

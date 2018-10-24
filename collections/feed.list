@@ -1,45 +1,11 @@
 <section class="feed js-feed -wrap">
     {.repeated section items}
         <div class="feed__item">
-            <div class="feed__info -column -column--2of4 anim anim--tr js-lazy-anim">
-                <div class="feed__title p">
-                    <a href="{fullUrl}" class="feed__text__link">
-                        {.if excerpt}
-                            {excerpt}
-                        {.or}
-                            {title}
-                        {.end}
-                    </a>
-                </div>
-                <a class="feed__meta p a a--lit -grey" href="{collection.fullUrl}?category={categories.0}">
-                    {categories.0}
-                </a>
-            </div>
-            <div class="feed__media -column -column--2of4 -text--center anim anim--tr js-lazy-anim">
-                <div class="feed__media__wrap">
-                    <a href="{fullUrl}" class="feed__media__link">
-                        {@|apply image.block}
-                    </a>
-                    <div class="feed__quickview">
-                        <div class="feed__quickview__wrap">
-                            <a class='feed__quickview__hit anim anim--tr {.equal? categories.0 "Playlists"}{.or}js-quickview-hit{.end}' {.equal? categories.0 "Playlists"}href="{sourceUrl}" target="_blank"{.or}href="#" data-title="{title}" data-href="{fullUrl}"{.end}>
-                                <div class="feed__quickview__icon">{@|apply svg-play.block}</div>
-                                <div class="feed__quickview__text p -light">
-                                    {.if customContent.quickText}
-                                        {customContent.quickText}
-                                    {.or}
-                                        {.equal? categories.0 "Playlists"}
-                                            Listen on SoundCloud
-                                        {.or}
-                                            Quick view
-                                        {.end}
-                                    {.end}
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {.if customContent.inStyle}
+                {@|apply feed-item-instyle.block}
+            {.or}
+                {@|apply feed-item.block}
+            {.end}
         </div>
     {.end}
 </section>

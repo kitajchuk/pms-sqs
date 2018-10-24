@@ -1,0 +1,12 @@
+<a class="feed__link" href="{sourceUrl}" target="_blank">
+    <div class="media media--overlap media--center js-media">
+        <img class="media__node js-media-node image js-lazy-image" data-img-src="{assetUrl}" data-variants="{systemDataVariants}" data-original-size="{originalSize}" />
+        <div class="media__text h2">
+            {.if excerpt}
+                {excerpt}
+            {.or}
+                {title}
+            {.end}
+        </div>
+    </div>
+</a>

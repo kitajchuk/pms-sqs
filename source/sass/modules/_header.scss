@@ -141,7 +141,7 @@
         opacity: 1;
         pointer-events: auto;
         visibility: visible;
-        z-index: $z_layer_screen;
+        z-index: $z_layer_header;
         -webkit-overflow-scrolling: touch;
     }
 }

@@ -29,12 +29,14 @@ class PlaylistController {
     bind () {
         this.button.on( "click", () => {
             if ( this.button.is( ".is-clicked" ) ) {
+                this.tracks.removeClass( "is-clicked" );
                 this.button.removeClass( "is-clicked" );
                 this.button[ 0 ].innerHTML = "See full tracklist";
 
                 this.remove( 6, this.json.tracks.length );
 
             } else {
+                this.tracks.addClass( "is-clicked" );
                 this.button.addClass( "is-clicked" );
                 this.button[ 0 ].innerHTML = "Close tracklist";
 

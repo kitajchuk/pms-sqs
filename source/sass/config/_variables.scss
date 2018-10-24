@@ -29,9 +29,9 @@ $grid-columns: 12 11 10 9 8 7 6 5 4 3 2 1;
 /******************************************************************************
  * Spacing
 *******************************************************************************/
-$expander-1: 12vw;
-$padding-1: 9vw;
-$padding-2: $padding-1 + ($padding-1 / 2);
+$expander-1: 130px;
+$padding-1: 13.4765625vw;
+$padding-2: 9vw;
 $anim-1: 32px;
 
 
@@ -57,7 +57,8 @@ $p-size-fluid: #{"~\"calc( #{$p-size-mobile} + 0.23vw )\""};
 $p-size-max: 24px;
 $p-line: 1.5833333333;
 $m-size: 16px;
-$m-line: 1;
+$m-size-mobile: 14px;
+$m-line: 1.5;
 
 $h1-size-mobile: 34px;
 $h1-size-fluid: #{"~\"calc( #{$h1-size-mobile} + 1.175vw )\""};
@@ -74,7 +75,7 @@ $h3-size-fluid: #{"~\"calc( #{$h3-size-mobile} + 0.78vw )\""};
 $h3-size-max: 44px;
 $h3-line: 1.2272727273;
 
-$h4-size-mobile: 16px;
+$h4-size-mobile: 22px;
 $h4-size-fluid: #{"~\"calc( #{$h4-size-mobile} + 0.7025vw )\""};
 $h4-size-max: 34px;
 $h4-line: 1.2941176471;

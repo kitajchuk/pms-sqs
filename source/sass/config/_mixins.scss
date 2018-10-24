@@ -37,9 +37,13 @@
     }
 }
 @mixin m() {
-    font-size: $m-size;
+    font-size: $m-size-mobile;
     line-height: $m-line;
     @include font-family-reg();
+
+    @include respond-min( $mobile-breakpoint ) {
+        font-size: $m-size;
+    }
 }
 @mixin s() {
     @include font-family-bold();
@@ -78,6 +82,7 @@
 @mixin h3() {
     font-size: $h3-size-mobile;
     line-height: $h3-line;
+    max-width: 1000px;
     @include font-family-reg();
 
     @include respond-min( $mobile-breakpoint ) {
@@ -91,6 +96,7 @@
 @mixin h4() {
     font-size: $h4-size-mobile;
     line-height: $h4-line;
+    max-width: 1000px;
     @include font-family-reg();
 
     @include respond-min( $mobile-breakpoint ) {
@@ -132,10 +138,11 @@
 @mixin wrap() {
     padding-left: $padding-1;
     padding-right: $padding-1;
-}
-@mixin wrap2() {
-    padding-left: $padding-2;
-    padding-right: $padding-2;
+
+    @include respond( $break-laptop-medium ) {
+        padding-left: $padding-2;
+        padding-right: $padding-2;
+    }
 }
 
 

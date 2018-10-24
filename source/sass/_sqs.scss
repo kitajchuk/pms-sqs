@@ -44,7 +44,7 @@
         height: $expander-1 !important;
 
         @include respond( $mobile-breakpoint ) {
-            height: $expander-1 + $padding-1 !important;
+            height: 30px !important;
         }
     }
 }
@@ -52,6 +52,10 @@
     .sqs-block-content {
         .main & {
             @include wrap();
+        }
+
+        > p {
+            max-width: 1000px;
         }
 
         a {
@@ -63,7 +67,7 @@
 }
 .sqs-block-video {
     .sqs-block-content {
-        @include wrap2();
+        @include wrap();
 
         @include respond( $mobile-breakpoint ) {
             padding-left: 0;
@@ -97,4 +101,11 @@
             @include wrap();
         }
     }
+}
+
+
+
+.sqs-layout:not(.sqs-editing) > .sqs-row:first-child > [class*=sqs-col]:first-child > .sqs-block:last-child,
+.sqs-layout:not(.sqs-editing) .sqs-block + .sqs-row .sqs-block:not(.float):last-child {
+    padding-bottom: 0 !important;
 }

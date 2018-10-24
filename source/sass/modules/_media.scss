@@ -60,6 +60,15 @@
 .media--overlap {
     text-align: center;
 
+    &.media--left {
+        .media__node {
+            transform: translateX( -50% );
+
+            @include respond( $mobile-breakpoint ) {
+                transform: none;
+            }
+        }
+    }
     &.media--right {
         .media__node {
             transform: translateX( 50% );
@@ -92,14 +101,8 @@
         display: inline-block;
         opacity: 1;
         position: relative;
-        transform: translateX( -50% );
         transition: opacity $base-duration $ease;
         z-index: 2;
-
-        @include respond( $mobile-breakpoint ) {
-            transform: none;
-            // @include wrap();
-        }
     }
 
     .media__text {
@@ -109,6 +112,7 @@
         top: 50%;
         transform: translate3d( -50%, -50%, 0 );
         width: 100%;
+        max-width: 1660px;
         z-index: 1;
 
         @include respond( $mobile-breakpoint ) {
@@ -148,7 +152,6 @@
 
         @include respond( $mobile-breakpoint ) {
             padding-left: 0;
-            padding-top: $expander-1 + $padding-1;
         }
     }
 }
@@ -160,32 +163,25 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    // margin: 0 (-$padding-1 / 2);
 
     @include respond( $mobile-breakpoint ) {
         margin: 0;
     }
 }
 .grid__item {
-    padding: 0 $padding-1 / 2;
+    padding: 0 $padding-2 / 2;
     width: 33.333333%;
 
     @include respond( $mobile-breakpoint ) {
         padding: 0;
         width: 100%;
     }
-
-    & + .grid__item {
-        @include respond( $mobile-breakpoint ) {
-            padding-top: ($expander-1 + $padding-1);
-        }
-    }
 }
 .grid__info {
     padding-top: 30px;
 
     @include respond( $mobile-breakpoint ) {
-        padding: 30px $padding-1 $padding-1;
+        padding: 30px $padding-2 $padding-2;
     }
 }
 .grid__title {}
