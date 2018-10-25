@@ -15,7 +15,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding-bottom: $expander-1;
+    padding-bottom: $expander-2;
 
     @include respond( $mobile-breakpoint ) {
         padding-bottom: 0;
@@ -54,6 +54,11 @@
             height: auto;
             width: 100%;
         }
+    }
+
+    .image--wide {
+        width: 100%;
+        height: auto;
     }
 }
 .feed__media__wrap {
@@ -113,9 +118,26 @@
     width: 100%;
     display: block;
 
-    .media--overlap .media__text {
-        @include respond( $mobile-breakpoint ) {
-            padding: 30px $padding-2 $padding-2;
+    .media--overlap {
+        .media__text {
+            @include respond( $mobile-breakpoint ) {
+                padding: 30px $padding-2 $padding-2;
+            }
+        }
+
+        .media__node {
+            width: 50%;
+            height: auto;
+        }
+
+        .image--tall {
+            height: 37vw;
+            width: auto;
+
+            @include respond( $mobile-breakpoint ) {
+                height: auto;
+                width: 100%;
+            }
         }
     }
 

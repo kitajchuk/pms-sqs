@@ -2,11 +2,11 @@ import paramalama from "paramalama";
 
 
 
-export default ( blockJson, imageJson ) => {
+export default ( blockJson, imageJson, videoJson ) => {
     const params = paramalama( blockJson.url );
     const url = blockJson.url.replace( /\?.*?$/, "" );
     const id = ((blockJson.resolvedBy === "youtube" && params.v) ? params.v : url.split( "/" ).pop());
-    const qrs = (blockJson.resolvedBy === "vimeo" ? `?api=1&player_id=${id}` : `?modestbranding=1&enablejsapi=1`);
+    const qrs = (blockJson.resolvedBy === "vimeo" ? (videoJson.minimal ? `?api=1&player_id=${id}&autoplay=0&loop=0&byline=0&title=0&sidedock=0&controls=0&background=1` : `?api=1&player_id=${id}`) : `?modestbranding=1&enablejsapi=1`);
     const path = (blockJson.resolvedBy === "vimeo" ? "https://player.vimeo.com/video/" : "https://www.youtube.com/embed/");
     const source = `${path}${id}${qrs}`;
     const aspect = (blockJson.height || 9) / (blockJson.width || 16) * 100;

@@ -27,9 +27,9 @@
         <div class="media__text h3">{info.subtitle|safe}</div>
     </div>
 {.or equal? @overlap "overlap"}
-    <div class="media media--overlap media--{@imagePos} js-media -wrap">
-        <img class="media__node js-media-node image js-lazy-image" data-img-src="{@media.assetUrl}" data-variants="{@media.systemDataVariants}" data-original-size="{@media.originalSize}" {.if @mobile}data-mobile="{@mobile|json|htmlattr}"{.end} />
-        <div class="media__text h2 -wrap">{info.title|safe}</div>
+    <div class="media media--overlap media--{@imagePos} js-media -wrap js-overlap">
+        <img class="media__node js-media-node image js-lazy-image js-overlap-media" data-img-src="{@media.assetUrl}" data-variants="{@media.systemDataVariants}" data-original-size="{@media.originalSize}" {.if @mobile}data-mobile="{@mobile|json|htmlattr}"{.end} />
+        <div class="media__text h2 -wrap js-overlap-text">{info.title|safe}</div>
     </div>
 {.or}
     <div class="media js-media {.if info}{.if info.stretch}{.or}-wrap{.end}{.end}">

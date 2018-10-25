@@ -19,9 +19,9 @@
         height: $header-height-mobile;
     }
 
-    @include respond-min( $header-break-static ) {
-        height: $header-height-static;
-    }
+    // @include respond-min( $header-break-static ) {
+    //     height: $header-height-static;
+    // }
 
     .is-header-small & {
         height: $header-height-small;

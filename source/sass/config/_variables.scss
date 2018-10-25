@@ -30,6 +30,7 @@ $grid-columns: 12 11 10 9 8 7 6 5 4 3 2 1;
  * Spacing
 *******************************************************************************/
 $expander-1: 130px;
+$expander-2: 11.71875vw;
 $padding-1: 13.4765625vw;
 $padding-2: 9vw;
 $anim-1: 32px;
@@ -39,9 +40,10 @@ $anim-1: 32px;
 /******************************************************************************
  * Sizes
 *******************************************************************************/
-$header-height: 16vw;
+$header-height: 206px;
+$header-amount: 86px;
 $header-height-small: 90px;
-$header-height-static: 256px;
+$header-height-static: 206px;
 $header-height-mobile: 128px;
 $button-play-size: 45px;
 $button-play-size-big: 82px;

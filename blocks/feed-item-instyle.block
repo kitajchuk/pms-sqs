@@ -1,12 +1,16 @@
-<a class="feed__link" href="{sourceUrl}" target="_blank">
-    <div class="media media--overlap media--center js-media">
-        <img class="media__node js-media-node image js-lazy-image" data-img-src="{assetUrl}" data-variants="{systemDataVariants}" data-original-size="{originalSize}" />
-        <div class="media__text h2">
-            {.if excerpt}
-                {excerpt}
-            {.or}
-                {title}
-            {.end}
+<div class="feed__link">
+    <div class="media media--overlap media--center js-media js-overlap">
+        <div class="media__node js-overlap-media">
+            <img class="image js-media-node js-lazy-image -column--2of4" data-img-src="{assetUrl}" data-variants="{systemDataVariants}" data-original-size="{originalSize}" />
+        </div>
+        <div class="media__text h2 js-overlap-text">
+            <a href="{sourceUrl}" target="_blank">
+                {.if excerpt}
+                    {excerpt}
+                {.or}
+                    {title}
+                {.end}
+            </a>
         </div>
     </div>
-</a>
+</div>

@@ -302,6 +302,29 @@ const shuffle = function ( arr ) {
 };
 
 
+/**
+ *
+ * Get 2D collision
+ * Now `getBoundingClientRect` has x / y properties which mirror top / left
+ * @method rectsCollide
+ * @param {object} rect1 The client Rect
+ * @param {object} rect2 The other client Rect
+ * @memberof util
+ * @returns {object}
+ *
+ */
+const rectsCollide = ( rect1, rect2 ) => {
+    let ret = false;
+
+    if ( rect1.x < rect2.x + rect2.width && rect1.x + rect1.width > rect2.x && rect1.y < rect2.y + rect2.height && rect1.height + rect1.y > rect2.y ) {
+        // collision detected!
+        ret = true;
+    }
+
+    return ret;
+};
+
+
 
 /******************************************************************************
  * Export
@@ -312,6 +335,7 @@ export {
     shuffle,
     loadImages,
     translate3d,
+    rectsCollide,
     isElementLoadable,
     isElementVisible,
     getElementsInView,

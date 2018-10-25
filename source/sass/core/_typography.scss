@@ -11,6 +11,15 @@ p {
         transition: color $fast-duration $ease,
                     border-bottom-color $fast-duration $ease;
     }
+    strong {
+        transition: color $fast-duration $ease;
+    }
+
+    .is-hoverable &:hover {
+        strong {
+            color: $black;
+        }
+    }
 }
 strong, .s {
     @include s();

@@ -14,9 +14,10 @@ import videoView from "../../views/video";
  *
  */
 class Video {
-    constructor ( element ) {
+    constructor ( element, quickview ) {
         this.element = element;
         this.content = this.element.find( ".sqs-block-content" );
+        this.quickview = quickview;
         this.data = this.element.data();
         this.params = paramalama( this.data.blockJson.url );
         this.id = (this.data.blockJson.resolvedBy === "youtube" && this.params.v) ? this.params.v : this.data.blockJson.url.split( "/" ).pop();
@@ -30,7 +31,7 @@ class Video {
     load () {
         this.image = this.element.find( "img" );
         this.data.imageJson = this.image.data();
-        this.content[ 0 ].innerHTML = videoView( this.data.blockJson, this.data.imageJson );
+        this.content[ 0 ].innerHTML = videoView( this.data.blockJson, this.data.imageJson, this.data );
         this.iframe = this.element.find( ".js-embed-iframe" );
 
         if ( this.data.blockJson.resolvedBy === "vimeo" ) {
@@ -123,6 +124,11 @@ class Video {
         } else if ( message.event === "finish" && isSelf ) {
             this.isPlaying = false;
             this.element.removeClass( "is-embed-playing" );
+
+            if ( this.quickview ) {
+                this.quickview.advance();
+                this.quickview.transition();
+            }
         }
     }
 
@@ -131,22 +137,30 @@ class Video {
  * Youtube handling
 *******************************************************************************/
     youtubeOnReady () {
+        const playerVars = {
+            disablekb: 1,
+            controls: 1,
+            iv_load_policy: 3,
+            loop: 0,
+            modestbranding: 1,
+            playsinline: 0,
+            rel: 0,
+            showinfo: 0,
+            wmode: "opaque",
+            autoplay: 0
+        };
+
+        if ( this.data.minimal ) {
+            playerVars.playsinline = 1;
+            playerVars.autoplay = 1;
+            playerVars.controls = 0;
+        }
+
         this.youtubePlayer = new window.YT.Player( this.iframe[ 0 ], {
             height: (this.data.blockJson.height || 9),
             width: (this.data.blockJson.width || 16),
             videoId: this.id,
-            playerVars: {
-                disablekb: 1,
-                controls: 1,
-                iv_load_policy: 3,
-                loop: 0,
-                modestbranding: 1,
-                playsinline: 0,
-                rel: 0,
-                showinfo: 0,
-                wmode: "opaque",
-                autoplay: 0
-            },
+            playerVars,
             events: {
                 onReady: ( /*e*/ ) => {},
                 onStateChange: ( e ) => {
@@ -168,6 +182,11 @@ class Video {
                     } else if ( e.data === window.YT.PlayerState.ENDED ) {
                         this.isPlaying = false;
                         this.element.removeClass( "is-embed-playing" );
+
+                        if ( this.quickview ) {
+                            this.quickview.advance();
+                            this.quickview.transition();
+                        }
                     }
                 }
             }

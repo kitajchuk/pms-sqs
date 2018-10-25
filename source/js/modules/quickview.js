@@ -43,7 +43,7 @@ const quickview = {
         });
 
         this.element.on( "click", () => {
-            if ( !this._isOpen ) {
+            if ( !this._isOpen || this._isTransition ) {
                 return;
             }
 
@@ -194,7 +194,7 @@ const quickview = {
             } else if ( type === 32 ) {
                 this.navis.push( `<div class="quickview__navi__item"></div>` );
                 this.items.push( `<div class="quickview__gallery__item js-quickview-video">
-                    <div class="sqs-block-video" data-block-json='${JSON.stringify( data.blockJson )}'>
+                    <div class="sqs-block-video" data-block-json='${JSON.stringify( data.blockJson )}' data-minimal="1">
                         <div class="sqs-block-content"></div>
                     </div>
                 </div>` );
@@ -213,7 +213,7 @@ const quickview = {
             const jsVideo = $( el );
             const sqsVideo = jsVideo.find( ".sqs-block-video" );
 
-            jsVideo.data( "Video", new Video( sqsVideo ) );
+            jsVideo.data( "Video", new Video( sqsVideo, this ) );
         });
 
         core.util.loadImages( this.images, core.util.noop ).on( "done", () => {
