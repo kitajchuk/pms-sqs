@@ -22,10 +22,24 @@
 .playlist__linkto {
     align-items: center;
     display: flex;
-    padding: ($padding-1 / 2) 0;
+    margin: ($padding-1 / 2) 0;
+
+    .is-hoverable &:hover {
+        > div {
+            border-bottom-color: $black;
+        }
+    }
+
+    .is-hoverable.is-darkside &:hover {
+        > div {
+            border-bottom-color: $white;
+        }
+    }
 
     > div {
         margin-left: 20px;
+        border-bottom: 1px solid transparent;
+        transition: border-bottom-color $fast-duration $ease;
     }
 }
 .playlist__tracks {

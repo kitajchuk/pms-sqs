@@ -64,6 +64,11 @@
 .feed__media__wrap {
     display: inline-block;
     position: relative;
+    width: 100%;
+
+    &.is-tallboy {
+        width: auto;
+    }
 }
 .feed__quickview {
     background-color: rgba( 0, 0, 0, 0.2 );
@@ -76,6 +81,10 @@
     top: 0;
     transition: opacity $base-duration $ease;
     width: 100%;
+
+    @include respond( $mobile-breakpoint ) {
+        display: none;
+    }
 }
 .feed__quickview__wrap {
     bottom: 0;

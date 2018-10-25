@@ -177,6 +177,7 @@ const loadImages = function ( images, handler ) {
             if ( ratio > 100 ) {
                 image.addClass( "image--tall" );
                 image.parent().addClass( "media--tall" );
+                image.closest( ".feed__media__wrap" ).addClass( "is-tallboy" );
 
             } else if ( ratio >= 75 ) {
                 image.addClass( "image--box" );
