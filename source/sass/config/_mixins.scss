@@ -53,6 +53,19 @@
     text-decoration: none;
     @include font-family-reg();
 }
+@mixin hp() {
+    font-size: $hp-size-mobile;
+    line-height: $hp-line;
+    @include font-family-reg();
+
+    @include respond-min( $mobile-breakpoint ) {
+        font-size: $hp-size-fluid;
+    }
+
+    @include respond-min( $desktop-breakpoint ) {
+        font-size: $hp-size-max;
+    }
+}
 @mixin h1() {
     font-size: $h1-size-mobile;
     line-height: $h1-line;

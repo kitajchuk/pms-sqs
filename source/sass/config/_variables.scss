@@ -62,6 +62,11 @@ $m-size: 16px;
 $m-size-mobile: 14px;
 $m-line: 1.5;
 
+$hp-size-mobile: 120px;
+$hp-size-fluid: #{"~\"calc( #{$hp-size-mobile} + 3.1vw )\""};
+$hp-size-max: 200px;
+$hp-line: 1;
+
 $h1-size-mobile: 34px;
 $h1-size-fluid: #{"~\"calc( #{$h1-size-mobile} + 1.175vw )\""};
 $h1-size-max: 64px;

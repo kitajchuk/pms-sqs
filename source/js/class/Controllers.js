@@ -4,6 +4,7 @@ import AnimateController from "./controllers/AnimateController";
 import PlaylistController from "./controllers/PlaylistController";
 import VideoController from "./controllers/VideoController";
 import OverlapController from "./controllers/OverlapController";
+import LoadmoreController from "./controllers/LoadmoreController";
 import RelatedController from "./controllers/RelatedController";
 
 
@@ -61,6 +62,7 @@ class Controllers {
         this.push( "playlist", core.dom.body.find( ".js-playlist" ), PlaylistController, true );
         this.push( "video", core.dom.body.find( ".sqs-block-video" ), VideoController, true );
         this.push( "overlap", core.dom.body.find( ".js-overlap" ), OverlapController, (!core.detect.isDevice()) );
+        this.push( "loadmore", core.dom.body.find( ".js-loadmore" ), LoadmoreController, true );
         this.push( "related", core.dom.body.find( ".js-related" ), RelatedController, true );
 
         this.anims = this.element.find( core.config.lazyAnimSelector );

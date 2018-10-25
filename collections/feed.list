@@ -9,3 +9,7 @@
         </div>
     {.end}
 </section>
+<div class="loadmore js-loadmore -wrap -exp -text--center" data-pagination="{pagination|json|safe|htmlattr}" data-container=".js-feed">
+    <div class="loadmore__label h4 -grey">Load more</div>
+    {@|apply loading.block}
+</div>

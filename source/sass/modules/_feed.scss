@@ -130,13 +130,17 @@
     .media--overlap {
         .media__text {
             @include respond( $mobile-breakpoint ) {
-                padding: 30px $padding-2 $padding-2;
+                padding: 30px $padding-2 $padding-1;
             }
         }
 
         .media__node {
             width: 50%;
             height: auto;
+
+            @include respond( $mobile-breakpoint ) {
+                width: 100%;
+            }
         }
 
         .image--tall {

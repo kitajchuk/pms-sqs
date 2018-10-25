@@ -1,5 +1,4 @@
 import * as core from "../core";
-import Controller from "properjs-controller";
 
 
 /**
@@ -12,49 +11,45 @@ import Controller from "properjs-controller";
 const intro = {
     init () {
         this.element = core.dom.body.find( ".js-intro" );
+        this.press = core.dom.body.find( ".js-intro-press" );
+        this.pms = "PAPERMAKESTACK".split( "" ).reverse();
+        this.duration = 150;
 
         if ( this.element.length ) {
-            this.logTime = Date.now();
-            this.minTime = 4000;
-            this.blit = new Controller();
-            this.setTime();
-            this.animIn();
+            this.exec();
         }
     },
 
-    animIn () {
-        this.element.find( ".js-intro-anim" ).addClass( "is-animated" );
-    },
+    exec () {
+        const _exec = ( letter ) => {
+            this.press[ 0 ].innerHTML = letter;
 
-    setTime () {
-        let timeout = null;
-        const timeElem = this.element.find( ".js-intro-time" );
-        const timeTicker = () => {
-            clearTimeout( timeout );
+            setTimeout(() => {
+                if ( !this.pms.length ) {
+                    this.teardown();
 
-            const theDate = new Date();
-            const theHours = theDate.getHours();
-            const theMinutes = theDate.getMinutes();
-            const theSeconds = theDate.getSeconds();
-            const fixHours = theHours > 12 ? theHours - 12 : theHours;
-            const fixMinutes = theMinutes < 10 ? `0${theMinutes}` : theMinutes;
-            const fixSeconds = theSeconds < 10 ? `0${theSeconds}` : theSeconds;
+                } else {
+                    _exec( this.pms.pop() );
+                }
 
-            timeElem[ 0 ].innerHTML = `${fixHours}:${fixMinutes}:${fixSeconds}`;
-            timeout = setTimeout( timeTicker, 500 );
+            }, this.duration );
         };
 
-        timeTicker();
+        _exec( this.pms.pop() );
     },
 
     teardown () {
-        this.blit.go(() => {
-            if ( (Date.now() - this.logTime) > this.minTime ) {
-                this.blit.stop();
-                core.dom.html.removeClass( "is-intro" );
-                core.emitter.fire( "app--intro-teardown" );
-            }
-        });
+        setTimeout(() => {
+            this.element.addClass( "is-pressed" );
+            core.dom.html.removeClass( "is-intro" );
+            core.emitter.fire( "app--intro-teardown" );
+
+            setTimeout(() => {
+                this.element.remove();
+
+            }, 500 );
+
+        }, 250 );
     }
 };
 

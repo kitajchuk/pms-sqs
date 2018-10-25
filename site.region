@@ -75,12 +75,8 @@
                     </div>
                 </footer>
             </div>
-            <div class="screen screen--dark intro js-intro ghost">
-                {.var @geoLoco websiteSettings.storeSettings.contactLocation.addressLine2}
-                <div class="intro__wrap ghost__child anim anim--tr js-intro-anim">
-                    <div class="intro__title h1 -light">{website.siteTitle}</div>
-                    <div class="intro__time h1 -light"><span class="intro__time js-intro-time">04:20:00</span> &mdash; {.if @geoLoco}{@geoLoco}{.or}Los Angeles, CA{.end}</div>
-                </div>
+            <div class="screen screen--light intro js-intro">
+                <div class="intro__press js-intro-press -wrap"></div>
             </div>
             <div class="screen screen--dark quickview js-quickview ghost">
                 <div class="quickview__wrap ghost__child">

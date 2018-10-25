@@ -54,7 +54,7 @@ class App {
             this.router.init();
             this.info.init();
             this.quickview.init();
-            this.intro.teardown();
+            // this.intro.teardown();
 
         }).catch(( error ) => {
             this.core.log( "warn", error );

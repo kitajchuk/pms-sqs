@@ -82,9 +82,24 @@
             padding-right: 0 !important;
         }
     }
+    .media--overlap {
+        .media__text {
+            @include respond( $mobile-breakpoint ) {
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-bottom: $padding-1;
+            }
+        }
+    }
     .media__cap {
         @include respond( $mobile-breakpoint ) {
             @include wrap();
+        }
+    }
+    .media-wrap {
+        @include respond( $mobile-breakpoint ) {
+            padding-left: 20px;
+            padding-right: 20px;
         }
     }
 }
@@ -92,13 +107,19 @@
     .grid,
     .diptych {
         @include respond( $mobile-breakpoint ) {
-            padding-left: 0 !important;
-            padding-right: 0 !important;
+            padding-left: 20px;
+            padding-right: 20px;
         }
     }
     .media__cap {
         @include respond( $mobile-breakpoint ) {
-            @include wrap();
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    }
+    .grid__item + .grid__item {
+        @include respond( $mobile-breakpoint ) {
+            margin-top: 10px;
         }
     }
 }

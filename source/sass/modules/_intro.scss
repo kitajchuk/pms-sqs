@@ -1,31 +1,22 @@
 .intro {
-    text-align: center;
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    z-index: $z_layer_screen + 10;
 
-    h1, .h1 {
-        @include respond( $break-tablet-medium ) {
-            @include h2();
+    &.is-pressed {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        z-index: -1;
+    }
+
+    .intro__press {
+        padding-top: $header-amount;
+        @include hp();
+
+        @include respond( $mobile-breakpoint ) {
+            padding-top: 50px;
         }
-
-        // @include respond( $break-mobile-medium ) {
-        //     @include p();
-        // }
     }
-
-    .anim {
-        transform: translate3d( 0, 25%, 0 );
-
-        &.is-animated {
-            transform: translate3d( 0, 0, 0 );
-        }
-    }
-
-    .is-intro & {
-        opacity: 1;
-        pointer-events: auto;
-        visibility: visible;
-        z-index: $z_layer_screen + 10;
-    }
-}
-.intro__time {
-    transition-delay: $base-duration;
 }
