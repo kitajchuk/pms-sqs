@@ -152,7 +152,6 @@ class Video {
 
         if ( this.data.minimal ) {
             playerVars.playsinline = 1;
-            playerVars.autoplay = 1;
             playerVars.controls = 0;
         }
 

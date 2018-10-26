@@ -138,6 +138,10 @@
             width: 50%;
             height: auto;
 
+            .image {
+                width: 100%;
+            }
+
             @include respond( $mobile-breakpoint ) {
                 width: 100%;
             }
