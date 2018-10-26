@@ -32,12 +32,13 @@ class RelatedController {
             dataType: "json",
             method: "GET",
             data: {
-                format: "json"
+                format: "json",
+                category: this.data.category
             }
 
         }).then(( json ) => {
             this.items = core.util.shuffle(json.items.filter(( item ) => {
-                return (item.categories.indexOf( this.data.category ) !== -1 && item.id !== this.data.item.id);
+                return (item.id !== this.data.item.id && !item.customContent.inStyle);
 
             })).slice( 0, this.max );
 
