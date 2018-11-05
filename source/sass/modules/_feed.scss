@@ -128,9 +128,21 @@
     display: block;
 
     .media--overlap {
+        h2, .h2, .h2 p {
+            @include respond( $mobile-breakpoint ) {
+                @include h4();
+            }
+        }
+
         .media__text {
             @include respond( $mobile-breakpoint ) {
                 padding: 30px $padding-2 $padding-1;
+            }
+
+            strong {
+                @include respond( $mobile-breakpoint ) {
+                    color: $black;
+                }
             }
         }
 
