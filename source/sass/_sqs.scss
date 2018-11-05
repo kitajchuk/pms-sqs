@@ -43,6 +43,10 @@
     .sqs-block-content {
         height: $expander-1 !important;
 
+        @include respond( $break-laptop-medium ) {
+            height: 100px !important;
+        }
+
         @include respond( $mobile-breakpoint ) {
             height: 30px !important;
         }
@@ -93,7 +97,8 @@
     }
     .media__cap {
         @include respond( $mobile-breakpoint ) {
-            @include wrap();
+            padding-left: $padding-2;
+            padding-right: $padding-2;
         }
     }
     .media-wrap {
@@ -120,6 +125,18 @@
     .grid__item + .grid__item {
         @include respond( $mobile-breakpoint ) {
             margin-top: 10px;
+        }
+    }
+    .diptych__item + .diptych__item {
+        @include respond( $mobile-breakpoint ) {
+            margin-top: 10px;
+        }
+    }
+    .diptych__item:first-child {
+        .media__cap {
+            @include respond( $mobile-breakpoint ) {
+                margin-bottom: 20px;
+            }
         }
     }
 }

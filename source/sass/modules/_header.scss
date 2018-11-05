@@ -88,10 +88,8 @@
 
 
 .menu--mobile {
-    align-items: center;
     background-color: rgba( 0, 0, 0, 0.9 );
     bottom: 0;
-    display: flex;
     left: 0;
     opacity: 0;
     overflow-x: hidden;
@@ -108,10 +106,7 @@
                 visibility $fast-duration $ease;
     visibility: hidden;
     z-index: $z_layer_behind;
-
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
+    padding-top: 57.0666666667vw;
 
     .menu__a {
         display: block;
@@ -134,7 +129,7 @@
         color: $grey;
         display: inline-block;
         font-size: $p-size-max;
-        margin: 12px 0;
+        margin: 5px 0;
     }
 
     .is-navi-open & {

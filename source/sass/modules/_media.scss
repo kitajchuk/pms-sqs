@@ -9,7 +9,7 @@
     padding-top: 20px;
 
     @include respond( $mobile-breakpoint ) {
-        padding: 30px $padding-1 $padding-1;
+        padding-top: 15px;
     }
 }
 .media--card {
