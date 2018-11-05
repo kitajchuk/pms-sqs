@@ -5,7 +5,7 @@
     left: 0;
     opacity: 1;
     position: fixed;
-    pointer-events: none;
+    // pointer-events: none;
     top: 0;
     width: 100%;
     z-index: $z_layer_header;
@@ -50,7 +50,7 @@
     display: flex;
     justify-content: space-between;
     position: relative;
-    pointer-events: auto;
+    // pointer-events: auto;
     width: 100%;
 }
 
