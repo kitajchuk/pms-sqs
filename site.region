@@ -76,7 +76,7 @@
                 </footer>
             </div>
             <div class="screen screen--light intro js-intro">
-                <div class="intro__press js-intro-press -wrap"></div>
+                <div class="intro__press js-intro-press"></div>
             </div>
             <div class="screen screen--dark quickview js-quickview ghost is-darkside">
                 <div class="quickview__wrap ghost__child">

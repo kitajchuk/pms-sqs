@@ -13,10 +13,12 @@
 
     .intro__press {
         padding-top: $header-amount;
+        padding-left: $header-amount;
         @include hp();
 
         @include respond( $mobile-breakpoint ) {
             padding-top: 50px;
+            padding-left: 50px;
         }
     }
 }

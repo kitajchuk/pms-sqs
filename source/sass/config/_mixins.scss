@@ -56,7 +56,7 @@
 @mixin hp() {
     font-size: $hp-size-mobile;
     line-height: $hp-line;
-    @include font-family-reg();
+    @include font-family-bold();
 
     @include respond-min( $mobile-breakpoint ) {
         font-size: $hp-size-fluid;
