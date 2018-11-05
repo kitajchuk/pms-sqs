@@ -75,7 +75,6 @@
     overflow: hidden;
     padding: 10px 0;
     white-space: nowrap;
-    text-overflow: ellipsis;
     transform: translate3d( 0, -100%, 0 );
 }
 .playlist__tracks__number {
@@ -90,6 +89,8 @@
     display: inline-block;
     vertical-align: middle;
     width: #{"~\"calc( 100% - 50px )\""};
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .playlist__more {
     cursor: pointer;
