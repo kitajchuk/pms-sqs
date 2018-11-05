@@ -86,8 +86,7 @@
     }
 
     .image--tall {
-        // height: 42.03125vw;
-        height: auto;
+        height: 42.03125vw;
         width: auto;
 
         @include respond( $mobile-breakpoint ) {

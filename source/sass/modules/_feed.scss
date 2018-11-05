@@ -160,7 +160,7 @@
         }
 
         .image--tall {
-            // height: 37vw;
+            height: auto;
             width: auto;
 
             @include respond( $mobile-breakpoint ) {
