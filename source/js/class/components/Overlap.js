@@ -1,4 +1,5 @@
 import * as core from "../../core";
+import ScrollController from "properjs-scrollcontroller";
 
 
 
@@ -13,9 +14,11 @@ import * as core from "../../core";
 class Overlap {
     constructor ( element ) {
         this.element = element;
+        this.data = element.data();
         this.media = this.element.find( ".js-overlap-media" );
         this.text = this.element.find( ".js-overlap-text" );
         this.isCollider = false;
+        this.scroller = new ScrollController();
 
         this.bind();
     }
@@ -24,6 +27,8 @@ class Overlap {
     bind () {
         this.element.on( "mousemove", ( e ) => {
             const mediaBounds = this.media[ 0 ].getBoundingClientRect();
+            const textBounds = this.text[ 0 ].getBoundingClientRect();
+            const compareBounds = (this.data.flip ? textBounds : mediaBounds);
             const clientBounds = {
                 x: e.clientX,
                 y: e.clientY,
@@ -31,14 +36,19 @@ class Overlap {
                 height: 0
             };
 
-            if ( core.util.rectsCollide( mediaBounds, clientBounds ) && !this.isCollider ) {
+            if ( core.util.rectsCollide( compareBounds, clientBounds ) && !this.isCollider ) {
                 this.isCollider = true;
                 this.element.addClass( "is-collider" );
 
-            } else if ( !core.util.rectsCollide( mediaBounds, clientBounds ) && this.isCollider ) {
+            } else if ( !core.util.rectsCollide( compareBounds, clientBounds ) && this.isCollider ) {
                 this.isCollider = false;
                 this.element.removeClass( "is-collider" );
             }
+        });
+
+        this.scroller.on( "scroll", () => {
+            this.isCollider = false;
+            this.element.removeClass( "is-collider" );
         });
     }
 
