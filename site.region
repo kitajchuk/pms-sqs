@@ -78,7 +78,7 @@
             <div class="screen screen--light intro js-intro">
                 <div class="intro__press js-intro-press -wrap"></div>
             </div>
-            <div class="screen screen--dark quickview js-quickview ghost">
+            <div class="screen screen--dark quickview js-quickview ghost is-darkside">
                 <div class="quickview__wrap ghost__child">
                     <div class="quickview__header -wrap">
                         <div class="quickview__header__wrap">
