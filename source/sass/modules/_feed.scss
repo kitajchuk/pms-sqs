@@ -1,6 +1,9 @@
-.feed {
-    padding-top: $header-amount;
+$feed-item-pad: 5.46875vw;
+$feed-link-pad: 7.421875vw;
 
+
+
+.feed {
     .-grey {
         display: inline-block;
     }
@@ -17,11 +20,32 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding-bottom: $expander-2;
+    padding-top: $feed-item-pad;
+    padding-bottom: $feed-item-pad;
+    position: relative;
+
+    & + .feed__item:before {
+        content: "";
+        height: 1px;
+        left: -100px;
+        right: -100px;
+        position: absolute;
+        background-color: #d8d8d8;
+        top: 0;
+
+        @include respond( $mobile-breakpoint ) {
+            display: none;
+        }
+    }
 
     @include respond( $mobile-breakpoint ) {
+        padding-top: 0;
         padding-bottom: 0;
     }
+}
+.feed__item--link {
+    padding-top: 0;
+    padding-bottom: 0;
 }
 .feed__meta {
     margin-top: 10px;
@@ -48,7 +72,6 @@
         width: 100%;
     }
 
-    .image--box,
     .image--tall {
         height: 35vw;
         width: auto;
@@ -59,6 +82,7 @@
         }
     }
 
+    .image--box,
     .image--wide {
         width: 100%;
         height: auto;
@@ -129,17 +153,10 @@
 .feed__link {
     width: 100%;
     display: block;
-    border-bottom: 1px solid #d8d8d8;
-    border-top: 1px solid #d8d8d8;
-
-    @include respond( $mobile-breakpoint ) {
-        border-bottom: 0;
-        border-top: 0;
-    }
 
     .media--overlap {
-        padding-bottom: $expander-2;
-        padding-top: $expander-2;
+        padding-bottom: $feed-link-pad;
+        padding-top: $feed-link-pad;
 
         @include respond( $mobile-breakpoint ) {
             padding-bottom: 0;
@@ -183,8 +200,26 @@
             top: 50%;
             transform: translate3d( -50%, -50%, 0 );
 
-            .image {
+            .image--tall {
+                height: 35vw;
+                width: auto;
+                min-height: 800px;
+
+                @include respond( $break-laptop-medium ) {
+                    min-height: 700px;
+                }
+
+                @include respond( $mobile-breakpoint ) {
+                    height: auto;
+                    min-height: none;
+                    width: 100%;
+                }
+            }
+
+            .image--box,
+            .image--wide {
                 width: 100%;
+                height: auto;
             }
 
             @include respond( $mobile-breakpoint ) {
@@ -194,16 +229,6 @@
                 left: auto;
                 top: auto;
                 transform: none;
-            }
-        }
-
-        .image--tall {
-            height: auto;
-            width: auto;
-
-            @include respond( $mobile-breakpoint ) {
-                height: auto;
-                width: 100%;
             }
         }
     }

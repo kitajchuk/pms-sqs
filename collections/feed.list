@@ -1,6 +1,6 @@
 <section class="feed js-feed -wrap">
     {.repeated section items}
-        <div class="feed__item">
+        <div class="feed__item {.if customContent.inStyle}feed__item--link{.end}">
             {.if customContent.inStyle}
                 {@|apply feed-item-instyle.block}
             {.or}
