@@ -1,5 +1,5 @@
 <div class="loading">
-    <svg class="spinner" width="45px" height="45px" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg">
-        <circle class="path" fill="none" stroke-width="3" stroke-linecap="round" cx="23" cy="23" r="15"></circle>
+    <svg class="spinner" width="45px" height="45px" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg">
+        <circle class="path" fill="none" stroke-width="2" stroke-linecap="round" cx="22.5" cy="22.5" r="21"></circle>
     </svg>
 </div>

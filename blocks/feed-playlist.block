@@ -7,13 +7,16 @@
         <div class="playlist__meta p -grey">{categories.0}</div>
     </header>
     <a class="playlist__linkto js-playlist-linkto anim anim--tr js-lazy-anim" href="{sourceUrl}" target="_blank">
-        {@|apply svg-play.block}
-        <div class="p">
-            {.if customContent.quickText}{customContent.quickText}{.or}Play on SoundCloud{.end}
+        <div class="playlist__loading js-playlist-loading">
+            {@|apply loading.block}
+        </div>
+        <div class="playlist__linkage">
+            {@|apply svg-play.block}
+            <div class="p">
+                {.if customContent.quickText}{customContent.quickText}{.or}Play on SoundCloud{.end}
+            </div>
         </div>
     </a>
-    <menu class="playlist__tracks js-playlist-tracks anim anim--tr js-lazy-anim">
-        {@|apply loading.block}
-    </menu>
+    <menu class="playlist__tracks js-playlist-tracks anim anim--tr js-lazy-anim"></menu>
     <div class="playlist__more js-playlist-more p a a--dim a--blk -grey">See full tracklist</div>
 </main>

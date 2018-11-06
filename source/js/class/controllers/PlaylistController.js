@@ -15,6 +15,7 @@ import viewTracks from "../../views/tracks";
 class PlaylistController {
     constructor ( element ) {
         this.element = element;
+        this.loading = this.element.find( ".js-playlist-loading" );
         this.linkto = this.element.find( ".js-playlist-linkto" );
         this.tracks = this.element.find( ".js-playlist-tracks" );
         this.button = this.element.find( ".js-playlist-more" );
@@ -61,12 +62,13 @@ class PlaylistController {
             this.json = json;
             this.initial = this.json.tracks.slice( 0, 6 );
             this.remainder = this.json.tracks.slice( 6, this.json.tracks.length );
+            this.loading.remove();
+            this.linkto.addClass( "is-loaded" );
 
             setTimeout(() => {
-                this.tracks[ 0 ].innerHTML = "";
                 this.add( this.initial, 0 );
 
-            }, 1000 );
+            }, 0 );
 
         }).catch(( error ) => {
             core.log( error );

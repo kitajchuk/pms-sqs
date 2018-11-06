@@ -1,6 +1,11 @@
 $offset: 187 / 2;
 $duration: 1000ms;
 
+.loading {
+    height: $button-play-size;
+    width: $button-play-size;
+}
+
 .spinner {
     animation: rotator $duration linear infinite;
 }
