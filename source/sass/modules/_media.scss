@@ -244,12 +244,22 @@
     position: absolute;
     top: 50%;
     transform: translate3d( -50%, -50%, 0 );
-    transition: opacity $base-duration $ease;
+    transition: opacity $base-duration $ease,
+                transform $base-duration $ease;
     width: $button-play-size-big;
+
+    .is-hoverable &:hover {
+        transform: translate3d( -50%, -50%, 0 ) scale( 1.05 );
+    }
 
     @include state( "embed", "playing" ) {
         opacity: 0;
         pointer-events: none;
+    }
+
+    @include respond( $break-tablet-medium ) {
+        height: $button-play-size-med;
+        width: $button-play-size-med;
     }
 
     @include respond( $mobile-breakpoint ) {
@@ -259,12 +269,7 @@
 
     ._svg--play {
         fill: $white;
-        height: $button-play-size-big;
-        width: $button-play-size-big;
-
-        @include respond( $mobile-breakpoint ) {
-            height: $button-play-size;
-            width: $button-play-size;
-        }
+        height: 100%;
+        width: 100%;
     }
 }
