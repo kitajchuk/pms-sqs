@@ -24,6 +24,14 @@ $feed-link-pad: 7.421875vw;
     padding-bottom: $feed-item-pad;
     position: relative;
 
+    &:first-child {
+        padding-top: #{"~\"calc( #{$feed-item-pad} - 1vw )\""};
+
+        @include respond( $mobile-breakpoint ) {
+            padding-top: 0;
+        }
+    }
+
     & + .feed__item:before {
         content: "";
         height: 1px;
