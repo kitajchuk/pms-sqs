@@ -40,17 +40,14 @@ const header = {
             // Mousemove elements
             this.infoTrigger = this.element.find( ".js-navi-info" );
             this.dotinfo = core.dom.body.find( ".js-dotinfo" );
-            this.labelInfo = this.element.find( ".js-label-info" );
-            this.labelClose = this.element.find( ".js-label-close" );
             this.tween = null;
             this.mouse = null;
             this.threshold = 200;
             this.thresholdBreak = 25;
+            this._isDotCancel = false;
             this._isNaviOpen = false;
             this._isNaviHover = false;
-            this._isNaviClick = false;
             this._isNaviTween = false;
-            this._isNaviHoverIcon = false;
             this._isNaviReset = false;
         }
     },
@@ -144,6 +141,24 @@ const header = {
                 info.close();
             }
         });
+
+        core.dom.doc.on( "click", () => {
+            if ( !this._isNaviHover ) {
+                return false;
+            }
+
+            this.resetDot();
+
+            if ( !info.isOpen() ) {
+                info.open();
+
+            } else {
+                info.close();
+            }
+
+        }).on( "click", ".js-dotinfo-cancel", () => {
+            this._isDotCancel = false;
+        });
     },
 
 
@@ -192,34 +207,20 @@ const header = {
             }
         });
 
-        this.infoTrigger.on( "mouseenter", () => {
-            if ( !this._isNaviHoverIcon ) {
-                this._isNaviHoverIcon = true;
+        // Leave the Window entirely
+        core.dom.doc.on( "mouseleave", () => {
+            this.resetDot();
 
-                if ( info.isOpen() ) {
-                    this.labelInfo.removeClass( "is-hover" );
-                    this.labelClose.addClass( "is-hover" );
+        // Enter a cancel element
+        }).on( "mouseenter", ".js-dotinfo-cancel", () => {
+            this._isDotCancel = true;
 
-                } else {
-                    this.labelInfo.addClass( "is-hover" );
-                    this.labelClose.removeClass( "is-hover" );
-                }
-            }
+        // Exit a cancel element
+        }).on( "mouseleave", ".js-dotinfo-cancel", () => {
+            this._isDotCancel = false;
 
-        }).on( "mouseleave", () => {
-            if ( this._isNaviHoverIcon ) {
-                this._isNaviHoverIcon = false;
-                this.labelInfo.removeClass( "is-hover" );
-                this.labelClose.removeClass( "is-hover" );
-            }
-
-        }).on( "click", () => {
-            if ( !this._isNaviClick ) {
-                this._isNaviClick = true;
-            }
-        });
-
-        core.dom.doc.on( "mousemove", ( e ) => {
+        // Handle mousemove with flags
+        }).on( "mousemove", ( e ) => {
             const dotBounds = this.infoTrigger[ 0 ].getBoundingClientRect();
             const dotCenter = {
                 x: dotBounds.left + (dotBounds.width / 2),
@@ -236,22 +237,22 @@ const header = {
             );
 
             // Capture click
-            if ( this._isNaviClick ) {
-                this.resetClick();
-
-            } else if ( this.distance <= this.thresholdBreak ) {
+            if ( this._isDotCancel ) {
                 this.resetDot();
+
+            // } else if ( this.distance <= this.thresholdBreak ) {
+            //     this.resetDot();
 
             // End Interaction
             } else if ( this.distance >= this.threshold ) {
                 this.resetDot();
 
             // Start Interaction
-            } else if ( this.distance < this.threshold && !this._isNaviHover && !this._isNaviHoverIcon ) {
+            } else if ( this.distance < this.threshold && !this._isNaviHover ) {
                 this.enableDot();
 
             // Enter tween cycle
-            } else if ( this.distance < this.threshold && this._isNaviHover && !this._isNaviHoverIcon && !this._isNaviTween ) {
+            } else if ( this.distance < this.threshold && this._isNaviHover && !this._isNaviTween ) {
                 this.enableTween();
             }
         });
@@ -298,22 +299,17 @@ const header = {
 
     enableDot () {
         this._isNaviHover = true;
-    },
-
-
-    resetClick () {
-        this.disableTween();
-        this._isNaviHover = false;
-        this._isNaviClick = false;
+        core.dom.html.addClass( "is-dotinfo-cursor" );
     },
 
 
     resetDot () {
         const dotBounds = this.infoTrigger[ 0 ].getBoundingClientRect();
 
+        core.dom.html.removeClass( "is-dotinfo-cursor" );
+
         this.disableTween();
         this._isNaviHover = false;
-        this._isNaviClick = false;
 
         this.tweenDot( 0.5, {
             x: dotBounds.left,
@@ -325,9 +321,7 @@ const header = {
     resetHover () {
         this.disableTween();
         this._isNaviHover = false;
-        this._isNaviClick = false;
         this._isNaviTween = false;
-        this._isNaviHoverIcon = false;
     },
 
 

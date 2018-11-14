@@ -18,6 +18,14 @@ html {
     &.is-quickview-open {
         overflow: hidden;
     }
+
+    &.is-dotinfo-cursor {
+        cursor: pointer;
+
+        * {
+            cursor: pointer;
+        }
+    }
 }
 body {
     background-color: transparent;

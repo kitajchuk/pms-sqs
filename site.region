@@ -40,13 +40,7 @@
                         </a>
                     </nav>
                     <nav class="navi navi--main">
-                        <div class="navi__label navi__label--info js-label-info p a">
-                            <div class="navi__label__text">Info</div>
-                        </div>
-                        <div class="navi__label navi__label--close js-label-close p a">
-                            <div class="navi__label__text">Close</div>
-                        </div>
-                        <a class="navi__a navi__a--info js-navi-info" data-slug="info" href="#info">
+                        <a class="navi__a navi__a--info js-navi-info" href="#">
                             {@|apply svg-circle.block}
                         </a>
                     </nav>
