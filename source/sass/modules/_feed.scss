@@ -207,6 +207,7 @@ $feed-link-pad: 7.421875vw;
             left: 50%;
             top: 50%;
             transform: translate3d( -50%, -50%, 0 );
+            pointer-events: auto;
 
             .image--tall {
                 height: 35vw;
@@ -219,7 +220,7 @@ $feed-link-pad: 7.421875vw;
 
                 @include respond( $mobile-breakpoint ) {
                     height: auto;
-                    min-height: none;
+                    min-height: 0;
                     width: 100%;
                 }
             }

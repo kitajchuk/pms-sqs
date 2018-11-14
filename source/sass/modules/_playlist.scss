@@ -2,6 +2,13 @@
     display: flex;
     flex-wrap: wrap;
     padding-bottom: $padding-1;
+
+    &.-wrap {
+        @include respond( $mobile-breakpoint ) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
 }
 .playlist__cover,
 .playlist__details {
@@ -16,7 +23,7 @@
     padding-top: $padding-1 / 2;
 
     @include respond( $mobile-breakpoint ) {
-        padding-left: 0;
+        @include wrap();
     }
 }
 .playlist__linkto {

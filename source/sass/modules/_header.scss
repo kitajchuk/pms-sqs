@@ -88,14 +88,12 @@
 
 
 .menu--mobile {
-    background-color: rgba( 0, 0, 0, 0.9 );
+    background-color: rgba( 255, 255, 255, 1.0 );
     bottom: 0;
     left: 0;
     opacity: 0;
     overflow-x: hidden;
     overflow-y: scroll;
-    padding-left: $padding-1;
-    padding-right: $padding-1;
     pointer-events: none;
     position: fixed;
     right: 0;
@@ -105,22 +103,22 @@
                 z-index $fast-duration $ease,
                 visibility $fast-duration $ease;
     visibility: hidden;
-    z-index: $z_layer_behind;
-    padding-top: 57.0666666667vw;
+    z-index: $z_layer_header + 1;
+    padding-top: $header-height-mobile;
+    @include wrap();
 
     .menu__a {
         display: block;
 
         .is-hoverable &:hover {
             .menu__text {
-                color: $white;
+                color: $black;
             }
         }
 
         &.is-active {
             .menu__text {
-                // border-bottom: 1px solid $white;
-                color: $white;
+                color: $black;
             }
         }
     }
@@ -136,7 +134,6 @@
         opacity: 1;
         pointer-events: auto;
         visibility: visible;
-        z-index: $z_layer_header;
         -webkit-overflow-scrolling: touch;
     }
 }

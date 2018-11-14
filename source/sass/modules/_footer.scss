@@ -54,6 +54,13 @@
         padding-top: 30px;
     }
 
+    .grid__image {
+        @include respond( $mobile-breakpoint ) {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    }
+
     .is-darkside & {
         border-top-color: $charcoal;
     }

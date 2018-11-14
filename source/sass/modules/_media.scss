@@ -191,9 +191,11 @@
         padding: 30px $padding-2 $padding-2;
     }
 }
-.grid__title {}
-.grid__image,
 .grid__title,
+.grid__image {
+    display: block;
+    position: relative;
+}
 .grid__meta {
     display: block;
     position: relative;

@@ -1,7 +1,9 @@
 <div class="feed__link">
     <div class="media media--overlap media--center js-media js-overlap" data-flip="1">
         <div class="media__node js-overlap-media">
-            <img class="image js-media-node js-lazy-image" data-img-src="{assetUrl}" data-variants="{systemDataVariants}" data-original-size="{originalSize}" />
+            <a href="{sourceUrl}" target="_blank">
+                <img class="image js-media-node js-lazy-image" data-img-src="{assetUrl}" data-variants="{systemDataVariants}" data-original-size="{originalSize}" />
+            </a>
         </div>
         <div class="media__text">
             <a class="h2 js-overlap-text" href="{sourceUrl}" target="_blank">
