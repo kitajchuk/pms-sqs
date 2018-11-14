@@ -3,6 +3,7 @@ import $ from "properjs-hobo";
 import * as gsap from "gsap/all";
 import paramalama from "paramalama";
 import info from "./info";
+import quickview from "./quickview";
 import viewCats from "../views/cats";
 import ScrollController from "properjs-scrollcontroller";
 import Controller from "properjs-controller";
@@ -143,15 +144,15 @@ const header = {
         });
 
         core.dom.doc.on( "click", () => {
-            if ( this._isNaviHover ) {
-                this.resetDot();
+            if ( !this._isNaviHover || quickview.isOpen() ) {
+                return false;
+            }
 
-                if ( !info.isOpen() ) {
-                    info.open();
+            if ( !info.isOpen() ) {
+                info.open();
 
-                } else {
-                    info.close();
-                }
+            } else {
+                info.close();
             }
 
         }).on( "click", ".js-dotinfo-cancel", () => {
@@ -175,6 +176,7 @@ const header = {
 
                 // Scrolling at all kills whole interaction
                 this.resetHover();
+                // this.resetDot();
             }
         });
 
@@ -225,6 +227,10 @@ const header = {
                 y: dotBounds.top + (dotBounds.height / 2)
             };
 
+            if ( quickview.isOpen() ) {
+                return false;
+            }
+
             // Store realtime Event
             this.mouse = e;
             this.distance = this.getDistanceBetween(
@@ -237,9 +243,6 @@ const header = {
             // Capture click
             if ( this._isDotCancel ) {
                 this.resetDot();
-
-            // } else if ( this.distance <= this.thresholdBreak ) {
-            //     this.resetDot();
 
             // End Interaction
             } else if ( this.distance >= this.threshold ) {
@@ -296,8 +299,10 @@ const header = {
 
 
     enableDot () {
-        this._isNaviHover = true;
-        core.dom.html.addClass( "is-dotinfo-cursor" );
+        if ( !quickview.isOpen() ) {
+            this._isNaviHover = true;
+            core.dom.html.addClass( "is-dotinfo-cursor" );
+        }
     },
 
 
