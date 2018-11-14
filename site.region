@@ -57,6 +57,13 @@
                 {.end}
             </main>
             <div class="screen screen--dark info js-info" data-root="/info/">
+                <div class="info__header -wrap">
+                    <div class="info__header__wrap">
+                        <div class="info__stamp p -light">
+                            <span class="js-info-stamp"></span> &mdash; <span>Los Angeles</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="info__content cms -wrap js-info-content"></div>
             </div>
             <div class="screen intro js-intro -cover" data-img-src="{collection.mainImage.assetUrl}" data-variants="{collection.mainImage.systemDataVariants}" data-original-size="{collection.mainImage.originalSize}">

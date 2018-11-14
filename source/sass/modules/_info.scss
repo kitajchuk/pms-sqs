@@ -1,7 +1,7 @@
 .info {
     color: $white;
     padding-top: $header-height;
-    padding-bottom: $expander-1;
+    padding-bottom: $header-amount;
 
     .is-info-open & {
         pointer-events: auto;
@@ -64,4 +64,33 @@
     @include respond-min( $header-break-static ) {
         padding-top: $header-height-static;
     }
+}
+.info__content {
+    padding-top: $feed-item-pad;
+}
+.info__header {
+    align-items: center;
+    display: flex;
+    height: $header-height;
+    left: 0;
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+
+    @include respond( $header-break-mobile ) {
+        height: $header-height-mobile;
+    }
+
+    @include respond-min( $header-break-static ) {
+        height: $header-height-static;
+    }
+}
+.info__header__wrap {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
 }

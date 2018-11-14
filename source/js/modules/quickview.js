@@ -76,7 +76,7 @@ const quickview = {
         });
 
         core.dom.doc.on( "keyup", ( e ) => {
-            if ( !this._isOpen ) {
+            if ( !this._isOpen || this._isTransition ) {
                 return;
             }
 
@@ -234,7 +234,13 @@ const quickview = {
                                 opacity: 1
                             },
                             ease: gsap.Power4.easeOut,
-                            onComplete: () => {}
+                            onComplete: () => {
+                                const currVideo = this.currItem.data().Video;
+
+                                if ( currVideo ) {
+                                    currVideo.play();
+                                }
+                            }
                         });
                     }
                 },

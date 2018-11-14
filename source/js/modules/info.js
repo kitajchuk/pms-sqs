@@ -12,6 +12,7 @@ import $ from "properjs-hobo";
 const info = {
     init () {
         this.element = core.dom.body.find( ".js-info" );
+        this.stamp = this.element.find( ".js-info-stamp" );
 
         if ( this.element.length ) {
             this.content = core.dom.body.find( ".js-info-content" );
@@ -46,6 +47,7 @@ const info = {
         this._isOpen = true;
         this.element.addClass( "is-active" );
         core.dom.html.addClass( "is-info-open" );
+        this.setStamp();
     },
 
 
@@ -58,6 +60,17 @@ const info = {
 
     isOpen () {
         return this._isOpen;
+    },
+
+    setStamp () {
+        const theDate = new Date();
+        const theMinutes = theDate.getMinutes();
+        const theHours = theDate.getHours();
+        const theSplit = theHours >= 12 ? "PM" : "AM";
+        const fixHours = theHours > 12 ? theHours - 12 : theHours;
+        const fixMinutes = theMinutes < 10 ? `0${theMinutes}` : theMinutes;
+
+        this.stamp[ 0 ].innerHTML = `${fixHours}:${fixMinutes}${theSplit}`;
     }
 };
 
