@@ -1,6 +1,7 @@
 [class*=sqs-col] {
     float: none;
     display: inline-block;
+    vertical-align: top;
 }
 [class*=sqs-col] .sqs-block {
     padding-left: 0;
@@ -146,4 +147,7 @@
 .sqs-layout:not(.sqs-editing) > .sqs-row:first-child > [class*=sqs-col]:first-child > .sqs-block:last-child,
 .sqs-layout:not(.sqs-editing) .sqs-block + .sqs-row .sqs-block:not(.float):last-child {
     padding-bottom: 0 !important;
+}
+.sqs-layout:not(.sqs-editing) .sqs-block + .sqs-row .sqs-block:not(.float):first-child {
+    padding-top: 0 !important;
 }

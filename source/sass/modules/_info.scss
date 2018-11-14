@@ -1,9 +1,60 @@
 .info {
     color: $white;
     padding-top: $header-height;
+    padding-bottom: $expander-1;
 
     .is-info-open & {
         pointer-events: auto;
+    }
+
+    .sqs-layout > .row > .col > .sqs-block-html:last-child {
+        p {
+            @include m();
+        }
+    }
+
+    .sqs-block p + p {
+        margin-top: 32px;
+
+        @include respond( $mobile-breakpoint ) {
+            margin-top: 20px;
+        }
+    }
+
+    .sqs-block-spacer .sqs-block-content {
+        @include respond( $mobile-breakpoint ) {
+            height: 100px !important;
+        }
+    }
+
+    .sqs-col-12 .sqs-col-4 {
+        @include respond( $break-tablet-medium ) {
+            width: 50%;
+        }
+
+        @include respond( $mobile-breakpoint ) {
+            width: 100%;
+        }
+    }
+
+    .sqs-col-12 .sqs-col-4:nth-child( 2 ) {
+        @include respond( $mobile-breakpoint ) {
+            margin-top: 56px;
+        }
+    }
+
+    .sqs-col-12 .sqs-col-4:nth-child( 3 ) {
+        @include respond( $break-tablet-medium ) {
+            margin-top: 56px;
+        }
+    }
+
+    h3 {
+        br {
+            @include respond( $break-tablet-medium ) {
+                display: none;
+            }
+        }
     }
 
     @include respond( $header-break-mobile ) {
@@ -12,12 +63,5 @@
 
     @include respond-min( $header-break-static ) {
         padding-top: $header-height-static;
-    }
-
-    .footer {
-        @include respond( $mobile-breakpoint ) {
-            padding-top: $expander-1;
-            position: relative;
-        }
     }
 }

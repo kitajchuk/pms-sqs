@@ -58,16 +58,6 @@
             </main>
             <div class="screen screen--dark info js-info" data-root="/info/">
                 <div class="info__content cms -wrap js-info-content"></div>
-                <footer class="footer -wrap -fzero">
-                    <div class="footer__col -column -column--2of4 -text--left">
-                        <a href="mailto:{websiteSettings.contactEmail}" class="p a a--dim" target="_blank">{websiteSettings.contactEmail}</a>
-                    </div>
-                    <div class="footer__col -column -column--2of4 -text--right">
-                        {.repeated section website.socialAccounts}
-                            <a href="{profileUrl}" class="footer__social p a a--dim -column" target="_blank">{serviceName}</a>
-                        {.end}
-                    </div>
-                </footer>
             </div>
             <div class="screen intro js-intro -cover" data-img-src="{collection.mainImage.assetUrl}" data-variants="{collection.mainImage.systemDataVariants}" data-original-size="{collection.mainImage.originalSize}">
                 <div class="intro__press js-intro-press">
