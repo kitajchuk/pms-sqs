@@ -75,8 +75,10 @@
                     </div>
                 </footer>
             </div>
-            <div class="screen screen--light intro js-intro">
-                <div class="intro__press js-intro-press"></div>
+            <div class="screen screen--dark intro js-intro -cover" data-img-src="{collection.mainImage.assetUrl}" data-variants="{collection.mainImage.systemDataVariants}" data-original-size="{collection.mainImage.originalSize}">
+                <div class="intro__press js-intro-press">
+                    {@|apply svg-p.block}
+                </div>
             </div>
             <div class="screen screen--dark quickview js-quickview ghost is-darkside">
                 <div class="quickview__wrap ghost__child">

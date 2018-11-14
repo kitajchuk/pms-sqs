@@ -23,3 +23,12 @@
     height: $button-play-size;
     width: $button-play-size;
 }
+._svg--p {
+    width: 8.671875vw;
+    height: auto;
+
+    @include respond( $break-tablet-medium ) {
+        width: 90px;
+        height: 114.34px;
+    }
+}

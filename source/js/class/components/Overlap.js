@@ -46,7 +46,7 @@ class Overlap {
             }
         });
 
-        this.element.on( "mouseleave", ( e ) => {
+        this.element.on( "mouseleave", () => {
             this.isCollider = false;
             this.element.removeClass( "is-collider" );
         });

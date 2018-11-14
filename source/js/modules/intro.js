@@ -12,8 +12,6 @@ const intro = {
     init () {
         this.element = core.dom.body.find( ".js-intro" );
         this.press = core.dom.body.find( ".js-intro-press" );
-        this.pms = "PAPERMAKESTACK".split( "" ).reverse();
-        this.duration = 150;
 
         if ( this.element.length ) {
             this.exec();
@@ -21,21 +19,12 @@ const intro = {
     },
 
     exec () {
-        const _exec = ( letter ) => {
-            this.press[ 0 ].innerHTML = letter;
-
+        core.util.loadImages( this.element, core.util.noop ).on( "done", () => {
             setTimeout(() => {
-                if ( !this.pms.length ) {
-                    this.teardown();
+                this.teardown();
 
-                } else {
-                    _exec( this.pms.pop() );
-                }
-
-            }, this.duration );
-        };
-
-        _exec( this.pms.pop() );
+            }, 1000 );
+        });
     },
 
     teardown () {
