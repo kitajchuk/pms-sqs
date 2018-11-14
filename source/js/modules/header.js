@@ -143,17 +143,15 @@ const header = {
         });
 
         core.dom.doc.on( "click", () => {
-            if ( !this._isNaviHover ) {
-                return false;
-            }
+            if ( this._isNaviHover ) {
+                this.resetDot();
 
-            this.resetDot();
+                if ( !info.isOpen() ) {
+                    info.open();
 
-            if ( !info.isOpen() ) {
-                info.open();
-
-            } else {
-                info.close();
+                } else {
+                    info.close();
+                }
             }
 
         }).on( "click", ".js-dotinfo-cancel", () => {

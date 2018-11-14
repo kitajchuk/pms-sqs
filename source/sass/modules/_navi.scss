@@ -30,6 +30,11 @@
         transform: translate3d( 0, -50%, 0 );
     }
 
+    .is-info-open & {
+        opacity: 0;
+        pointer-events: none;
+    }
+
     .is-feed-detail & {
         transition-delay: $base-duration;
     }

@@ -69,7 +69,7 @@
                     </div>
                 </footer>
             </div>
-            <div class="screen screen--dark intro js-intro -cover" data-img-src="{collection.mainImage.assetUrl}" data-variants="{collection.mainImage.systemDataVariants}" data-original-size="{collection.mainImage.originalSize}">
+            <div class="screen intro js-intro -cover" data-img-src="{collection.mainImage.assetUrl}" data-variants="{collection.mainImage.systemDataVariants}" data-original-size="{collection.mainImage.originalSize}">
                 <div class="intro__press js-intro-press">
                     {@|apply svg-p.block}
                 </div>

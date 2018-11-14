@@ -25,29 +25,13 @@
             opacity: 1;
         }
     }
-    // .media--overlap .media__node:hover {
-    //     opacity: 0;
-    // }
 }
 
 .is-touchable {}
 
 .is-uid-page {}
 
-.is-info-open {
-    // .navi--returner,
-    // .menu--categories {
-    //     @include noop();
-    // }
-
-    // .navi--mobile,
-    // .navi--returner {
-    //     @include hide();
-    // }
-    // .menu--categories {
-    //     @include hide();
-    // }
-}
+.is-info-open {}
 
 .is-navi-open {}
 
@@ -61,14 +45,10 @@
     .a.is-active {
         color: $white;
     }
-    .navi__a--mobile-category {
-        // border-bottom-color: $white;
-    }
     .menu--categories {
         .menu__a.is-active {
             .menu__text {
                 color: $white;
-                // border-bottom-color: $white;
             }
         }
     }
