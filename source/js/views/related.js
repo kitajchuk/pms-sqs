@@ -4,7 +4,7 @@ export default ( collection, category, items ) => {
 
     return `
         <div class="related__grid grid">
-            ${items.map(( item ) => {
+            ${items.splice( 0, 3 ).map(( item ) => {
                 return `
                     <div class="grid__item related__item anim anim--tr js-lazy-anim">
                         <div class="media js-media">
