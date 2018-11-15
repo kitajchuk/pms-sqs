@@ -8,9 +8,27 @@
     }
 
     .sqs-layout > .row > .col > .sqs-block-html:last-child {
-        p {
-            @include m();
+        br {
+            @include respond( 830px ) {
+                display: none;
+            }
         }
+
+        .sqs-block-content a {
+            border-bottom: 1px solid $white;
+
+            .is-hoverable &:hover {
+                border-bottom-color: $medium;
+            }
+        }
+    }
+
+    .sqs-block-html .sqs-block-content a {
+        color: $white;
+    }
+
+    .sqs-block-html .sqs-block-content > p {
+        max-width: 100%;
     }
 
     .sqs-layout > .row > .col > .row {
@@ -53,11 +71,9 @@
         }
     }
 
-    h3 {
-        max-width: 1120px;
-
+    h2 {
         br {
-            @include respond( $break-tablet-medium ) {
+            @include respond( $break-tablet-full ) {
                 display: none;
             }
         }
