@@ -13,6 +13,10 @@
         }
     }
 
+    .sqs-layout > .row > .col > .row {
+        max-width: 1200px;
+    }
+
     .sqs-block p + p {
         margin-top: 32px;
 
