@@ -19,6 +19,10 @@
         height: $header-height-mobile;
     }
 
+    .is-info-open & {
+        pointer-events: none;
+    }
+
     // @include respond-min( $header-break-static ) {
     //     height: $header-height-static;
     // }
