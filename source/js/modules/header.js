@@ -114,6 +114,7 @@ const header = {
             this.categories.filter( `.js-menu--${data.cat}` ).addClass( "is-active" );
 
             this.mobileCategory[ 0 ].innerHTML = data.cat;
+            this.returner[ 0 ].href = elem[ 0 ].href;
 
             if ( this._isNaviOpen ) {
                 this.closeNavi();
