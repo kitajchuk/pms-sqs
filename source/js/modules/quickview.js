@@ -258,7 +258,8 @@ const quickview = {
         return $.ajax({
             url: this.data.href,
             data: {
-                format: "json"
+                format: "json",
+                timestamp: Date.now()
             },
             dataType: "json",
             method: "GET"
