@@ -8,7 +8,6 @@
         opacity: 0;
         pointer-events: none;
         visibility: hidden;
-        // z-index: -1;
     }
 
     .intro__press {
@@ -19,9 +18,5 @@
             padding-top: 50px;
             padding-left: 50px;
         }
-    }
-
-    @include respond( $break-tablet-medium ) {
-        border: none !important;
     }
 }
