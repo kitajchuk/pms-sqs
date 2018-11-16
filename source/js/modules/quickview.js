@@ -65,6 +65,10 @@ const quickview = {
                     this.article = $( this.json.item.body );
                     this.blocks = this.article.find( ".sqs-block-image, .sqs-block-gallery, .sqs-block-video" );
 
+                    if ( this.blocks.length === 1 ) {
+                        this.element.addClass( "is-one" );
+                    }
+
                     this.build();
 
                 } else {
