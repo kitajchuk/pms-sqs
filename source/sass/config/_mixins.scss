@@ -29,6 +29,10 @@
     @include font-family-reg();
 
     @include respond-min( $mobile-breakpoint + 1px ) {
+        font-size: $p-size-medium;
+    }
+
+    @include respond-min( $break-laptop-medium + 1px ) {
         font-size: $p-size-fluid;
     }
 
@@ -113,6 +117,10 @@
     @include font-family-reg();
 
     @include respond-min( $mobile-breakpoint + 1px ) {
+        font-size: $h4-size-medium;
+    }
+
+    @include respond-min( $break-laptop-medium + 1px ) {
         font-size: $h4-size-fluid;
     }
 
