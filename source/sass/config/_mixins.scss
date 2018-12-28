@@ -28,11 +28,11 @@
     line-height: $p-line;
     @include font-family-reg();
 
-    @include respond-min( $mobile-breakpoint ) {
+    @include respond-min( $mobile-breakpoint + 1px ) {
         font-size: $p-size-fluid;
     }
 
-    @include respond-min( $desktop-breakpoint ) {
+    @include respond-min( $desktop-breakpoint + 1px ) {
         font-size: $p-size-max;
     }
 }
@@ -41,7 +41,7 @@
     line-height: $m-line;
     @include font-family-reg();
 
-    @include respond-min( $mobile-breakpoint ) {
+    @include respond-min( $mobile-breakpoint + 1px ) {
         font-size: $m-size;
     }
 }
@@ -58,11 +58,11 @@
     line-height: $hp-line;
     @include font-family-bold();
 
-    @include respond-min( $mobile-breakpoint ) {
+    @include respond-min( $mobile-breakpoint + 1px ) {
         font-size: $hp-size-fluid;
     }
 
-    @include respond-min( $desktop-breakpoint ) {
+    @include respond-min( $desktop-breakpoint + 1px ) {
         font-size: $hp-size-max;
     }
 }
@@ -71,11 +71,11 @@
     line-height: $h1-line;
     @include font-family-reg();
 
-    @include respond-min( $mobile-breakpoint ) {
+    @include respond-min( $mobile-breakpoint + 1px ) {
         font-size: $h1-size-fluid;
     }
 
-    @include respond-min( $desktop-breakpoint ) {
+    @include respond-min( $desktop-breakpoint + 1px ) {
         font-size: $h1-size-max;
     }
 }
@@ -84,11 +84,11 @@
     line-height: $h2-line;
     @include font-family-reg();
 
-    @include respond-min( $mobile-breakpoint ) {
+    @include respond-min( $mobile-breakpoint + 1px ) {
         font-size: $h2-size-fluid;
     }
 
-    @include respond-min( $desktop-breakpoint ) {
+    @include respond-min( $desktop-breakpoint + 1px ) {
         font-size: $h2-size-max;
     }
 }
@@ -98,11 +98,11 @@
     max-width: 1000px;
     @include font-family-reg();
 
-    @include respond-min( $mobile-breakpoint ) {
+    @include respond-min( $mobile-breakpoint + 1px ) {
         font-size: $h3-size-fluid;
     }
 
-    @include respond-min( $desktop-breakpoint ) {
+    @include respond-min( $desktop-breakpoint + 1px ) {
         font-size: $h3-size-max;
     }
 }
@@ -112,11 +112,11 @@
     max-width: 1000px;
     @include font-family-reg();
 
-    @include respond-min( $mobile-breakpoint ) {
+    @include respond-min( $mobile-breakpoint + 1px ) {
         font-size: $h4-size-fluid;
     }
 
-    @include respond-min( $desktop-breakpoint ) {
+    @include respond-min( $desktop-breakpoint + 1px ) {
         font-size: $h4-size-max;
     }
 }
