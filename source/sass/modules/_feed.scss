@@ -55,11 +55,12 @@ $feed-link-pad: 7.421875vw;
     padding-top: 0;
     padding-bottom: 0;
 }
-.feed__meta {
-    margin-top: 10px;
+.feed__meta,
+.article__meta {
+    margin-top: 20px;
 
     @include respond( $mobile-breakpoint ) {
-        margin-top: 5px;
+        margin-top: 10px;
     }
 }
 .feed__info {
