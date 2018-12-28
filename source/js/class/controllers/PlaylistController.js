@@ -65,6 +65,11 @@ class PlaylistController {
             this.loading.remove();
             this.linkto.addClass( "is-loaded" );
 
+            if ( !this.remainder.length ) {
+                this.tracks.addClass( "is-clicked" );
+                this.button.remove();
+            }
+
             setTimeout(() => {
                 this.add( this.initial, 0 );
 

@@ -1,6 +1,8 @@
 {.section item}
-    <article class='{.equal? categories.0 "Playlists"}playlist js-playlist -wrap{.or}article js-article{.end}'>
+    <article class='{.equal? categories.0 "Playlists"}playlist js-playlist -wrap{.or equal? customContent.playlistLayout true}playlist js-playlist -wrap{.or}article js-article{.end}'>
         {.equal? categories.0 "Playlists"}
+            {@|apply feed-playlist.block}
+        {.or equal? customContent.playlistLayout true}
             {@|apply feed-playlist.block}
         {.or}
             {@|apply feed-detail.block}
