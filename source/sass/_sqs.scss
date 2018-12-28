@@ -108,6 +108,11 @@
             padding-right: 20px;
         }
     }
+    .media:not( .-wrap ) {
+        .media__cap {
+            @include wrap();
+        }
+    }
 }
 .sqs-block-gallery {
     .grid,
