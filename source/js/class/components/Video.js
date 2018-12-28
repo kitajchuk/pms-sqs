@@ -2,6 +2,7 @@ import loadJS from "fg-loadjs";
 import paramalama from "paramalama";
 import * as core from "../../core";
 import videoView from "../../views/video";
+import Controller from "properjs-controller";
 
 
 
@@ -22,6 +23,7 @@ class Video {
         this.params = paramalama( this.data.blockJson.url );
         this.id = (this.data.blockJson.resolvedBy === "youtube" && this.params.v) ? this.params.v : this.data.blockJson.url.split( "/" ).pop();
         this.isPlaying = false;
+        this.buffer = new Controller();
 
         this.load();
         this.bind();
@@ -63,7 +65,12 @@ class Video {
             this.vimeoPostMessage( "play", null );
 
         } else {
-            this.youtubePlayer.playVideo();
+            this.buffer.go(() => {
+                if ( this.youtubePlayer && this.youtubePlayer.playVideo ) {
+                    this.youtubePlayer.playVideo();
+                    this.buffer.stop();
+                }
+            });
         }
     }
 

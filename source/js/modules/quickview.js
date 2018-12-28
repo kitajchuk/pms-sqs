@@ -220,6 +220,33 @@ const quickview = {
             jsVideo.data( "Video", new Video( sqsVideo, this ) );
         });
 
+        if ( this.blocks.length === 1 ) {
+            this.playbuild();
+
+        } else {
+            this.postbuild();
+        }
+    },
+
+
+    playbuild () {
+        gsap.TweenLite.to( [this.navis[ 0 ], this.items[ 0 ]], 0.5, {
+            css: {
+                opacity: 1
+            },
+            ease: gsap.Power4.easeOut,
+            onComplete: () => {
+                const currVideo = this.currItem.data().Video;
+
+                if ( currVideo ) {
+                    currVideo.play();
+                }
+            }
+        });
+    },
+
+
+    postbuild () {
         core.util.loadImages( this.images, core.util.noop ).on( "done", () => {
             const timeline = new gsap.TimelineLite();
 
@@ -233,19 +260,7 @@ const quickview = {
                     },
                     ease: gsap.Power4.easeOut,
                     onComplete: () => {
-                        gsap.TweenLite.to( [this.navis[ 0 ], this.items[ 0 ]], 0.5, {
-                            css: {
-                                opacity: 1
-                            },
-                            ease: gsap.Power4.easeOut,
-                            onComplete: () => {
-                                const currVideo = this.currItem.data().Video;
-
-                                if ( currVideo ) {
-                                    currVideo.play();
-                                }
-                            }
-                        });
+                        this.playbuild();
                     }
                 },
                 0.05
