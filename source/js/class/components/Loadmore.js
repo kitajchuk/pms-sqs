@@ -22,13 +22,19 @@ class Loadmore {
         this.container = core.dom.body.find( this.data.container );
         this.controllers = {};
         this.isLoading = false;
-        this.scroller = new ScrollController();
 
-        this.bind();
+        if ( this.data.pagination ) {
+            this.element.removeClass( "is-hidden" );
+            this.bind();
+
+        } else {
+            this.element.addClass( "is-hidden" );
+        }
     }
 
 
     bind () {
+        this.scroller = new ScrollController();
         this.scroller.on( "scroll", () => {
             if ( this.scroller.isScrollMax() && !this.isLoading ) {
                 this.more();
@@ -87,7 +93,10 @@ class Loadmore {
 
     destroy () {
         this.element.off();
-        this.scroller.destroy();
+
+        if ( this.scroller ) {
+            this.scroller.destroy();
+        }
 
         if ( this.controllers.image ) {
             this.controllers.image.destroy();

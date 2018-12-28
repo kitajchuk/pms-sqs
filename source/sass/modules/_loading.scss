@@ -63,6 +63,10 @@ $duration: 1000ms;
     padding-top: $padding-2;
     padding-bottom: $padding-2;
 
+    &.is-hidden {
+        display: none;
+    }
+
     .loading {
         display: inline-block;
     }
