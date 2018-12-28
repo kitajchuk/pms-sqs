@@ -285,7 +285,7 @@ const quickview = {
         this.current = 0;
         this.length = 0;
         this._isTransition = false;
-        this.element.removeClass( "is-active is-loaded" );
+        this.element.removeClass( "is-active is-loaded is-one" );
         core.dom.html.removeClass( "is-quickview-open" );
 
         this.gallery.find( ".js-quickview-video" ).forEach(( el ) => {
