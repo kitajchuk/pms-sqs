@@ -70,6 +70,41 @@
         }
     }
 }
+.sqs-block-quote {
+    .sqs-block-content {
+        .main & {
+            @include wrap();
+        }
+
+        blockquote {
+            @include h3();
+            position: relative;
+
+            span {
+                display: none;
+            }
+
+            &:before {
+                content: "\201C";
+                position: absolute;
+                left: 0;
+                top: 0;
+                transform: translate3d( -100%, 0, 0 );
+            }
+
+            &:after {
+                content: "\201D";
+            }
+        }
+
+        figcaption {
+            @include m();
+            text-align: left;
+            color: $grey;
+            padding-top: 20px;
+        }
+    }
+}
 .sqs-block-video {
     .sqs-block-content {
         @include wrap();

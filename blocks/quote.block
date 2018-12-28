@@ -1,0 +1,4 @@
+<figure>
+    <blockquote>{quote|safe}</blockquote>
+    <figcaption class="source">{source|safe}</figcaption>
+</figure>
