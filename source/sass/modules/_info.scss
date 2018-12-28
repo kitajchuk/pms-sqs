@@ -101,6 +101,10 @@
     width: 100%;
     z-index: 3;
 
+    .is-header-small & {
+        height: $header-height-small;
+    }
+
     @include respond( $header-break-mobile ) {
         height: $header-height-mobile;
     }
