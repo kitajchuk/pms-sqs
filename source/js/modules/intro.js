@@ -19,12 +19,10 @@ const intro = {
     },
 
     exec () {
-        core.util.loadImages( this.element, core.util.noop ).on( "done", () => {
-            setTimeout(() => {
-                this.teardown();
+        setTimeout(() => {
+            this.teardown();
 
-            }, 1000 );
-        });
+        }, 1000 );
     },
 
     teardown () {
