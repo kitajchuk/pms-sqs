@@ -57,10 +57,10 @@ $feed-link-pad: 7.421875vw;
 }
 .feed__meta,
 .article__meta {
-    margin-top: 20px;
+    margin-top: 10px;
 
     @include respond( $mobile-breakpoint ) {
-        margin-top: 10px;
+        margin-top: 5px;
     }
 }
 .feed__info {
