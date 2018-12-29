@@ -26,7 +26,7 @@
 
         {# Feed #}
         {.or}
-            <header class="header js-header -wrap" data-root="/feed/">
+            <header class="header js-header -wrap" data-root="{.if collection.homepage}/{.or}/feed/{.end}">
                 <div class="header__wrap">
                     <menu class="menu menu--categories js-menu-categories -column"></menu>
                     <nav class="navi navi--mobile -column">
