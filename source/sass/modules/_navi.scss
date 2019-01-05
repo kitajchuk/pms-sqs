@@ -77,6 +77,10 @@
     display: block;
     pointer-events: none;
 
+    .is-touchable & {
+        pointer-events: auto;
+    }
+
     @include respond( $mobile-breakpoint ) {
         pointer-events: auto;
     }
