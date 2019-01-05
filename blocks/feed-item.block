@@ -19,13 +19,15 @@
         </a>
         <div class="feed__quickview">
             <div class="feed__quickview__wrap">
-                <a class='feed__quickview__hit anim anim--tr {.equal? categories.0 "Playlists"}{.or}js-quickview-hit{.end}' {.equal? categories.0 "Playlists"}href="{sourceUrl}" target="_blank"{.or}href="#" data-title="{title}" data-href="{fullUrl}"{.end}>
+                <a class='feed__quickview__hit anim anim--tr {.equal? categories.0 "Playlists"}{.or equal? customContent.playlistLayout true}{.or}js-quickview-hit{.end}' {.equal? categories.0 "Playlists"}href="{sourceUrl}" target="_blank"{.or equal? customContent.playlistLayout true}href="{sourceUrl}" target="_blank"{.or}href="#" data-title="{title}" data-href="{fullUrl}"{.end}>
                     <div class="feed__quickview__icon">{@|apply svg-play.block}</div>
                     <div class="feed__quickview__text p -light">
                         {.if customContent.quickText}
                             {customContent.quickText}
                         {.or}
                             {.equal? categories.0 "Playlists"}
+                                Listen on SoundCloud
+                            {.or equal? customContent.playlistLayout true}
                                 Listen on SoundCloud
                             {.or}
                                 Quick view
