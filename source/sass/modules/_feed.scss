@@ -55,8 +55,10 @@ $feed-link-pad: 7.421875vw;
     padding-top: 0;
     padding-bottom: 0;
 }
+.grid__meta,
 .feed__meta,
-.article__meta {
+.article__meta,
+.playlist__meta {
     margin-top: 10px;
 
     @include respond( $mobile-breakpoint ) {
