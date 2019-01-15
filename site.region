@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="is-{collection.title|slugify}-page {.if item}is-uid-page {.if item.customContent.darkTheme}is-darkside{.end}{.end} is-intro">
+<html class='is-{collection.title|slugify}-page {.if item}is-uid-page {.if item.customContent.darkTheme}is-darkside{.end}{.end} {.equal? collection.id "5c3e2c4af950b78b091378f9"}is-error-page is-darkside{.end} is-intro'>
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

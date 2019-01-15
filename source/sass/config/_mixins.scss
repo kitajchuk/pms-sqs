@@ -170,6 +170,17 @@
         padding-right: $padding-2;
     }
 }
+@mixin header-pad() {
+    padding-top: $header-height;
+
+    @include respond( $header-break-mobile ) {
+        padding-top:  $header-height-mobile;
+    }
+
+    @include respond-min( $header-break-static ) {
+        padding-top: $header-height-static;
+    }
+}
 
 
 

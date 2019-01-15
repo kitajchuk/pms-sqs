@@ -6,7 +6,7 @@
 {.end}
 
 <div class="page js-page" data-uid="{collection.urlId}">
-    <div class="page__content cms -wrap anim anim--tr">
+    <div class="page__content cms">
         {@content}
     </div>
 </div>

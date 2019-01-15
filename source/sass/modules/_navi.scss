@@ -69,6 +69,10 @@
 .navi__a--mobile-category {
     border-bottom: 1px solid $black;
     text-transform: capitalize;
+
+    .is-darkside & {
+        border-bottom-color: $white;
+    }
 }
 
 

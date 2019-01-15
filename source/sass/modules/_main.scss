@@ -1,21 +1,17 @@
 .main {
-    padding-top: $header-height;
+    @include header-pad();
 
     .is-navi-open &,
     .is-info-open &,
     .is-quickview-open & {
         pointer-events: none;
     }
-
-    @include respond( $header-break-mobile ) {
-        padding-top:  $header-height-mobile;
-    }
-
-    @include respond-min( $header-break-static ) {
-        padding-top: $header-height-static;
-    }
 }
 
 
 
-.page {}
+.page {
+    .is-error-page & {
+        @include header-pad();
+    }
+}
