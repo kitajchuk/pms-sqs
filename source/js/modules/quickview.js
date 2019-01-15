@@ -196,6 +196,8 @@ const quickview = {
 
             // Video
             } else if ( type === 32 ) {
+                delete data.blockJson.description;
+
                 this.navis.push( `<div class="quickview__navi__item"></div>` );
                 this.items.push( `<div class="quickview__gallery__item js-quickview-video">
                     <div class="sqs-block-video" data-block-json='${JSON.stringify( data.blockJson )}' data-minimal="1">

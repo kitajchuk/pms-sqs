@@ -13,6 +13,13 @@ import Controller from "properjs-controller";
  * @class Video
  * @classdesc Handle video logics.
  *
+ * blockJson
+ *      url
+ *      resolvedBy
+ *      imageJson
+ *      height
+ *      width
+ *
  */
 class Video {
     constructor ( element, quickview ) {
